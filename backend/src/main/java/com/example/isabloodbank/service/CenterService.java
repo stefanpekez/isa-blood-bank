@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CenterService implements ICenterService{
+public class CenterService implements ICenterService {
 
     @Autowired
     ICenterRepository centerRepository;
@@ -23,7 +23,7 @@ public class CenterService implements ICenterService{
         List<Center> centers = centerRepository.findAll();
         centers.sort((c1, c2) -> {
             int order;
-            if(sortOrder.equals("asc")) {
+            if (sortOrder.equals("asc")) {
                 order = 1;
             } else {
                 order = -1;

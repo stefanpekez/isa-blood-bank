@@ -24,8 +24,8 @@ public class CenterController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Center>> getAll(@RequestParam("sort-order") Optional<String> sortOrder, @RequestParam("sort-by") Optional<String> sortBy) {
         List<Center> centers;
-        if(sortOrder.isPresent() && sortBy.isPresent()) {
-            if((!sortOrder.get().equals("asc") && !sortOrder.get().equals("desc")) ||
+        if (sortOrder.isPresent() && sortBy.isPresent()) {
+            if ((!sortOrder.get().equals("asc") && !sortOrder.get().equals("desc")) ||
                     (!sortBy.get().equals("name") && !sortBy.get().equals("city") && !sortBy.get().equals("rating"))) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
