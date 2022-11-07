@@ -38,4 +38,8 @@ public class CenterService implements ICenterService {
 
         return centers;
     }
+
+    public Center create(Center center) {
+        return centerRepository.save(center);
+    }
 }
