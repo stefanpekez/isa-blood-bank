@@ -1,9 +1,12 @@
 package com.example.isabloodbank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +18,7 @@ public class Center {
     private Long id;
     @Column
     private String name;
-    @OneToOne
+    @OneToOne()
     private Address address;
     @Column
     private String description;
@@ -25,10 +28,10 @@ public class Center {
     private Long donationPrice;
     @Column
     private String workingHours;
-    @OneToMany
-    private List<Donator> donators;
-    @OneToMany
-    private List<User> adminsCenter;
-    @OneToMany
-    private List<Blood> typesOfBlood;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Donator> donators = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<User> adminsCenter = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Blood> typesOfBlood = new ArrayList<>();
 }
