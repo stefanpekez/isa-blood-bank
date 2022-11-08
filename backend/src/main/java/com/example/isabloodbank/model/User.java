@@ -25,7 +25,7 @@ public class User {
     private String name;
     @Column
     private String surname;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     @Column
     private String upin;

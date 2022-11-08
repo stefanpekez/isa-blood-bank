@@ -18,7 +18,6 @@ public class UserController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@RequestBody UserCreateDTO user) {
-        System.out.println(user.toString());
         User newUser = new User();
         newUser.mapUserCreateDTO(user);
         newUser = userService.create(newUser);
