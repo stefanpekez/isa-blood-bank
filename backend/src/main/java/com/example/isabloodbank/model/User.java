@@ -5,6 +5,7 @@ import com.example.isabloodbank.model.enums.Gender;
 import com.example.isabloodbank.model.enums.Role;
 import com.example.isabloodbank.model.enums.WorkStatus;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name = "user_table")
 public class User {
     @Id
