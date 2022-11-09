@@ -1,0 +1,19 @@
+.centers-table {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centers-table .card {
+    margin-top: 2%;
+    border: none;
+}
+
+.centers-table .card .table  {
+    border-collapse: collapse;
+}
+
+.centers-table .card .table thead {
+    background-color: #6b7ae0;
+    color: #ffffff;
+}
