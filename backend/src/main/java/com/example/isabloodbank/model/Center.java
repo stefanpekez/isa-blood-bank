@@ -20,7 +20,7 @@ public class Center {
     private Long id;
     @Column
     private String name;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     @Column
     private String description;
@@ -30,10 +30,10 @@ public class Center {
     private Long donationPrice;
     @Column
     private String workingHours;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     private List<Donator> donators = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     private List<User> adminsCenter = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     private List<Blood> typesOfBlood = new ArrayList<>();
 }

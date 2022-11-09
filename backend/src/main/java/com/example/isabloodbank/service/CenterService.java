@@ -1,9 +1,12 @@
 package com.example.isabloodbank.service;
 
+import com.example.isabloodbank.dto.CenterDTO;
+import com.example.isabloodbank.mapper.CenterMapper;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.repository.ICenterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -12,6 +15,9 @@ public class CenterService implements ICenterService {
 
     @Autowired
     ICenterRepository centerRepository;
+
+    @Autowired
+    private CenterMapper centerMapper;
 
     @Override
     public List<Center> getAll() {
@@ -39,7 +45,8 @@ public class CenterService implements ICenterService {
         return centers;
     }
 
-    public Center create(Center center) {
-        return centerRepository.save(center);
+    public CenterDTO create(@RequestBody CenterDTO centerDTO) {
+        Center center = centerMapper.dtoToEntity(centerDTO);
+        return centerMapper.entityToDto(centerRepository.save(center));
     }
 }

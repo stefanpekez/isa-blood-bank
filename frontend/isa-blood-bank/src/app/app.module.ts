@@ -6,17 +6,14 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CentersComponent } from './components/centers/centers.component';
+import { CenterCreateComponent } from './components/centers/center-create/center-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
-    NavbarComponent
-=======
     NavbarComponent,
-    CentersComponent
-
->>>>>>> 62c9ebe (Add centers page)
+    CentersComponent,
+    CenterCreateComponent
   ],
   imports: [
     BrowserModule,

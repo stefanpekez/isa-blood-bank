@@ -1,5 +1,6 @@
 package com.example.isabloodbank.controller;
 
+import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.service.ICenterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class CenterController {
     }
 
     @PostMapping
-    public ResponseEntity<Center> create(@RequestBody Center center) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(centerService.create(center));
+    public ResponseEntity<CenterDTO> create(@RequestBody CenterDTO centerDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(centerService.create(centerDTO));
     }
 }
