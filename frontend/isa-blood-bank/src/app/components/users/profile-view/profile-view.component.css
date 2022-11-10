@@ -1,0 +1,20 @@
+.container{
+    width: 50%;
+    background-color: #b2ebf2;
+    border-radius: 10px;
+    
+}
+.header{
+    text-align: center;
+}
+.row{
+    padding: 10px;
+}
+.btn{
+    width: 200px;
+    background-color: #00bcd4;
+}
+
+.Apply{
+    margin-right: 0;
+}

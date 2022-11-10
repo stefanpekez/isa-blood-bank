@@ -9,6 +9,7 @@ import { CenterCreateComponent } from './components/centers/center-create/center
 import { FormsModule } from '@angular/forms';
 import { CenterUpdateComponent } from './components/centers/center-update/center-update.component';
 import { UsersComponent } from './components/users/users.component';
+import { ProfileViewComponent } from './components/users/profile-view/profile-view.component';
 
 
 
@@ -19,7 +20,8 @@ import { UsersComponent } from './components/users/users.component';
     CentersComponent,
     CenterCreateComponent,
     CenterUpdateComponent,
-    UsersComponent
+    UsersComponent,
+    ProfileViewComponent
   ],
   imports: [
     BrowserModule,

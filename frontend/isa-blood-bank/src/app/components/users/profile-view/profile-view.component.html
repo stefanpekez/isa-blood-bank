@@ -1,0 +1,112 @@
+<div class="header">
+  <h3>Profile information</h3>
+</div>
+<div class="container">
+  <form>
+    <div class="row">
+      <div class="col-sm">
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingName" placeholder="Name" [disabled]="editStatus">
+            <label for="floatingName">Name</label>
+        </div>
+       </div>  
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingSurname" placeholder="Surname" [disabled]="editStatus">
+                <label for="floatingSurname">Surname</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="Email" disabled>
+                <label for="floatingEmail">Email</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingUPIN" placeholder="UPIN" [disabled]="editStatus">
+                <label for="floatingUPIN">UPIN</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingCountry" placeholder="Country" [disabled]="editStatus">
+                <label for="floatingCountry">Country</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingTown" placeholder="Town" [disabled]="editStatus">
+                <label for="floatingTown">Town</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingStreetName" placeholder="Street Name" [disabled]="editStatus">
+                <label for="floatingStreetName">Street Name</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingStreetNumber" placeholder="Street Number" [disabled]="editStatus">
+                <label for="floatingStreetNumber">Street Number</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingOccupation" placeholder="Occupation" [disabled]="editStatus">
+                <label for="floatingOccupation">Occupation</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <select class="form-select" aria-label="Gender" [disabled]="editStatus">
+                    <option>MALE</option>
+                    <option>FEMALE</option>
+                </select>
+                <label for="Gender">Gender</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating">
+                <select class="form-select" aria-label="workStatus" [disabled]="editStatus">
+                    <option>SCHOOL</option>
+                    <option>UNIVERSITY</option>
+                    <option>WORK</option>
+                </select>
+                <label for="workStatus">Work status</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn" (click)="enableEdit()" d>Edit profile</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn Apply" (click)="saveChanges()" [disabled]="editStatus">Apply changes</button>
+        </div>   
+    </div>
+  </form>  
+</div>
