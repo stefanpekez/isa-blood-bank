@@ -1,5 +1,4 @@
 package com.example.isabloodbank.controller;
-
 import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.service.ICenterService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +36,18 @@ public class CenterController {
         return new ResponseEntity<>(centers, HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity<CenterDTO> create(@RequestBody CenterDTO centerDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(centerService.create(centerDTO));
+    }
+    @GetMapping("/{id}")
+    public Center getById(@PathVariable("id") Long id) {
+        return centerService.getById(id);
+    }
+    @PutMapping("/{id}")
+    public Center edit(@RequestBody Center center, @PathVariable("id") Long id){
+        return centerService.edit(center, id);
+
     }
 }

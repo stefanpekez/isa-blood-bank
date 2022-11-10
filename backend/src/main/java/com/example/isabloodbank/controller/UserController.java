@@ -1,8 +1,6 @@
 package com.example.isabloodbank.controller;
-
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.model.User;
-
 import com.example.isabloodbank.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,5 +20,14 @@ public class UserController {
         newUser.mapUserCreateDTO(user);
         newUser = userService.create(newUser);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public User getById(@PathVariable("id") Long id) {
+        return userService.getById(id);
+    }
+    @PutMapping("/{id}")
+    public User edit(@RequestBody User user, @PathVariable("id") Long id){
+        return userService.edit(user, id);
     }
 }
