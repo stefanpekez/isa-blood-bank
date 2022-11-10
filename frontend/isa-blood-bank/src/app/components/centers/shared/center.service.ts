@@ -17,7 +17,6 @@ export class CenterService {
   }
 
   public create(centerCreateDTO: Center) {
-    console.log(this.baseUrl);
     var headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });

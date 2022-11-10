@@ -1,12 +1,14 @@
 package com.example.isabloodbank.model;
 
 import com.example.isabloodbank.dto.UserCreateDTO;
+import com.example.isabloodbank.mapper.AddressMapper;
 import com.example.isabloodbank.model.enums.Gender;
 import com.example.isabloodbank.model.enums.Role;
 import com.example.isabloodbank.model.enums.WorkStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -44,26 +46,27 @@ public class User {
     @Column
     private Long centerId;
 
-    public void mapUserCreateDTO(UserCreateDTO userDto) {
-        this.email = userDto.getEmail();
-        this.password = userDto.getPassword();
-        this.name = userDto.getName();
-        this.surname = userDto.getSurname();
-        this.address = userDto.getAddress();
-        this.upin = userDto.getUpin();
-        this.occupation = userDto.getOccupation();
-        this.role = userDto.getRole();
-        if (userDto.getGender().equals("MALE")) {
-            this.gender = Gender.MALE;
-        } else {
-            this.gender = Gender.FEMALE;
-        }
-        if (userDto.getWorkStatus().equals("WORK")) {
-            this.workStatus = WorkStatus.WORK;
-        } else if (userDto.getWorkStatus().equals("SCHOOL")) {
-            this.workStatus = WorkStatus.SCHOOL;
-        } else {
-            this.workStatus = WorkStatus.UNIVERSITY;
-        }
-    }
+//    public void mapUserCreateDTO(UserCreateDTO userDto) {
+//        AddressMapper addressMapper = new AddressMapper();
+//        this.email = userDto.getEmail();
+//        this.password = userDto.getPassword();
+//        this.name = userDto.getName();
+//        this.surname = userDto.getSurname();
+//        this.address = addressMapper.dtoToEntity(userDto.getAddress());
+//        this.upin = userDto.getUpin();
+//        this.occupation = userDto.getOccupation();
+//        this.role = userDto.getRole();
+//        if (userDto.getGender().equals("MALE")) {
+//            this.gender = Gender.MALE;
+//        } else {
+//            this.gender = Gender.FEMALE;
+//        }
+//        if (userDto.getWorkStatus().equals("WORK")) {
+//            this.workStatus = WorkStatus.WORK;
+//        } else if (userDto.getWorkStatus().equals("SCHOOL")) {
+//            this.workStatus = WorkStatus.SCHOOL;
+//        } else {
+//            this.workStatus = WorkStatus.UNIVERSITY;
+//        }
+//    }
 }

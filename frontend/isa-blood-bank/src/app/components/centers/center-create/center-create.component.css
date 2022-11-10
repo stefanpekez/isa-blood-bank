@@ -9,7 +9,6 @@
 }
 
 .container-fluid .container-fluid-rounded {
-    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     border-radius: 5px;
     height: 100%;
     display: flex;
@@ -26,7 +25,6 @@
 }
 
 .container-fluid .container-fluid-rounded .form-group .form-header {
-    /* border-bottom: solid thin rgb(153, 153, 153); */
     margin-bottom: 1%;
     background-color: #00bcd4;
     display: flex;
@@ -46,11 +44,6 @@
 
 .container-fluid .container-fluid-rounded .form-group .form-body {
     padding: 5%;
-}
-
-.container-fluid .container-fluid-rounded .form-group .form-body input {
-    /* border: 2px solid;
-    border-image: linear-gradient(45deg, #59EAFD, #BFF0F6) 1; */
 }
 
 .container-fluid .container-fluid-rounded .form-group .form-body label {
