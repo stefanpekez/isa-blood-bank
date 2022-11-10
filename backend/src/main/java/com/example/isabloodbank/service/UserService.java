@@ -25,11 +25,16 @@ public class UserService implements IUserService{
         }
         return user.get();
     }
-    public User edit(User user, Long id){
+    public User edit(User user, Long id) {
         Optional<User> OldUser = userRepository.findById(id);     //provjeravam da li postoji u bazi
-        if(OldUser.isEmpty()) {
+        if (OldUser.isEmpty()) {
             return null;
         }
         return userRepository.save(user);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findOneByEmail(email);
     }
 }

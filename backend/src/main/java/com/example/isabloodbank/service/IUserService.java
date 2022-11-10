@@ -9,4 +9,6 @@ public interface IUserService {
     User getById(Long id);
 
     User edit(User user, Long id);
+
+    User findByEmail(String email);
 }
