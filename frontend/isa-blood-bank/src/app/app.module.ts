@@ -7,6 +7,7 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CentersComponent } from './components/centers/centers.component';
 import { CenterCreateComponent } from './components/centers/center-create/center-create.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CenterCreateComponent } from './components/centers/center-create/center
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

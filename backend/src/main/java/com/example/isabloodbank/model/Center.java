@@ -25,7 +25,7 @@ public class Center {
     @Column
     private String description;
     @Column
-    private Long rating;
+    private Double rating;
     @Column
     private Long donationPrice;
     @Column
