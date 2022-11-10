@@ -13,7 +13,6 @@ INSERT INTO center (description, donation_price, name, rating, working_hours, ad
 -- USER
 
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (2, 'john.johnson@gmail.com', 0, 'John',  'Student', '123', 0, 'Johnson', '0000000000001', 1, 4);
-
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (1, 'marko.markovic@gmail.com', 0, 'Marko', 'Worker', '123', 1, 'Markovic', '0000000000002', 2, 2);
 
 -- BLOOD
@@ -24,7 +23,7 @@ INSERT INTO blood (amount, blood_type) values (5, 3);
 
 -- DONATOR
 
-INSERT INTO donator (id, blood_type, loyalty, penalties, points, user_id) values (1, 2, 0, 0, 20, 1);
+INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (2, 0, 0, 20, 1);
 
 -- CENTER_DONATORS
 

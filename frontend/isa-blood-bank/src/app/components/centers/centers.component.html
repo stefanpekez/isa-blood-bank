@@ -1,0 +1,27 @@
+<div class="centers-table">
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Center Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Working Hours</th>
+                    <th scope="col">Rating</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                <!-- <tr *ngFor="let center of centers; let row = index">
+                    <th scope="row">{{ row+1 }}</th>
+                    <td> {{center.name}} </td>
+                    <td> {{center.description}} </td>
+                    <td> {{center.address}} </td>
+                    <td> {{center.workingHours}} </td>
+                    <td> {{center.rating}} </td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <button (click)="loadCenters()">load centers</button>
+</div>

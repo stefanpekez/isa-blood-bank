@@ -2,6 +2,7 @@ package com.example.isabloodbank.model;
 
 import com.example.isabloodbank.model.enums.BloodType;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class Blood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

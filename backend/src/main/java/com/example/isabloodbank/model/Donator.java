@@ -2,16 +2,14 @@ package com.example.isabloodbank.model;
 
 import com.example.isabloodbank.model.enums.BloodType;
 import com.example.isabloodbank.model.enums.Loyalty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class Donator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

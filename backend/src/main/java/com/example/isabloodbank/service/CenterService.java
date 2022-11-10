@@ -1,17 +1,23 @@
 package com.example.isabloodbank.service;
 
+import com.example.isabloodbank.dto.CenterDTO;
+import com.example.isabloodbank.mapper.CenterMapper;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.repository.ICenterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
-public class CenterService implements ICenterService{
+public class CenterService implements ICenterService {
 
     @Autowired
     ICenterRepository centerRepository;
+
+    @Autowired
+    private CenterMapper centerMapper;
 
     @Override
     public List<Center> getAll() {
@@ -23,7 +29,7 @@ public class CenterService implements ICenterService{
         List<Center> centers = centerRepository.findAll();
         centers.sort((c1, c2) -> {
             int order;
-            if(sortOrder.equals("asc")) {
+            if (sortOrder.equals("asc")) {
                 order = 1;
             } else {
                 order = -1;
@@ -37,5 +43,10 @@ public class CenterService implements ICenterService{
         });
 
         return centers;
+    }
+
+    public CenterDTO create(@RequestBody CenterDTO centerDTO) {
+        Center center = centerMapper.dtoToEntity(centerDTO);
+        return centerMapper.entityToDto(centerRepository.save(center));
     }
 }

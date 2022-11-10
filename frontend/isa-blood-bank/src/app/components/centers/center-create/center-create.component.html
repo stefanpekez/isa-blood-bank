@@ -1,0 +1,114 @@
+<div style="height: 100vh; display: flex;">
+    <div class="container-fluid">
+        <div class="container-fluid-rounded">
+            <div class="form-group">
+                <form #centerRegistration="ngForm">
+                    <div class="form-header">
+                        <h1>Register New Center</h1>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="centerName" class="form-label">Center Name*</label>
+                                <input type="text" class="form-control" id="centerName" [(ngModel)]="center.name" name="centerName" ngModel required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="centerDesc" class="form-label">Description*</label>
+                                <input type="text" class="form-control" id="centerDesc" [(ngModel)]="center.description" name="centerDesc" ngModel required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <label for="centerAddress" class="form-label">Address*</label>
+                            <div class="address col-md-8">
+                                <input type="text" class="address-input form-control" placeholder="{{addressTB}}" disabled ngModel required>
+                                <span class="set-address form-control">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#AddressModal">
+                                        <img src="assets/images/address.png" width="26" height="26">
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-5">
+                                <label for="centerDonation" class="form-label">Donation Price*</label>
+                                <input type="number" class="form-control" id="centerDonation" [(ngModel)]="center.donationPrice" name="centerDonation" ngModel required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-5">
+                                <label for="centerRating" class="form-label">Rating*</label>
+                                <input type="text" class="form-control" id="centerRating" placeholder="0.0" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <label for="centerWh" class="form-label">Working Hours*</label>
+                            <div class="time col-md-0">
+                                <div id="from">
+                                    <input type="time" class="form-control" id="centerWh" [(ngModel)]="fromHours" name="fromHours" ngModel required>
+                                </div>
+                                <label>To</label>
+                                <div class="to">
+                                    <input type="time" class="form-control" [(ngModel)]="toHours" name="toHours" ngModel required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <input type="submit" class="form-control btn submit-button" (click)="handleCenter($event)" [disabled]="centerRegistration.invalid">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddressModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLabel">Set Center Address</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #addressSetting="ngForm">
+                <div class="form-body">
+                    <div class="street-info form-row mb-4">
+                        <div class="street">
+                            <div class="col-md-6" id="s-name">
+                                <label for="streetName" class="form-label">Street Name</label>
+                                <input type="text" class="form-control" id="streetName" [(ngModel)]="center.address.streetName" name="streetName" ngModel required>
+                            </div>
+                            <div class="col-md-3" id="s-num">
+                                <label for="streetNum" class="form-label">Number</label>
+                                <input type="number" class="form-control" id="streetNum" [(ngModel)]="center.address.streetNumber" name="streetNum" ngModel required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-6">
+                            <label for="town" class="form-label">Town</label>
+                            <input type="text" class="form-control" id="town" [(ngModel)]="center.address.town" name="town" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-6">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="country" [(ngModel)]="center.address.country" name="country" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <input type="submit" class="form-control btn submit-button"
+                            value="Done"
+                            data-bs-dismiss="modal" (click)="handleAddress($event)" [disabled]="addressSetting.invalid">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
