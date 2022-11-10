@@ -10,8 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CenterUpdateComponent } from './components/centers/center-update/center-update.component';
 import { UsersComponent } from './components/users/users.component';
 import { ProfileViewComponent } from './components/users/profile-view/profile-view.component';
-
-
+import { CenterAdminCreateComponent } from './components/users/center-admin-create/center-admin-create.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,8 @@ import { ProfileViewComponent } from './components/users/profile-view/profile-vi
     CenterCreateComponent,
     CenterUpdateComponent,
     UsersComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    CenterAdminCreateComponent
   ],
   imports: [
     BrowserModule,
