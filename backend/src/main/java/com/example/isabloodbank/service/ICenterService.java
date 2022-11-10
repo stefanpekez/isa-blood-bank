@@ -10,5 +10,10 @@ public interface ICenterService {
     List<Center> getAll();
     List<Center> getAll(String sortBy, String sortOrder);
 
+
     CenterDTO create(CenterDTO center);
+
+    Center getById(Long id);
+
+    Center edit(Center center, Long id);
 }
