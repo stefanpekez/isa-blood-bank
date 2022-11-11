@@ -8,6 +8,9 @@ import com.example.isabloodbank.model.enums.WorkStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 
@@ -82,5 +85,9 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
         }
 
         return user;
+    }
+
+    public List<User> dtoListToEntityList(List<UserCreateDTO> dtos) {
+        return dtos.stream().map(x -> dtoToEntity(x)).collect(Collectors.toList());
     }
 }

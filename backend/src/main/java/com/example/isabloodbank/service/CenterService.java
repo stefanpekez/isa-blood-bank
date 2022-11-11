@@ -1,9 +1,14 @@
 package com.example.isabloodbank.service;
 import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.mapper.CenterMapper;
+import com.example.isabloodbank.model.Address;
 import com.example.isabloodbank.model.Center;
+import com.example.isabloodbank.model.User;
+import com.example.isabloodbank.repository.IAddressRepository;
 import com.example.isabloodbank.repository.ICenterRepository;
+import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,6 +23,12 @@ public class CenterService implements ICenterService {
 
     @Autowired
     private CenterMapper centerMapper;
+
+    @Autowired
+    private IAddressRepository addressRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<Center> getAll() {
@@ -48,6 +59,23 @@ public class CenterService implements ICenterService {
 
     public CenterDTO create(@RequestBody CenterDTO centerDTO) {
         Center center = centerMapper.dtoToEntity(centerDTO);
+
+        List<Address> addresses = addressRepository.findAll();
+        for (Address a: addresses) {
+            if (!a.getStreetName().equals(centerDTO.getAddress().getStreetName()))
+                break;
+            if (!a.getStreetNumber().equals(centerDTO.getAddress().getStreetNumber()))
+                break;
+            if (!a.getTown().equals(centerDTO.getAddress().getTown()))
+                break;
+            if (!a.getCountry().equals(centerDTO.getAddress().getCountry()))
+                break;
+            center.setAddress(a);
+        }
+
+        User user = userService.findUserByEmail(centerDTO.getAdmins().get(0).getEmail());
+        center.getAdminsCenter().clear();
+        center.getAdminsCenter().add(user);
         return centerMapper.entityToDto(centerRepository.save(center));
     }
     public Center getById(Long id) {

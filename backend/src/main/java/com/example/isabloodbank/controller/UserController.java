@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -30,8 +32,14 @@ public class UserController {
     public User getById(@PathVariable("id") Long id) {
         return userService.getById(id);
     }
+
     @PutMapping("/{id}")
     public User edit(@RequestBody User user, @PathVariable("id") Long id){
         return userService.edit(user, id);
+    }
+
+    @GetMapping("/role/center")
+    public ResponseEntity<List<UserCreateDTO>> getAllCenterAdmin() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllCenterAdmin());
     }
 }

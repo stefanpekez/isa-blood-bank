@@ -1,84 +1,82 @@
-<div style="display: flex;">
-    <div class="container-fluid">
-        <div class="container-fluid-rounded">
-            <div class="form-group">
-                <form #centerAdminRegistration="ngForm">
-                    <div class="form-header">
-                        <h1>Register Center Admin</h1>
-                    </div>
-                    <div class="form-body">
-                        <div class="form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" [(ngModel)]="admin.email" name="adminEmail" ngModel required>
-                            </div>
-                        </div>
-                        <div class="form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="text" class="form-control" id="password" [(ngModel)]="admin.password" name="adminPassword" ngModel required>
-                            </div>
-                        </div>
-                        <div class="names form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="adminName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="adminName" [(ngModel)]="admin.name" name="adminName" ngModel required>
-                            </div>
-                            <div class="col-md-0">
-                                <label for="adminSurame" class="form-label">Surname</label>
-                                <input type="text" class="form-control" id="adminSurame" [(ngModel)]="admin.surname" name="adminSurname" ngModel required>
-                            </div>
-                        </div>
-                        <div class="form-row mb-4">
-                            <label class="form-label">Address</label>
-                            <div class="address col-md-8">
-                                <input type="text" class="address-input form-control" placeholder="{{addressTB}}" name="adminAddress" disabled ngModel required>
-                                <span class="set-address form-control">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#AddressModal">
-                                        <img src="assets/images/address.png" width="26" height="26">
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="upin" class="form-label">Upin</label>
-                                <input type="text" class="form-control" id="upin" [(ngModel)]="admin.upin" name="adminUpin" ngModel required>
-                            </div>
-                        </div>
-                        <div class="form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="occupation" class="form-label">Occupation</label>
-                                <input type="text" class="form-control" id="occupation" [(ngModel)]="admin.occupation" name="adminOccupation" ngModel required>
-                            </div>
-                        </div>
-                        <div class="enums form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="gender" class="form-label">Gender</label>
-                                <select class="form-select" id="gender" [(ngModel)]="admin.gender" name="adminGender" ngModel required>
-                                    <option disabled selected hidden>-- Select --</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>
-                            </div>
-                            <div class="col-md-0">
-                                <label for="work-status" class="form-label">Work Status</label>
-                                <select class="form-select" id="work-status" [(ngModel)]="admin.workStatus" name="adminWorkStatus" ngModel required>
-                                    <option disabled selected hidden>-- Select --</option>
-                                    <option>School</option>
-                                    <option>University</option>
-                                    <option>Work</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row mb-4">
-                            <div class="col-md-0">
-                                <input type="submit" class="form-control btn submit-button" (click)="handleSubmit($event)" [disabled]="centerAdminRegistration.invalid">
-                            </div>
+<div class="container-fluid">
+    <div class="container-fluid-rounded">
+        <div class="form-group">
+            <form #centerAdminRegistration="ngForm">
+                <div class="form-header">
+                    <h1>Register Center Admin</h1>
+                </div>
+                <div class="form-body">
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" [(ngModel)]="admin.email" name="adminEmail" ngModel required>
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="text" class="form-control" id="password" [(ngModel)]="admin.password" name="adminPassword" ngModel required>
+                        </div>
+                    </div>
+                    <div class="names form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="adminName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="adminName" [(ngModel)]="admin.name" name="adminName" ngModel required>
+                        </div>
+                        <div class="col-md-0">
+                            <label for="adminSurame" class="form-label">Surname</label>
+                            <input type="text" class="form-control" id="adminSurame" [(ngModel)]="admin.surname" name="adminSurname" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <label class="form-label">Address</label>
+                        <div class="address col-md-8">
+                            <input type="text" class="address-input form-control" placeholder="{{addressTB}}" name="adminAddress" disabled ngModel required>
+                            <span class="set-address form-control">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#AddressModal">
+                                    <img src="assets/images/address.png" width="26" height="26">
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="upin" class="form-label">Upin</label>
+                            <input type="text" class="form-control" id="upin" [(ngModel)]="admin.upin" name="adminUpin" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="occupation" class="form-label">Occupation</label>
+                            <input type="text" class="form-control" id="occupation" [(ngModel)]="admin.occupation" name="adminOccupation" ngModel required>
+                        </div>
+                    </div>
+                    <div class="enums form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" [(ngModel)]="admin.gender" name="adminGender" ngModel required>
+                                <option disabled selected hidden>-- Select --</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-0">
+                            <label for="work-status" class="form-label">Work Status</label>
+                            <select class="form-select" id="work-status" [(ngModel)]="admin.workStatus" name="adminWorkStatus" ngModel required>
+                                <option disabled selected hidden>-- Select --</option>
+                                <option>School</option>
+                                <option>University</option>
+                                <option>Work</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <input type="submit" class="form-control btn submit-button" (click)="handleSubmit($event)" [disabled]="centerAdminRegistration.invalid">
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

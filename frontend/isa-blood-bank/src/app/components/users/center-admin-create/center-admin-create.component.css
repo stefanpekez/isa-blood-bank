@@ -1,3 +1,12 @@
+/* .nothing {
+    width: 100%;
+} */
+
+#adminForm {
+    width: 100%;
+    background-color: violet;
+}
+
 .container-fluid {
     width: 75%;
     margin-left: auto;
@@ -11,8 +20,6 @@
 .container-fluid .container-fluid-rounded {
     border-radius: 5px;
     height: 100%;
-    display: flex;
-    align-items: center;
 }
 
 .container-fluid .container-fluid-rounded .form-group {

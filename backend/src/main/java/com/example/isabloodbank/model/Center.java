@@ -32,7 +32,7 @@ public class Center {
     private String workingHours;
     @OneToMany
     private List<Donator> donators = new ArrayList<>();
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<User> adminsCenter = new ArrayList<>();
     @OneToMany
     private List<Blood> typesOfBlood = new ArrayList<>();

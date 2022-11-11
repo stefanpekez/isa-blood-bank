@@ -1,16 +1,24 @@
 package com.example.isabloodbank.service;
 
+import com.example.isabloodbank.dto.UserCreateDTO;
+import com.example.isabloodbank.mapper.UserMapper;
 import com.example.isabloodbank.model.User;
+import com.example.isabloodbank.model.enums.Role;
 import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService implements IUserService{
     @Autowired
     IUserRepository userRepository;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public User create(User user) {
@@ -35,5 +43,21 @@ public class UserService implements IUserService{
     @Override
     public User findByEmail(String email) {
         return userRepository.findOneByEmail(email);
+    }
+
+    public List<UserCreateDTO> getAllCenterAdmin() {
+        List<User> users = userRepository.findAll();
+        List<UserCreateDTO> centerAdmins = new ArrayList<>();
+        for (User user: users) {
+            if (user.getRole() == Role.ADMIN_CENTER) {
+                centerAdmins.add(userMapper.entityToDto(user));
+            }
+        }
+
+        return centerAdmins;
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email).get();
     }
 }

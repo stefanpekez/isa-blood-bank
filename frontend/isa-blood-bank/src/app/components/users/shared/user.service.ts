@@ -18,4 +18,8 @@ export class UserService {
     });
     return this.http.post<User>(`${this.baseUrl}`, JSON.stringify(user), {headers: headers});
   }
+
+  public getAllCenterAdmin() {
+    return this.http.get<User[]>(`${this.baseUrl}/role/center`);
+  }
 }

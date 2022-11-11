@@ -11,6 +11,9 @@ public class CenterMapper implements ObjectMapper<Center, CenterDTO> {
     @Autowired
     private AddressMapper addressMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public CenterDTO entityToDto(Center center) {
         CenterDTO centerDTO = new CenterDTO();
@@ -32,6 +35,7 @@ public class CenterMapper implements ObjectMapper<Center, CenterDTO> {
         center.setDonationPrice(Long.parseLong(centerDTO.getDonationPrice()));
         center.setWorkingHours(centerDTO.getWorkingHours());
         center.setRating(Double.parseDouble(centerDTO.getRating()));
+        center.setAdminsCenter(userMapper.dtoListToEntityList(centerDTO.getAdmins()));
         return center;
     }
 }
