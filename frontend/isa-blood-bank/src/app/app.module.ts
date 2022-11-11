@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
@@ -9,6 +8,10 @@ import { CentersComponent } from './components/centers/centers.component';
 import { CenterCreateComponent } from './components/centers/center-create/center-create.component';
 import { FormsModule } from '@angular/forms';
 import { CenterUpdateComponent } from './components/centers/center-update/center-update.component';
+import { UsersComponent } from './components/users/users.component';
+import { ProfileViewComponent } from './components/users/profile-view/profile-view.component';
+
+
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { CenterUpdateComponent } from './components/centers/center-update/center
     NavbarComponent,
     CentersComponent,
     CenterCreateComponent,
-    CenterUpdateComponent
+    CenterUpdateComponent,
+    UsersComponent,
+    ProfileViewComponent
   ],
   imports: [
     BrowserModule,
