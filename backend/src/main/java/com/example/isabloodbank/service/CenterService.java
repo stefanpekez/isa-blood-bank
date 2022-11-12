@@ -61,15 +61,17 @@ public class CenterService implements ICenterService {
         Center center = centerMapper.dtoToEntity(centerDTO);
 
         List<Address> addresses = addressRepository.findAll();
+        /** Checks if address already exists;
+         * true => update; false => create */
         for (Address a: addresses) {
             if (!a.getStreetName().equals(centerDTO.getAddress().getStreetName()))
-                break;
+                continue;
             if (!a.getStreetNumber().equals(centerDTO.getAddress().getStreetNumber()))
-                break;
+                continue;
             if (!a.getTown().equals(centerDTO.getAddress().getTown()))
-                break;
+                continue;
             if (!a.getCountry().equals(centerDTO.getAddress().getCountry()))
-                break;
+                continue;
             center.setAddress(a);
         }
 
@@ -91,6 +93,21 @@ public class CenterService implements ICenterService {
             return null;
         }
         return centerRepository.save(center);
+    }
 
+    private Boolean isAddressExist(List<Address> addresses, Address address) {
+        boolean exists = false;
+        for (Address a: addresses) {
+            if (!a.getStreetName().equals(address.getStreetName()))
+                continue;
+            if (!a.getStreetNumber().equals(address.getStreetNumber()))
+                continue;
+            if (!a.getTown().equals(address.getTown()))
+                continue;
+            if (!a.getCountry().equals(address.getCountry()))
+                exists = true;
+            break;
+        }
+        return exists;
     }
 }

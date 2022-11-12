@@ -13,5 +13,5 @@ public interface IUserService {
     User edit(User user, Long id);
 
     User findByEmail(String email);
-    List<UserCreateDTO> getAllCenterAdmin();
+    List<UserCreateDTO> getAllUnemployedAdmins();
 }

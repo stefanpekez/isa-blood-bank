@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/role/center")
-    public ResponseEntity<List<UserCreateDTO>> getAllCenterAdmin() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllCenterAdmin());
+    public ResponseEntity<List<UserCreateDTO>> getAllUnemployedAdmin() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUnemployedAdmins());
     }
 }

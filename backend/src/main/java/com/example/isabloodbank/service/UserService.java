@@ -45,13 +45,16 @@ public class UserService implements IUserService{
         return userRepository.findOneByEmail(email);
     }
 
-    public List<UserCreateDTO> getAllCenterAdmin() {
+    public List<UserCreateDTO> getAllUnemployedAdmins() {
         List<User> users = userRepository.findAll();
         List<UserCreateDTO> centerAdmins = new ArrayList<>();
         for (User user: users) {
-            if (user.getRole() == Role.ADMIN_CENTER) {
-                centerAdmins.add(userMapper.entityToDto(user));
-            }
+            if (!(user.getRole() == Role.ADMIN_CENTER))
+                continue;
+            if(!(user.getCenterId() == null))
+                continue;
+
+            centerAdmins.add(userMapper.entityToDto(user));
         }
 
         return centerAdmins;
