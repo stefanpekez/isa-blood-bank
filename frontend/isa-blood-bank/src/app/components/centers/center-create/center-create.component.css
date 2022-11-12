@@ -4,7 +4,6 @@
     justify-content: space-between;
     margin-top: 3%;
     margin-left: 3%;
-    /* background-color: #50c4ff; */
     width: 16em;
     height: 40em;
 }
@@ -15,31 +14,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: aquamarine; */
 }
 
 .nav .nav-item .tab {
     text-align: center;
-    /* background-color: #50c4ff; */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 20%;
     height: 100%;
 }
 
 
 .nav .nav-item .nav-link {
-    border: 1px solid black;
+    border: 3px solid #008293;
     border-radius: 50%;
-    background-color: aliceblue;
+    background-color: #47c4d4;
+    color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.nav .nav-item .nav-link:hover {
+/* .nav .nav-item .nav-link:hover {
     cursor: pointer;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     background-color: #5dd7e7;
-}
+} */
 
 .nav .nav-item .label {
     display: flex;
@@ -50,10 +49,10 @@
 }
 
 .nav .nav-item .label label {
-    border: 2px solid #2eb8c7;
+    border: 2px solid #03aaff;
     border-radius: 40%;
     padding: 5%;
-    background-color: #50c4ff;
+    background-color: #73d0ff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     font-weight: 500;
     color: white;
@@ -67,7 +66,6 @@
     margin-bottom: 1%;
     height: 80%;
     align-items: center;
-    /* background-color: wheat; */
 }
 
 .container-fluid .container-fluid-rounded {

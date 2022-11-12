@@ -43,30 +43,7 @@ public class User {
     private WorkStatus workStatus;
     @Column
     private Role role;
-    @Column
-    private Long centerId;
+    @ManyToOne
+    private Center center;
 
-//    public void mapUserCreateDTO(UserCreateDTO userDto) {
-//        AddressMapper addressMapper = new AddressMapper();
-//        this.email = userDto.getEmail();
-//        this.password = userDto.getPassword();
-//        this.name = userDto.getName();
-//        this.surname = userDto.getSurname();
-//        this.address = addressMapper.dtoToEntity(userDto.getAddress());
-//        this.upin = userDto.getUpin();
-//        this.occupation = userDto.getOccupation();
-//        this.role = userDto.getRole();
-//        if (userDto.getGender().equals("MALE")) {
-//            this.gender = Gender.MALE;
-//        } else {
-//            this.gender = Gender.FEMALE;
-//        }
-//        if (userDto.getWorkStatus().equals("WORK")) {
-//            this.workStatus = WorkStatus.WORK;
-//        } else if (userDto.getWorkStatus().equals("SCHOOL")) {
-//            this.workStatus = WorkStatus.SCHOOL;
-//        } else {
-//            this.workStatus = WorkStatus.UNIVERSITY;
-//        }
-//    }
 }

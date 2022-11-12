@@ -61,19 +61,23 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
         user.setSurname(userCreateDTO.getSurname());
         user.setAddress(addressMapper.dtoToEntity(userCreateDTO.getAddress()));
         user.setUpin(userCreateDTO.getUpin());
-        user.setOccupation(userCreateDTO.getOccupation());
+        if (userCreateDTO.getOccupation() != null) {
+            user.setOccupation(userCreateDTO.getOccupation());
+        }
 
         if (userCreateDTO.getGender().equals("MALE"))
             user.setGender(Gender.MALE);
         else
             user.setGender(Gender.FEMALE);
 
-        if (userCreateDTO.getWorkStatus().equals("WORK")) {
-            user.setWorkStatus(WorkStatus.WORK);
-        } else if (userCreateDTO.getWorkStatus().equals("SCHOOL")) {
-            user.setWorkStatus(WorkStatus.SCHOOL);
-        } else {
-            user.setWorkStatus(WorkStatus.UNIVERSITY);
+        if (userCreateDTO.getWorkStatus() != null) {
+            if (userCreateDTO.getWorkStatus().equals("WORK")) {
+                user.setWorkStatus(WorkStatus.WORK);
+            } else if (userCreateDTO.getWorkStatus().equals("SCHOOL")) {
+                user.setWorkStatus(WorkStatus.SCHOOL);
+            } else {
+                user.setWorkStatus(WorkStatus.UNIVERSITY);
+            }
         }
 
         if (userCreateDTO.getRole().equals("REGULAR")) {

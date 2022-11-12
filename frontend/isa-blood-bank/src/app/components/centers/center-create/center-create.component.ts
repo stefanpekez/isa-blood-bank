@@ -1,4 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { setupTestingRouter } from '@angular/router/testing';
 import { Address } from 'src/app/shared/address.model';
 import { DataTransferService } from 'src/app/shared/data-transfer.service';
@@ -28,7 +29,7 @@ export class CenterCreateComponent implements OnInit {
   active: number = -1;
 
   constructor(private centerService: CenterService, 
-      private userService: UserService) { }
+      private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.setupUser();
@@ -39,13 +40,17 @@ export class CenterCreateComponent implements OnInit {
   public handleNext(event: Event) {
     event.preventDefault();
     this.manageStage();
+    this.adminTB = this.admin.name + ' ' + this.admin.surname + ', ' + this.admin.upin;
 
     if (this.stage > 3) {
       console.log(this.admin);
       this.stage = 3;
+      this.center.workingHours = this.fromHours + '-' + this.toHours;
+      this.admin.role = 'ADMIN_CENTER';
+      this.center.admins = [];
       this.center.admins.push(this.admin);
       this.centerService.create(this.center).subscribe((response: any) => {
-        console.log(response);
+        this.router.navigate(['']);
       });
     }
 
@@ -63,23 +68,11 @@ export class CenterCreateComponent implements OnInit {
     
   }
 
-  public goTo(stage: number) {
-    if (this.maxStage < stage) {
-      return;
-    }
-    this.stage = stage;
-  }
-
-  public handleSubmit(event: Event) {
-
-  }
-
   private setupUser() {
     this.admin.address = {} as Address;
   }
 
   private setupCenter() {
-    this.center.workingHours = this.fromHours + '-' + this.toHours
     this.center.rating = '0.0';
     this.center.address = {} as Address;
     this.center.admins = [];
@@ -97,11 +90,6 @@ export class CenterCreateComponent implements OnInit {
   public handleGender(event: Event, gender: string) {
     event.preventDefault();
     this.admin.gender = gender;
-  }
-
-  public handleWorkStatus(event: Event, workStatus: string) {
-    event.preventDefault();
-    this.admin.workStatus = workStatus;
   }
 
   private setupAdmins() {

@@ -28,9 +28,7 @@ public class UserCreateDTO {
     private String upin;
     @NotNull
     private String gender;
-    @NotNull
     private String occupation;
-    @NotNull
     private String workStatus;
     @NotNull
     private String role;

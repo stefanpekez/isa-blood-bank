@@ -51,7 +51,7 @@ public class UserService implements IUserService{
         for (User user: users) {
             if (!(user.getRole() == Role.ADMIN_CENTER))
                 continue;
-            if(!(user.getCenterId() == null))
+            if(!(user.getCenter() == null))
                 continue;
 
             centerAdmins.add(userMapper.entityToDto(user));
@@ -60,7 +60,11 @@ public class UserService implements IUserService{
         return centerAdmins;
     }
 
-    public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email).get();
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 }

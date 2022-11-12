@@ -2,7 +2,7 @@
     <div class="nav">
         <div class="nav-item">
             <div class="tab">
-                <a class="nav-link active" (click)="goTo(1)">1</a>
+                <a class="nav-link">1</a>
             </div>
             <div class="label">
                 <label [hidden]="stage !== 1">Register Center</label>
@@ -10,7 +10,7 @@
         </div>
         <div class="nav-item">
             <div class="tab">
-                <a class="nav-link" (click)="goTo(2)">2</a>
+                <a class="nav-link">2</a>
             </div>
             <div class="label">
                 <label [hidden]="stage !== 2">Register Admin</label>
@@ -18,7 +18,7 @@
         </div>
         <div class="nav-item">
             <div class="tab">
-                <a class="nav-link" (click)="goTo(3)">3</a>
+                <a class="nav-link">3</a>
             </div>
             <div class="label">
                 <label [hidden]="stage !== 3">Confirm</label>
@@ -62,7 +62,7 @@
                             <div class="address col-md-8">
                                 <input type="text" class="address-input form-control" placeholder="{{adminTB}}" name="centerAdmin"disabled>
                                 <span class="set-address form-control">
-                                    <button type="button" (click)="goTo(2); isRegistering = false;">
+                                    <button type="button" (click)="isRegistering = false; stage = 2">
                                         <img src="assets/images/center_admin.png" width="26" height="26">
                                     </button>
                                 </span>
@@ -143,12 +143,12 @@
                                 <input type="text" class="form-control" id="upin" [(ngModel)]="admin.upin" name="adminUpin" ngModel required>
                             </div>
                         </div>
-                        <div class="form-row mb-4">
+                        <!-- <div class="form-row mb-4">
                             <div class="col-md-0">
                                 <label for="occupation" class="form-label">Occupation</label>
                                 <input type="text" class="form-control" id="occupation" [(ngModel)]="admin.occupation" name="adminOccupation" ngModel required>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="enums form-row mb-4">
                             <div class="col-md-0">
                                 <label for="gender" class="form-label">Gender</label>
@@ -158,7 +158,7 @@
                                     <option>Female</option>
                                 </select>
                             </div>
-                            <div class="col-md-0">
+                            <!-- <div class="col-md-0">
                                 <label for="work-status" class="form-label">Work Status</label>
                                 <select class="form-select" id="work-status" #workStatus (change)="handleWorkStatus($event, workStatus.value)" required>
                                     <option disabled selected hidden>-- Select --</option>
@@ -166,7 +166,7 @@
                                     <option>University</option>
                                     <option>Work</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="form-row mb-4">
                             <div class="col-md-0">
@@ -178,14 +178,6 @@
                 </form>
                 <div class="choose-tab" [hidden]="stage !== 2 || isRegistering">
                     <label id="select-register-label">Select existing or register new admin for this center</label>
-                    <!-- <div class="admin-selected">
-                        <input type="text" class="address-input form-control" value="{{adminTB}}" name="adminAddress" disabled required>
-                        <span class="set-address form-control">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#address-modal">
-                                <img src="assets/images/center_admin.png" width="26" height="26">
-                            </button>
-                        </span>
-                    </div> -->
                     <div class="choose">
                         <label id="admins-table-label">Admins</label>
                         <ul class="list-group">
@@ -195,7 +187,7 @@
                         </ul>
                     </div>
                     <div id="button-div">
-                        <button class="selection" type="button" [disabled]="active === -1" (click)="handleAdmin($event)">Next</button>
+                        <button class="selection" type="button" [disabled]="active === -1" (click)="handleNext($event)">Next</button>
                         <button class="selection" (click)="switchRegistering()">Register</button>
                     </div>
                 </div>
