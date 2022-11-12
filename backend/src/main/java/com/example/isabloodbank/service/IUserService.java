@@ -14,4 +14,6 @@ public interface IUserService {
 
     User findByEmail(String email);
     List<UserCreateDTO> getAllUnemployedAdmins();
+
+    List<UserCreateDTO> getAll();
 }

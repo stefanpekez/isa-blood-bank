@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Donator } from './donator.model';
+import { UserTable } from './user-table.model';
 import { User } from './user.model';
 
 @Injectable({
@@ -46,5 +47,9 @@ export class UsersService {
 
   public getAllCenterAdmin() {
     return this.http.get<User[]>(`${this.baseUrl}role/center`);
+  }
+
+  public getAll() {
+    return this.http.get<User[]>(`${this.baseUrl}`);
   }
 }

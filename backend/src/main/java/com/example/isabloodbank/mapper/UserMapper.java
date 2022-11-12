@@ -53,8 +53,8 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
     }
 
     @Override
-    public List<UserCreateDTO> entityToDtoList(List<User> users) {
-        return null;
+    public List<UserCreateDTO> entityToDtoList(List<User> entities) {
+        return entities.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
     }
 
     @Override

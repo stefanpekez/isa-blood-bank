@@ -20,11 +20,9 @@ export class CenterAdminCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin.address = {} as Address;
-    this.admin.gender = '-- Select --';
-    this.admin.workStatus = '-- Select --';
   }
 
-  public handleSubmit(event: Event) {
+  public handleSubmit(event: Event): void {
     event.preventDefault();
     this.admin.role = 'ADMIN_CENTER';
     this.userService.create(this.admin).subscribe((response: User) => {
@@ -32,10 +30,15 @@ export class CenterAdminCreateComponent implements OnInit {
     });
   }
 
-  public handleAddress(event: Event) {
+  public handleAddress(event: Event): void {
     event.preventDefault();
     this.addressTB = this.admin.address.streetName + ', ' + this.admin.address.streetNumber + ', ' + 
                     this.admin.address.town + ', ' + this.admin.address.country;
+  }
+
+  public handleGender(event: Event, gender: string): void {
+    event.preventDefault();
+    this.admin.gender = gender;
   }
 
 }
