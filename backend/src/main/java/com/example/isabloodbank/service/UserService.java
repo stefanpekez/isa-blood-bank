@@ -60,8 +60,8 @@ public class UserService implements IUserService{
         return centerAdmins;
     }
 
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserCreateDTO> getAll() {
+        return userMapper.entityToDtoList(userRepository.findAll());
     }
 
     public Optional<User> findUserByEmail(String email) {

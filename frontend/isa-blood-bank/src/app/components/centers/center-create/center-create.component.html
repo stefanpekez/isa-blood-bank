@@ -143,12 +143,6 @@
                                 <input type="text" class="form-control" id="upin" [(ngModel)]="admin.upin" name="adminUpin" ngModel required>
                             </div>
                         </div>
-                        <!-- <div class="form-row mb-4">
-                            <div class="col-md-0">
-                                <label for="occupation" class="form-label">Occupation</label>
-                                <input type="text" class="form-control" id="occupation" [(ngModel)]="admin.occupation" name="adminOccupation" ngModel required>
-                            </div>
-                        </div> -->
                         <div class="enums form-row mb-4">
                             <div class="col-md-0">
                                 <label for="gender" class="form-label">Gender</label>
@@ -158,15 +152,10 @@
                                     <option>Female</option>
                                 </select>
                             </div>
-                            <!-- <div class="col-md-0">
-                                <label for="work-status" class="form-label">Work Status</label>
-                                <select class="form-select" id="work-status" #workStatus (change)="handleWorkStatus($event, workStatus.value)" required>
-                                    <option disabled selected hidden>-- Select --</option>
-                                    <option>School</option>
-                                    <option>University</option>
-                                    <option>Work</option>
-                                </select>
-                            </div> -->
+                            <div class="col-md-0">
+                                <label for="phoneNumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="admin.phoneNumber" name="adminPhoneNumber" ngModel required>
+                            </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col-md-0">

@@ -28,6 +28,11 @@ public class UserController {
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
+    @GetMapping
+    public ResponseEntity<List<UserCreateDTO>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
+    }
+
     @GetMapping("/{id}")
     public User getById(@PathVariable("id") Long id) {
         return userService.getById(id);
