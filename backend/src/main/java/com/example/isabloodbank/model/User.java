@@ -34,6 +34,8 @@ public class User {
     @Column
     private Gender gender;
     @Column
+    private String phoneNumber;
+    @Column
     private String occupation;
     @Column
     private WorkStatus workStatus;
