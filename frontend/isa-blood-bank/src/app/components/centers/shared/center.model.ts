@@ -10,4 +10,6 @@ export interface Center {
     workingHours: string;
     rating: string;
     admins: User[];
+    adminsCenter: Array<User>;
+
 }

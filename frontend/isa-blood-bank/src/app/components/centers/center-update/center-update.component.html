@@ -41,6 +41,11 @@
                 <input type="text" class="form-control" id="centerStreetNumber"  name="centerStreetNumber" [(ngModel)]="centerObject.address.streetNumber"  ngModel required>
             </div>
         </div> 
+        <ul>
+            <li *ngFor="let user of centerObject.adminsCenter">
+                {{user.name}} {{user.surname}}, {{user.workStatus}}, {{user.email}}
+            </li>
+        </ul>
         <div class="row">
             <div class="col">
             </div>
