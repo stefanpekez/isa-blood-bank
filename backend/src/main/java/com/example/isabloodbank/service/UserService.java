@@ -33,7 +33,7 @@ public class UserService implements IUserService{
         return user.get();
     }
     public User edit(User user, Long id) {
-        Optional<User> OldUser = userRepository.findById(id);     //provjeravam da li postoji u bazi
+        Optional<User> OldUser = userRepository.findById(id);
         if (OldUser.isEmpty()) {
             return null;
         }
