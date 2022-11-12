@@ -27,6 +27,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
         userCreateDTO.setAddress(addressMapper.entityToDto(user.getAddress()));
         userCreateDTO.setUpin(user.getUpin());
         userCreateDTO.setOccupation(user.getOccupation());
+        userCreateDTO.setPhoneNumber(user.getPhoneNumber());
 
         if (user.getGender() == Gender.MALE)
             userCreateDTO.setGender("MALE");
@@ -69,6 +70,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
         if (userCreateDTO.getOccupation() != null) {
             user.setOccupation(userCreateDTO.getOccupation());
         }
+        user.setPhoneNumber(userCreateDTO.getPhoneNumber());
 
         if (userCreateDTO.getGender().equals("MALE"))
             user.setGender(Gender.MALE);

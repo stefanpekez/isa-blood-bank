@@ -1,29 +1,34 @@
 <div class="container">
+    <div class="search-container">
+        <label>Search by:</label>
+        <input type="text" class="form-control search-field" placeholder="Name" [(ngModel)]="name">
+        <label>or</label>
+        <input type="text" class="form-control search-field" placeholder="Surname" [(ngModel)]="surname">
+    </div>
     <div class="sub-container">
         <table class="table table-hover table-striped">
             <thead class="table-head">
                 <tr class="head-row">
-                  <th scope="col">#</th>
-                  <th scope="col" class="header">Name</th>
-                  <th scope="col" class="header">Surame</th>
-                  <th scope="col" class="header">Email</th>
-                  <th scope="col" class="header">Upin</th>
-                  <th scope="col" class="header">Gender</th>
-                  <th scope="col" class="header">Occupation</th>
-                  <th scope="col" class="header">Work Status</th>
-                  <th scope="col" class="header">Role</th>
-                </tr>
+                    <th scope="col">#</th>
+                    <th scope="col" class="header">Name</th>
+                    <th scope="col" class="header">Surame</th>
+                    <th scope="col" class="header">Email</th>
+                    <th scope="col" class="header">Upin</th>
+                    <th scope="col" class="header">Phone Number</th>
+                    <th scope="col" class="header">Gender</th>
+                    <th scope="col" class="header">Work Status</th>
+                    <th scope="col" class="header">Role</th>
+                  </tr>
             </thead>
             <tbody class="table-body">
-                <tr class="body-row" *ngFor="let user of users; let i = index;">
+                <tr class="body-row" *ngFor="let user of users | searchFilter :name:surname; let i = index;">
                   <th scope="row">{{ i + 1 }}</th>
                   <td>{{ user.name }}</td>
                   <td>{{ user.surname }}</td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.upin }}</td>
+                  <td>{{ user.phoneNumber }}</td>
                   <td>{{ user.gender }}</td>
-                  <td *ngIf="user.occupation === null">Worker</td>
-                  <td *ngIf="user.occupation !== null">{{ user.occupation }}</td>
                   <td>{{ user.workStatus }}</td>
                   <td>{{ user.role }}</td>
                 </tr>

@@ -9,6 +9,7 @@ export interface User{
     address: Address;
     upin: string;
     gender: string;
+    phoneNumber: string;
     occupation: string;
     workStatus: string;
     role: string;

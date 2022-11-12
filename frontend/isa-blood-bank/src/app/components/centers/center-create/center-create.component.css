@@ -49,8 +49,8 @@
 }
 
 .nav .nav-item .label label {
-    border: 2px solid #03aaff;
-    border-radius: 40%;
+    border: 2px solid black;
+    border-radius: 30%;
     padding: 5%;
     background-color: #73d0ff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;

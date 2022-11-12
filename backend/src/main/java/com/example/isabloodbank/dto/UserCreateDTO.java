@@ -28,6 +28,8 @@ public class UserCreateDTO {
     private String upin;
     @NotNull
     private String gender;
+    @NotNull
+    private String phoneNumber;
     private String occupation;
     private String workStatus;
     @NotNull
