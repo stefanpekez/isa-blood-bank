@@ -1,12 +1,18 @@
 package com.example.isabloodbank.service;
 import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.mapper.CenterMapper;
+import com.example.isabloodbank.model.Address;
 import com.example.isabloodbank.model.Center;
+import com.example.isabloodbank.model.User;
+import com.example.isabloodbank.repository.IAddressRepository;
 import com.example.isabloodbank.repository.ICenterRepository;
+import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +24,12 @@ public class CenterService implements ICenterService {
 
     @Autowired
     private CenterMapper centerMapper;
+
+    @Autowired
+    private IAddressRepository addressRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<Center> getAll() {
@@ -45,9 +57,32 @@ public class CenterService implements ICenterService {
         return centers;
     }
 
-
-    public CenterDTO create(@RequestBody CenterDTO centerDTO) {
+    public CenterDTO create(@RequestBody CenterDTO centerDTO) throws Exception {
         Center center = centerMapper.dtoToEntity(centerDTO);
+
+        List<Address> addresses = addressRepository.findAll();
+        List<User> admins = new ArrayList<>();
+
+        User admin = center.getAdminsCenter().get(0);
+        if (userService.findUserByEmail(admin.getEmail()).isPresent()) {
+            admin = userService.findUserByEmail(admin.getEmail()).get();
+        }
+        admin.setCenter(center);
+        admins.add(admin);
+
+        center.setAdminsCenter(admins);
+
+        Address centerAddress = addressInRepo(addresses, center.getAddress());
+        if (centerAddress != null)
+            center.setAddress(centerAddress);
+
+        Address adminAddress = addressInRepo(addresses, admin.getAddress());
+        if (adminAddress != null)
+            admin.setAddress(adminAddress);
+
+        if (centerRepository.findCenterByAddressId(center.getAddress().getId()).isPresent())
+            throw new Exception("Center located on that address already exists");
+
         return centerMapper.entityToDto(centerRepository.save(center));
     }
     public Center getById(Long id) {
@@ -63,6 +98,20 @@ public class CenterService implements ICenterService {
             return null;
         }
         return centerRepository.save(center);
+    }
 
+    private Address addressInRepo(List<Address> addresses, Address address) {
+        for (Address a: addresses) {
+            if (!a.getStreetName().equals(address.getStreetName()))
+                continue;
+            if (!a.getStreetNumber().equals(address.getStreetNumber()))
+                continue;
+            if (!a.getTown().equals(address.getTown()))
+                continue;
+            if (!a.getCountry().equals(address.getCountry()))
+                continue;
+            return a;
+        }
+        return null;
     }
 }

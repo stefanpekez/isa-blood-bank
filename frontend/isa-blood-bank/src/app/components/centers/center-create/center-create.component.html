@@ -1,49 +1,87 @@
-<div style="height: 100vh; display: flex;">
+<div style="display: flex;">
+    <div class="nav">
+        <div class="nav-item">
+            <div class="tab">
+                <a class="nav-link">1</a>
+            </div>
+            <div class="label">
+                <label [hidden]="stage !== 1">Register Center</label>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="tab">
+                <a class="nav-link">2</a>
+            </div>
+            <div class="label">
+                <label [hidden]="stage !== 2">Register Admin</label>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="tab">
+                <a class="nav-link">3</a>
+            </div>
+            <div class="label">
+                <label [hidden]="stage !== 3">Confirm</label>
+            </div>
+        </div>
+    </div>
+    
     <div class="container-fluid">
         <div class="container-fluid-rounded">
             <div class="form-group">
-                <form #centerRegistration="ngForm">
+                <form #centerRegistration="ngForm" [hidden]="stage !== 1 && stage !== 3">
                     <div class="form-header">
-                        <h1>Register New Center</h1>
+                        <h1>Register Center</h1>
                     </div>
                     <div class="form-body">
                         <div class="form-row mb-4">
                             <div class="col-md-0">
-                                <label for="centerName" class="form-label">Center Name*</label>
+                                <label for="centerName" class="form-label">Center Name</label>
                                 <input type="text" class="form-control" id="centerName" [(ngModel)]="center.name" name="centerName" ngModel required>
                             </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col-md-0">
-                                <label for="centerDesc" class="form-label">Description*</label>
+                                <label for="centerDesc" class="form-label">Description</label>
                                 <input type="text" class="form-control" id="centerDesc" [(ngModel)]="center.description" name="centerDesc" ngModel required>
                             </div>
                         </div>
                         <div class="form-row mb-4">
-                            <label for="centerAddress" class="form-label">Address*</label>
+                            <label for="centerAddress" class="form-label">Address</label>
                             <div class="address col-md-8">
-                                <input type="text" class="address-input form-control" placeholder="{{addressTB}}" disabled ngModel required>
+                                <input type="text" class="address-input form-control" placeholder="{{centerAddressTB}}" name="centerAddress"disabled ngModel required>
                                 <span class="set-address form-control">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#AddressModal">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#address-modal">
                                         <img src="assets/images/address.png" width="26" height="26">
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4" [hidden]="stage !== 3">
+                            <label for="centerAddress" class="form-label">Admin</label>
+                            <div class="address col-md-8">
+                                <input type="text" class="address-input form-control" placeholder="{{adminTB}}" name="centerAdmin"disabled>
+                                <span class="set-address form-control">
+                                    <button type="button" (click)="isRegistering = false; stage = 2">
+                                        <img src="assets/images/center_admin.png" width="26" height="26">
                                     </button>
                                 </span>
                             </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col-md-5">
-                                <label for="centerDonation" class="form-label">Donation Price*</label>
+                                <label for="centerDonation" class="form-label">Donation Price</label>
                                 <input type="number" class="form-control" id="centerDonation" [(ngModel)]="center.donationPrice" name="centerDonation" ngModel required>
                             </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col-md-5">
-                                <label for="centerRating" class="form-label">Rating*</label>
+                                <label for="centerRating" class="form-label">Rating</label>
                                 <input type="text" class="form-control" id="centerRating" placeholder="0.0" disabled>
                             </div>
                         </div>
                         <div class="form-row mb-4">
-                            <label for="centerWh" class="form-label">Working Hours*</label>
+                            <label for="centerWh" class="form-label">Working Hours</label>
                             <div class="time col-md-0">
                                 <div id="from">
                                     <input type="time" class="form-control" id="centerWh" [(ngModel)]="fromHours" name="fromHours" ngModel required>
@@ -56,17 +94,109 @@
                         </div>
                         <div class="form-row mb-4">
                             <div class="col-md-0">
-                                <input type="submit" class="form-control btn submit-button" (click)="handleCenter($event)" [disabled]="centerRegistration.invalid">
+                                <input type="submit" value="Next" class="form-control btn submit-button" (click)="handleNext($event)" [disabled]="centerRegistration.invalid  || centerAddressTB === ''">
                             </div>
                         </div>
                     </div>
                 </form>
+                <form #centerAdminRegistration="ngForm" [hidden]="stage !== 2 || !isRegistering">
+                    <div class="form-header">
+                        <h1>Register Center Admin</h1>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" [(ngModel)]="admin.email" name="adminEmail" ngModel required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="text" class="form-control" id="password" [(ngModel)]="admin.password" name="adminPassword" ngModel required>
+                            </div>
+                        </div>
+                        <div class="names form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="adminName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="adminName" [(ngModel)]="admin.name" name="adminName" ngModel required>
+                            </div>
+                            <div class="col-md-0">
+                                <label for="adminSurame" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="adminSurame" [(ngModel)]="admin.surname" name="adminSurname" ngModel required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <label class="form-label">Address</label>
+                            <div class="address col-md-8">
+                                <input type="text" class="address-input form-control" value="{{adminAddressTB}}" name="adminAddress" disabled required>
+                                <span class="set-address form-control">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#address-modal">
+                                        <img src="assets/images/address.png" width="26" height="26">
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="upin" class="form-label">Upin</label>
+                                <input type="text" class="form-control" id="upin" [(ngModel)]="admin.upin" name="adminUpin" ngModel required>
+                            </div>
+                        </div>
+                        <!-- <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="occupation" class="form-label">Occupation</label>
+                                <input type="text" class="form-control" id="occupation" [(ngModel)]="admin.occupation" name="adminOccupation" ngModel required>
+                            </div>
+                        </div> -->
+                        <div class="enums form-row mb-4">
+                            <div class="col-md-0">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" #gender (change)="handleGender($event, gender.value)" required>
+                                    <option disabled selected hidden>-- Select --</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-md-0">
+                                <label for="work-status" class="form-label">Work Status</label>
+                                <select class="form-select" id="work-status" #workStatus (change)="handleWorkStatus($event, workStatus.value)" required>
+                                    <option disabled selected hidden>-- Select --</option>
+                                    <option>School</option>
+                                    <option>University</option>
+                                    <option>Work</option>
+                                </select>
+                            </div> -->
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col-md-0">
+                                <input type="submit" value="Next" class="form-control btn submit-button" (click)="handleNext($event)" [disabled]="centerAdminRegistration.invalid || adminAddressTB === ''">
+                                <button class="form-control btn submit-button" (click)="switchRegistering()" style="margin-top: 5%;">Choose</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="choose-tab" [hidden]="stage !== 2 || isRegistering">
+                    <label id="select-register-label">Select existing or register new admin for this center</label>
+                    <div class="choose">
+                        <label id="admins-table-label">Admins</label>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let a of listOfAdmins; index as i" (click)="selectItem(i)" [class.active]="active === i">
+                                <label>{{ a.name }} {{ a.surname }}</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="button-div">
+                        <button class="selection" type="button" [disabled]="active === -1" (click)="handleNext($event)">Next</button>
+                        <button class="selection" (click)="switchRegistering()">Register</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="AddressModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="address-modal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
@@ -80,24 +210,28 @@
                         <div class="street">
                             <div class="col-md-6" id="s-name">
                                 <label for="streetName" class="form-label">Street Name</label>
-                                <input type="text" class="form-control" id="streetName" [(ngModel)]="center.address.streetName" name="streetName" ngModel required>
+                                <input type="text" class="form-control" id="streetName" [(ngModel)]="center.address.streetName" name="streetName" [hidden]="stage === 2" ngModel required>
+                                <input type="text" class="form-control" id="streetName" [(ngModel)]="admin.address.streetName" name="streetName" [hidden]="stage !== 2" ngModel required>
                             </div>
                             <div class="col-md-3" id="s-num">
                                 <label for="streetNum" class="form-label">Number</label>
-                                <input type="number" class="form-control" id="streetNum" [(ngModel)]="center.address.streetNumber" name="streetNum" ngModel required>
+                                <input type="number" class="form-control" id="streetNum" [(ngModel)]="center.address.streetNumber" name="streetNum" [hidden]="stage === 2" ngModel required>
+                                <input type="number" class="form-control" id="streetNum" [(ngModel)]="admin.address.streetNumber" name="streetNum" [hidden]="stage !== 2" ngModel required>
                             </div>
                         </div>
                     </div>
                     <div class="form-row mb-4">
                         <div class="col-md-6">
                             <label for="town" class="form-label">Town</label>
-                            <input type="text" class="form-control" id="town" [(ngModel)]="center.address.town" name="town" ngModel required>
+                            <input type="text" class="form-control" id="town" [(ngModel)]="center.address.town" name="town" [hidden]="stage === 2" ngModel required>
+                            <input type="text" class="form-control" id="town" [(ngModel)]="admin.address.town" name="town" [hidden]="stage !== 2" ngModel required>
                         </div>
                     </div>
                     <div class="form-row mb-4">
                         <div class="col-md-6">
                             <label for="country" class="form-label">Country</label>
-                            <input type="text" class="form-control" id="country" [(ngModel)]="center.address.country" name="country" ngModel required>
+                            <input type="text" class="form-control" id="country" [(ngModel)]="center.address.country" name="country" [hidden]="stage === 2" ngModel required>
+                            <input type="text" class="form-control" id="country" [(ngModel)]="admin.address.country" name="country" [hidden]="stage !== 2" ngModel required>
                         </div>
                     </div>
                     <div class="form-row mb-4">

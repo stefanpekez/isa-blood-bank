@@ -36,4 +36,15 @@ export class UsersService {
     });
     return this.http.get<Donator>(`${this.baseUrlDonator}${id}`, {headers: headers});
   }
+
+  public create(user: User) {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<User>(`${this.baseUrl}`, JSON.stringify(user), {headers: headers});
+  }
+
+  public getAllCenterAdmin() {
+    return this.http.get<User[]>(`${this.baseUrl}role/center`);
+  }
 }

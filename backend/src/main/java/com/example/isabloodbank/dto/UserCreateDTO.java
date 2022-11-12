@@ -23,19 +23,14 @@ public class UserCreateDTO {
     @NotNull
     private String surname;
     @NotNull
-    private Address address;
+    private AddressDTO address;
     @NotNull
     private String upin;
     @NotNull
     private String gender;
-    @NotNull
     private String occupation;
-    @NotNull
     private String workStatus;
-    @JsonIgnore
-    private Role role;
+    @NotNull
+    private String role;
 
-    public UserCreateDTO() {
-        this.role = Role.REGULAR;
-    }
 }

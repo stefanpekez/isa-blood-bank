@@ -36,9 +36,8 @@ public class CenterController {
         return new ResponseEntity<>(centers, HttpStatus.OK);
     }
 
-
     @PostMapping
-    public ResponseEntity<CenterDTO> create(@RequestBody CenterDTO centerDTO) {
+    public ResponseEntity<CenterDTO> create(@RequestBody CenterDTO centerDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(centerService.create(centerDTO));
     }
     @GetMapping("/{id}")

@@ -17,10 +17,10 @@ export class CenterService {
   }
 
   public create(centerCreateDTO: Center) {
-    console.log(this.baseUrl);
     var headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     return this.http.post(`${this.baseUrl}`, JSON.stringify(centerCreateDTO), {headers: headers});
   }
+  
 }

@@ -10,8 +10,7 @@ public interface ICenterService {
     List<Center> getAll();
     List<Center> getAll(String sortBy, String sortOrder);
 
-
-    CenterDTO create(CenterDTO center);
+    CenterDTO create(CenterDTO center) throws Exception;
 
     Center getById(Long id);
 

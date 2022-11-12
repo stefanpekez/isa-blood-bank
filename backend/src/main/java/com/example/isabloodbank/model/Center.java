@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,7 +34,7 @@ public class Center {
     private String workingHours;
     @OneToMany
     private List<Donator> donators = new ArrayList<>();
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> adminsCenter = new ArrayList<>();
     @OneToMany
     private List<Blood> typesOfBlood = new ArrayList<>();

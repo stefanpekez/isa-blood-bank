@@ -4,6 +4,9 @@ INSERT INTO address (country, street_name, street_number, town) values ('Serbia'
 INSERT INTO address (country, street_name, street_number, town) values ('Serbia', 'Sveti Nikola', '27', 'Novi Sad');
 INSERT INTO address (country, street_name, street_number, town) values ('England', 'Queens street', '12', 'London');
 INSERT INTO address (country, street_name, street_number, town) values ('England', 'Kings street', '24', 'London');
+INSERT INTO address (country, street_name, street_number, town) values ('Serbia', 'Jermenska', '54', 'Novi Sad');
+INSERT INTO address (country, street_name, street_number, town) values ('Serbia', 'Ohridska', '15', 'Novi Sad');
+INSERT INTO address (country, street_name, street_number, town) values ('Serbia', 'Mlinarska', '20', 'Beograd');
 
 -- CENTER
 
@@ -12,8 +15,11 @@ INSERT INTO center (description, donation_price, name, rating, working_hours, ad
 
 -- USER
 
-INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (2, 'john.johnson@gmail.com', 0, 'John',  'Student', '123', 0, 'Johnson', '0000000000001', 1, 4);
-INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (1, 'marko.markovic@gmail.com', 0, 'Marko', 'Worker', '123', 1, 'Markovic', '0000000000002', 2, 2);
+INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (null, 'john.johnson@gmail.com', 0, 'John',  'Student', '123', 0, 'Johnson', '0000000000001', 1, 4);
+INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (2, 'marko.markovic@gmail.com', 0, 'Marko', null, '123', 1, 'Markovic', '0000000000002', 2, 2);
+INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (null, 'zarko.zarkovic@gmail.com', 0, 'Zarko', null, '123', 1, 'Zarkovic', '0000000000003', 2, 5);
+INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (null, 'marija.marijanovic@gmail.com', 1, 'Marija', null, '123', 1, 'Marijanovic', '0000000000004', 2, 7);
+INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, work_status, address_id) values (null, 'nina.ninkovic@gmail.com', 1, 'Nina', null, '123', 2, 'Ninkovic', '0000000000005', 2, 6);
 
 -- BLOOD
 
