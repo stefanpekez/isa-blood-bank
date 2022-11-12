@@ -53,6 +53,11 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
     }
 
     @Override
+    public List<UserCreateDTO> entityToDtoList(List<User> users) {
+        return null;
+    }
+
+    @Override
     public User dtoToEntity(UserCreateDTO userCreateDTO) {
         User user = new User();
         user.setEmail(userCreateDTO.getEmail());

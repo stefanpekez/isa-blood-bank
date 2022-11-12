@@ -5,6 +5,8 @@ import com.example.isabloodbank.model.Center;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CenterMapper implements ObjectMapper<Center, CenterDTO> {
 
@@ -27,6 +29,11 @@ public class CenterMapper implements ObjectMapper<Center, CenterDTO> {
     }
 
     @Override
+    public List<CenterDTO> entityToDtoList(List<Center> centers) {
+        return null;
+    }
+
+    @Override
     public Center dtoToEntity(CenterDTO centerDTO) {
         Center center = new Center();
         center.setName(centerDTO.getName());
@@ -37,5 +44,10 @@ public class CenterMapper implements ObjectMapper<Center, CenterDTO> {
         center.setRating(Double.parseDouble(centerDTO.getRating()));
         center.setAdminsCenter(userMapper.dtoListToEntityList(centerDTO.getAdmins()));
         return center;
+    }
+
+    @Override
+    public List<Center> dtoListToEntityList(List<CenterDTO> centerDTOS) {
+        return null;
     }
 }

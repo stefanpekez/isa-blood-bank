@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/shared/address.model';
-import { UserService } from '../shared/user.service';
 import { User } from '../shared/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataTransferService } from 'src/app/shared/data-transfer.service';
+import { UsersService } from '../shared/users.service';
 
 @Component({
   selector: 'app-center-admin-create',
@@ -15,7 +15,7 @@ export class CenterAdminCreateComponent implements OnInit {
   admin: User = {} as User;
   addressTB: string = '';
 
-  constructor(private userService: UserService, private route: ActivatedRoute, 
+  constructor(private userService: UsersService, private route: ActivatedRoute, 
     private dataTransferService: DataTransferService) { }
 
   ngOnInit(): void {

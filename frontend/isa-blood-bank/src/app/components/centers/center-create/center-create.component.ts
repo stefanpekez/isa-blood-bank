@@ -1,10 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { setupTestingRouter } from '@angular/router/testing';
 import { Address } from 'src/app/shared/address.model';
-import { DataTransferService } from 'src/app/shared/data-transfer.service';
 import { User } from '../../users/shared/user.model';
-import { UserService } from '../../users/shared/user.service';
+import { UsersService } from '../../users/shared/users.service';
 import { Center } from '../shared/center.model';
 import { CenterService } from '../shared/center.service';
 
@@ -29,7 +27,7 @@ export class CenterCreateComponent implements OnInit {
   active: number = -1;
 
   constructor(private centerService: CenterService, 
-      private userService: UserService, private router: Router) { }
+      private userService: UsersService, private router: Router) { }
 
   ngOnInit(): void {
     this.setupUser();
