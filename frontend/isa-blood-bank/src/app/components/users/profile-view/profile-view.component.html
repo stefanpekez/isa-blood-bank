@@ -67,16 +67,24 @@
         </div> 
         <div class="row">
             <div class="col">
-                <label></label>
-                <button type="button" class="button" *ngIf="userType">Loyalty program</button>
+                <label *ngIf="userType">*Only after first blood donation loyalty program will be avaliable</label>
+                <button type="button" class="button" *ngIf="userType" data-bs-toggle="modal" data-bs-target="#LoyaltyModal" [disabled]="loyaltyStatus">Loyalty program</button>
             </div>
             <div class="col">
+              <div class="row"> 
+              <div class="col">
                 <label class="form-label" for="userStreetName">Street Name:</label>
                 <input type="text" class="form-control" id="userStreetName" name="userStreetName" [(ngModel)]="userObject.address.streetName" [disabled]="editStatus" ngModel required>
-            </div>
-            <div class="col">
+              </div>
+              <div class="col">
                 <label class="form-label" for="userStreetNumber">Street Number:</label>
                 <input type="text" class="form-control" id="userStreetNumber"  name="userStreetNumber" [(ngModel)]="userObject.address.streetNumber" [disabled]="editStatus" ngModel required>
+              </div> 
+             </div>  
+            </div>
+            <div class="col">
+                <label class="form-label" for="userTelefonNumber">Telefon Number:</label>
+                <input type="text" class="form-control" id="userTelefonNumber"  name="userTelefonNumber"  [disabled]="editStatus" ngModel required>
             </div>
         </div> 
         <div class="row">
@@ -86,8 +94,57 @@
                 <button type="button" class="button" (click)="enableEdit()">Edit profile</button>
             </div>
             <div class="col">
-                <button type="submit" class="button" (click)="saveChanges()" [disabled]="editStatus">Apply changes</button>
+                <button type="submit" class="button" (click)="saveChanges()" [disabled]="!userProfile.form.valid || editStatus">Apply changes</button>
             </div>
         </div> 
     </div>
 </form>
+
+
+<div class="modal fade" id="LoyaltyModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centred">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLabel">Your user loyalty status</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <form #loyaltyInformation="ngForm">
+              <div class="form-body">
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="donatorPoints">Points achieved:</label>
+                       <input type="text" class="form-control" id="donatorPoints" name="donatorPoints" [(ngModel)]="donatorObject.points" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="loyaltyType">Loyalty program type:</label>
+                       <input type="text" class="form-control" id="loyaltyType" name="loyaltyType" [(ngModel)]="donatorObject.loyalty" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="donatorPenalties">Penalties:</label>
+                       <input type="text" class="form-control" id="donatorPenalties" name="donatorPenalties" [(ngModel)]="donatorObject.penalties" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="donatorBloodType">Blood Type:</label>
+                       <input type="text" class="form-control" id="donatorBloodType" name="donatorBloodType" [(ngModel)]="donatorObject.bloodType" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                 </div>
+              </div>
+           </form>
+        </div>
+
+    </div>
+
+   </div>
+</div>

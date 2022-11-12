@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UsersService } from '../shared/users.service';
+import { Donator } from '../shared/donator.model';
 
 @Component({
   selector: 'app-profile-view',
@@ -18,18 +19,19 @@ export class ProfileViewComponent implements OnInit {
   newPassword: string = '';
   genderSelect = ["MALE", "FEMALE"];
   workStatusSelect = ['SCHOOL', 'UNIVERSITY', 'WORK'];
+  donatorObject : Donator = {} as Donator;
+  loyaltyStatus: boolean = true;
 
   constructor(private usersService: UsersService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params)=> {
       this.usersService.getUser(params['id'])
-      .subscribe((response:any) =>{
+      .subscribe((response:User) =>{
         this.userObject = response;
         this.checkRole();
       });
     })
-
   }
 
   enableEdit(){
@@ -40,6 +42,8 @@ export class ProfileViewComponent implements OnInit {
   checkRole(){
     if(this.userObject.role != "REGULAR"){
       this.userType = false;
+    }else{
+      this.showDonatorInfo();
     }
   }
 
@@ -47,12 +51,12 @@ export class ProfileViewComponent implements OnInit {
     if(this.oldPassword == this.userObject.password){
       this.userObject.password = this.newPassword;
       this.saveChanges();
-      this.clearPassword();
       alert('New password is set!')
     }else{
       alert('Password verification failed! Please check input');
-      this.clearPassword();
     }
+    
+    this.clearPassword();
   }
 
   clearPassword(){
@@ -65,12 +69,21 @@ export class ProfileViewComponent implements OnInit {
   }
 
   public saveChanges(){
-    //event.preventDefault();
     this.usersService.updateUser(this.userObject)
-      .subscribe((response: any) =>{
+      .subscribe((response: User) =>{
           window.location.reload();
       });
   }
 
-
+  public showDonatorInfo(){
+    this.route.params.subscribe((params: Params)=> {
+      this.usersService.getDonator(params['id'])
+      .subscribe((response:Donator) =>{
+        this.donatorObject = response;
+        if(this.donatorObject != null){
+          this.loyaltyStatus = false;
+        }
+      });
+    })
+  }
 }
