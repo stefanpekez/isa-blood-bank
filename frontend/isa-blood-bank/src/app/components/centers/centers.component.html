@@ -1,0 +1,60 @@
+<!--<div class="centers-table">
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Center Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Working Hours</th>
+                    <th scope="col">Rating</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">-->
+                <!-- <tr *ngFor="let center of centers; let row = index">
+                    <th scope="row">{{ row+1 }}</th>
+                    <td> {{center.name}} </td>
+                    <td> {{center.description}} </td>
+                    <td> {{center.address}} </td>
+                    <td> {{center.workingHours}} </td>
+                    <td> {{center.rating}} </td>
+                </tr> -->
+           <!-- </tbody>
+        </table>
+    </div>
+    <button (click)="loadCenters()">load centers</button>
+</div>-->
+<div class="search-container">
+            <label class="search-label">Search by:</label>
+            <input type="text" class="form-control search-field" placeholder="Enter name..." [(ngModel)]="name">
+            <input type="text" class="form-control search-field" placeholder="Enter street name..." [(ngModel)]="streetName">
+            <input type="text" class="form-control search-field" placeholder="Enter town name..." [(ngModel)]="townName">
+            <label class="select-label">Select minimal grade:</label>
+            <select class="ratingScale" (change)="filterRating($event)">
+                <option *ngFor="let r of ratingScore">{{r}}</option>
+            </select>
+</div>
+<div class="sort-container">
+    <label class="sort-label" for="btn btn-primary">Sort by:</label>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'name')">Name</button>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'city')">Town</button>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'rating')">Rating</button>
+    <h4 *ngIf="orderValues[sortOrder] !== ''">| {{orderValues[sortOrder]}}</h4>
+</div>
+<div class="container">
+    <div class="card" *ngFor="let c of centers | centerSearchComponent :name:streetName:townName;  let i = index;">
+        <div class="card-header">
+           <h3>{{c.name}}</h3>
+           <p>{{c.description}}</p>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i>Country:</i> {{c.address.country}}</li>
+                <li class="list-group-item"><i>Town:</i> {{c.address.town}}</li>
+                <li class="list-group-item"><i>Address:</i> {{c.address.streetName}} {{c.address.streetNumber}}</li>
+                <li class="list-group-item"><i>Average rating:</i> {{c.rating}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

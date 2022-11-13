@@ -1,0 +1,150 @@
+<form #userProfile="ngForm">
+    <div class="form-header">
+        <h1>Profile information</h1>
+    </div>
+    <div class="form-body">
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="userEmail">Email:</label>
+                <input type="text" class="form-control" id="userEmail" name="userEmail" [(ngModel)]="userObject.email" disabled ngModel required>
+            </div>
+            <div class="col">
+                <label class="form-label" for="userName">Name:</label>
+                <input type="text" class="form-control" id="userName" name="userName" [(ngModel)]="userObject.name" [disabled]="editStatus" ngModel required>
+            </div>
+            <div class="col">
+                <label class="form-label" for="userSurname">Surname:</label>
+                <input type="text" class="form-control" id="userSurname" name="userSurname" [(ngModel)]="userObject.surname" [disabled]="editStatus" ngModel required>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="userPassword">Current Password:</label>
+                <input type="password" class="form-control" id="userPassword" name="userPassword" [(ngModel)]="oldPassword" placeholder="Verify current password">
+            </div>
+            <div class="col">
+                <label class="form-label" for="userUPIN">UPIN:</label>
+                <input type="text" class="form-control" id="userUPIN" name="userUPIN" [(ngModel)]="userObject.upin" disabled>
+            </div>
+            <div class="col">
+                <label class="form-label" for="userOccupation">Occupation:</label>
+                <input type="text" class="form-control" id="userOccupation" name="userOccupation" [(ngModel)]="userObject.occupation" [disabled]="editStatus" ngModel required>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="newPassword">New Password:</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" [(ngModel)]="newPassword" [disabled]="oldPassword == ''" placeholder="Enter new password and save changes">
+            </div>
+            <div class="col">
+                <label class="form-label" for="userGender">Gender:</label>
+                <select class="form-select" id="userGender" name="userGender" [(ngModel)]="userObject.gender" [disabled]="editStatus">
+                    <option [value]="userObject.gender" selected>--{{userObject.gender}}--</option>
+                    <option *ngFor="let g of genderSelect" [value]="g">{{g}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label class="form-label" for="userWorkStatus">Work Status:</label>
+                <select class="form-select" id="userWorkStatus" name="userWorkStatus" [(ngModel)]="userObject.workStatus" [disabled]="editStatus">
+                    <option [value]="userObject.workStatus" >--{{userObject.workStatus}}--</option>
+                    <option *ngFor="let ws of workStatusSelect" [value]="ws">{{ws}}</option>
+                </select>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col">
+                <label></label>
+                <button type="submit" class="button" (click)="checkPassword()" [disabled]="newPassword == ''">Save new password</button>
+            </div>
+            <div class="col">
+                <label class="form-label" for="userCountry">Country:</label>
+                <input type="text" class="form-control" id="userCountry" name="userCountry" [(ngModel)]="userObject.address.country" [disabled]="editStatus" ngModel required>
+            </div>
+            <div class="col">
+                <label class="form-label" for="userTown">Town:</label>
+                <input type="text" class="form-control" id="userTown"  name="userTown" [(ngModel)]="userObject.address.town" [disabled]="editStatus" ngModel required>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col">
+                <label *ngIf="userType">*Only after first blood donation loyalty program will be avaliable</label>
+                <button type="button" class="button" *ngIf="userType" data-bs-toggle="modal" data-bs-target="#LoyaltyModal" [disabled]="loyaltyStatus">Loyalty program</button>
+            </div>
+            <div class="col">
+              <div class="row"> 
+              <div class="col">
+                <label class="form-label" for="userStreetName">Street Name:</label>
+                <input type="text" class="form-control" id="userStreetName" name="userStreetName" [(ngModel)]="userObject.address.streetName" [disabled]="editStatus" ngModel required>
+              </div>
+              <div class="col">
+                <label class="form-label" for="userStreetNumber">Street Number:</label>
+                <input type="text" class="form-control" id="userStreetNumber"  name="userStreetNumber" [(ngModel)]="userObject.address.streetNumber" [disabled]="editStatus" ngModel required>
+              </div> 
+             </div>  
+            </div>
+            <div class="col">
+                <label class="form-label" for="userTelefonNumber">Telefon Number:</label>
+                <input type="text" class="form-control" id="userTelefonNumber"  name="userTelefonNumber" [(ngModel)]="userObject.phoneNumber" [disabled]="editStatus" ngModel pattern="\+?[0-9]*" ngModel required>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <button type="button" class="button" (click)="enableEdit()">Edit profile</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="button" (click)="saveChanges()" [disabled]="editStatus || userObject.name == '' || userObject.surname =='' || userObject.occupation == '' || userObject.address.country == '' || userObject.address.town == '' || userObject.address.streetName == '' || userObject.address.streetNumber =='' || userObject.phoneNumber == ''">Apply changes</button>
+            </div>
+        </div> 
+    </div>
+</form>
+
+
+<div class="modal fade" id="LoyaltyModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centred">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLabel">Your user loyalty status</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <form #loyaltyInformation="ngForm">
+              <div class="form-body">
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="donatorPoints">Points achieved:</label>
+                       <input type="text" class="form-control" id="donatorPoints" name="donatorPoints" [(ngModel)]="donatorObject.points" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="loyaltyType">Loyalty program type:</label>
+                       <input type="text" class="form-control" id="loyaltyType" name="loyaltyType" [(ngModel)]="donatorObject.loyalty" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="donatorPenalties">Penalties:</label>
+                       <input type="text" class="form-control" id="donatorPenalties" name="donatorPenalties" [(ngModel)]="donatorObject.penalties" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <label class="form-label" for="donatorBloodType">Blood Type:</label>
+                       <input type="text" class="form-control" id="donatorBloodType" name="donatorBloodType" [(ngModel)]="donatorObject.bloodType" disabled>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                 </div>
+              </div>
+           </form>
+        </div>
+
+    </div>
+
+   </div>
+</div>

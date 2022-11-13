@@ -1,0 +1,70 @@
+/*.container{
+    width: 50%;
+    background-color: #b2ebf2;
+    border-radius: 10px;
+    
+}
+.header{
+    text-align: center;
+}
+.row{
+    padding: 10px;
+}
+.btn{
+    width: 200px;
+    background-color: #00bcd4;
+}
+
+.Apply{
+    margin-right: 0;
+}*/
+
+.button{
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+    width: 300px;
+}
+
+.row{
+    padding: 10px;
+}
+
+.col{
+    width: 35%;
+}
+
+.form-label{
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+.modal-header{
+    margin-bottom: 1%;
+    background-color: #00bcd4;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.btn-secondary{
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+}
+
+.LoyaltyModal{
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+.form-body .row .col{
+    margin-left: auto;
+    margin-right: auto;
+}

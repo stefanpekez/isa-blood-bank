@@ -1,0 +1,51 @@
+.container .search-container {
+    display: flex;
+    margin-top: 5%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.container .search-container input {
+    width: 40%;
+    border: 2px solid black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.container .search-container label {
+    font-weight: bolder;
+    font-size: 1.2em;
+}
+
+.sub-container {
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 2%;
+    overflow: hidden;
+}
+
+.container .sub-container .table .table-head {
+    background-color: #00bcd4;
+    color: white;
+    border-bottom: 2px solid black;
+    
+}
+
+.head-row th {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.body-row:hover {
+    cursor: pointer;
+}
+
+.body-row td {
+    font-weight: bold;
+    border-bottom: none;
+}
+
+.body-row th {
+    font-size: 1.1em;
+    border-bottom: none;
+}
