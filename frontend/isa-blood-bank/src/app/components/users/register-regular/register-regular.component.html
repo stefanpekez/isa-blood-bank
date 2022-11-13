@@ -15,7 +15,13 @@
                     <div class="form-row mb-4">
                         <div class="col-md-0">
                             <label for="password" class="form-label">Password</label>
-                            <input type="text" class="form-control" id="password" [(ngModel)]="user.password" name="userPassword" ngModel required>
+                            <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="userPassword" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="passwordAgain" class="form-label">Enter password again</label>
+                            <input type="password" class="form-control" id="passwordAgain" [(ngModel)]="passwordAgain" name="userPasswordAgain" ngModel required>
                         </div>
                     </div>
                     <div class="names form-row mb-4">
@@ -50,13 +56,29 @@
                             <label for="gender" class="form-label">Gender</label>
                             <select class="form-select" id="gender" #gender (change)="handleGender($event, gender.value)" required>
                                 <option disabled selected hidden>-- Select --</option>
-                                <option>Male</option>
-                                <option>Female</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
                             </select>
                         </div>
                         <div class="col-md-0">
                             <label for="phoneNumber" class="form-label">Phone Number</label>
                             <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="user.phoneNumber" name="userPhoneNumber" ngModel required>
+                        </div>
+                    </div>
+                    <div class="enums form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="workStatus" class="form-label">Work Status</label>
+                            <select class="form-select" id="workStatus" #status (change)="handleWorkStatus($event, status.value)" required>
+                                <option disabled selected hidden>-- Select --</option>
+                                <option value="SCHOOL">School</option>
+                                <option value="UNIVERSITY">University</option>
+                                <option value="WORK">Work</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-md-0">
+                            <label for="occupation" class="form-label">Occupation</label>
+                            <input type="text" class="form-control" id="occupation" [(ngModel)]="user.occupation" name="userOccupation" ngModel required>
                         </div>
                     </div>
                     <div class="form-row mb-4">

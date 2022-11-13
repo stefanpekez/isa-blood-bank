@@ -13,6 +13,7 @@ export class RegisterRegularComponent implements OnInit {
 
   public user: User = {} as User;
   public addressTB = '';
+  public passwordAgain = '';
 
   constructor(private userService: UsersService, private router: Router) { }
 
@@ -22,6 +23,12 @@ export class RegisterRegularComponent implements OnInit {
 
   public create(event: Event): void {
     event.preventDefault();
+
+    if(this.passwordAgain !== this.user.password) {
+      alert('Passwords are not the same');
+      return;
+    }
+
     this.user.role = "REGULAR";
     this.userService.create(this.user).subscribe(() => {
       this.router.navigate(['users']);
@@ -36,6 +43,11 @@ export class RegisterRegularComponent implements OnInit {
   public handleGender(event: Event, gender: string): void {
     event.preventDefault();
     this.user.gender = gender;
+  }
+
+  public handleWorkStatus(event: Event, status: string): void {
+    event.preventDefault();
+    this.user.workStatus = status;
   }
 
 }
