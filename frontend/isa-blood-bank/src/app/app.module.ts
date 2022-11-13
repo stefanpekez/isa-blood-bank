@@ -13,6 +13,7 @@ import { ProfileViewComponent } from './components/users/profile-view/profile-vi
 import { CenterAdminCreateComponent } from './components/users/center-admin-create/center-admin-create.component';
 import { UserNameSurnameFilterPipe } from './shared/user-name-surname-filter.pipe';
 import { QuestionnairesComponent } from './components/questionnaires/questionnaires.component';
+import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { QuestionnairesComponent } from './components/questionnaires/questionnai
     ProfileViewComponent,
     CenterAdminCreateComponent,
     UserNameSurnameFilterPipe,
-    QuestionnairesComponent
+    QuestionnairesComponent,
+    RegisterRegularComponent
   ],
   imports: [
     BrowserModule,
