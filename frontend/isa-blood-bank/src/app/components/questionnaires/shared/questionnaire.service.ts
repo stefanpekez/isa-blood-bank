@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { QuestionnaireCreate } from './questionnaire.model';
+import { Questionnaire, QuestionnaireCreate, QuestionnaireResponse } from './questionnaire.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +13,15 @@ export class QuestionnaireService {
 
   constructor(private http: HttpClient) { }
 
-  public getByUser(userEmail: string)  {
-    const response = this.http.get(this.baseUrl + `/${userEmail}`);
-    
+  public getByUser(userEmail: string): Observable<QuestionnaireResponse> {
+    return this.http.get<QuestionnaireResponse>(`${this.baseUrl}/${userEmail}`);
   }
   
-  public save(filledQuestionnaire: QuestionnaireCreate) {
-    let headers = new HttpHeaders({
+  public save(filledQuestionnaire: QuestionnaireCreate): Observable<Questionnaire> {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post(this.baseUrl, filledQuestionnaire, {headers: headers});
+    return this.http.post<Questionnaire>(this.baseUrl, filledQuestionnaire, {headers: headers});
   }
 
 }

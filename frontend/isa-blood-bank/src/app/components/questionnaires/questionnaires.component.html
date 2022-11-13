@@ -1,6 +1,28 @@
-<p>questionnaires works!</p>
-<div style="height: 100vh; display: flex;">
-   <div *ngFor="">
-        
+<div>
+    <h1>User: {{user}}</h1>
+   <div class="mx-0 mx-sm-auto" *ngFor="let question of questions; let i = index;">
+        <div class="text-center">
+            <p>
+                <strong>{{question.question}}</strong>
+            </p>
+        </div>
+
+        <div class="text-center mb-3">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="yes{{i}}" type="radio" id="yesRadio{{i}}"
+                    value="DA" [(ngModel)]="question.answer" />
+                <label class="form-check-label" for="yesRadio{{i}}">DA</label>
+                
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="no{{i}}" type="radio" id="noRadio{{i}}"
+                    value="NE" [(ngModel)]="question.answer"/>
+                <label class="form-check-label" for="noRadio{{i}}">NE</label>  
+            </div>
+        </div>
    </div> 
+    <div class="text-end">
+        <button type="button" class="btn btn-primary" (click)="saveQuestionnaire()" >Submit</button>
+    </div>
 </div>

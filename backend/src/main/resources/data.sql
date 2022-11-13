@@ -51,7 +51,7 @@ INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno da
 4. Da li ste nesto jeli pre dolaska na davanje krvi ili komponente krvi?-;
 5. Da li se bavite opasnim zanimanjem ili hobijem?-;
 6. Da li redovno (svakodnevno) uzimate bilo kakve lekove?-;
-7. Da li ste poslednja 2-3 dana uzimali bilo kakve lekove (Npr. Brufen, Kafetin, Analgin...)?-;
+7. Da li ste poslednja 2 do 3 dana uzimali bilo kakve lekove (Npr. Brufen, Kafetin, Analgin...)?-;
 8. Da li stalno uzimate aspirin? Da li ste ga uzimali u poslenjih 5 dana?-;
 9. Da li ste vadili zub u proteklih 7 dana?-;
 10. Da li ste u drugom stanju?-;

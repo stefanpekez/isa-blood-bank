@@ -8,7 +8,7 @@ export interface QuestionnaireResponse {
     template: Template;
 }
 
-interface Questionnaire {
+export interface Questionnaire {
     id: number;
     user: {email: string;};
     answers: string;
@@ -19,4 +19,7 @@ interface Template {
     data: string;
 }
 
-
+export interface Question {
+    question: string;
+    answer: string;
+}
