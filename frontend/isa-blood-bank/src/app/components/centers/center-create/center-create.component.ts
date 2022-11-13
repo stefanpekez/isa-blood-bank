@@ -20,7 +20,6 @@ export class CenterCreateComponent implements OnInit {
   adminAddressTB: string = '';
   adminTB: string = '';
   stage: number = 1;
-  maxStage: number = 1;
   admin: User = {} as User;
   isRegistering: boolean = false;
   listOfAdmins: User[] = [];
@@ -37,9 +36,9 @@ export class CenterCreateComponent implements OnInit {
 
   public handleNext(event: Event) {
     event.preventDefault();
-    this.manageStage();
     this.adminTB = this.admin.name + ' ' + this.admin.surname + ', ' + this.admin.upin;
-
+    this.stage += 1;
+    
     if (this.stage > 3) {
       console.log(this.admin);
       this.stage = 3;
@@ -75,15 +74,6 @@ export class CenterCreateComponent implements OnInit {
     this.center.rating = '0.0';
     this.center.address = {} as Address;
     this.center.admins = [];
-  }
-
-  private manageStage() {
-    if (this.stage < this.maxStage) {
-      this.stage += 1;
-    } else {
-      this.stage += 1;
-      this.maxStage += 1;
-    }
   }
 
   public handleGender(event: Event, gender: string) {
