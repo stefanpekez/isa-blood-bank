@@ -3,55 +3,40 @@
         <h1>{{centerObject.name}}</h1>
     </div>
     <div class="form-body">
-        <div class="row">
-            <div class="col">
+    <!-- <div class="wrapper"> -->
+            <div class="column-one">
                 <label class="form-label" for="centerName">Name:</label>
                 <input type="text" class="form-control" id="centerName" name="centerName" [(ngModel)]="centerObject.name"  ngModel required>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="col">
                 <label class="form-label" for="description">Description:</label>
                 <input type="text" class="form-control" id="description" name="description" [(ngModel)]="centerObject.description"  ngModel required>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="col">
                 <label class="form-label" for="rating">Rating:</label>
                 <input type="text" class="form-control" id="rating" name="rating" [(ngModel)]="centerObject.rating"  ngModel required>
+                <div style="margin: 40px;" >
+                    <ul>
+                        <h5>
+                            Administratori centra:
+                        </h5>
+                        <li *ngFor="let user of centerObject.adminsCenter">
+                            {{user.name}} {{user.surname}}, {{user.workStatus}}, {{user.email}}
+                        </li>
+                    </ul>
+                </div>   
             </div>
-        </div> 
-        <div class="row">
-            <div class="col">
+            <div class="column-one">
                 <label class="form-label" for="centerCountry">Country:</label>
                 <input type="text" class="form-control" id="centerCountry" name="centerCountry" [(ngModel)]="centerObject.address.country"  ngModel required>
-            </div>
-            <div class="col">
                 <label class="form-label" for="centerTown">Town:</label>
                 <input type="text" class="form-control" id="centerTown"  name="centerTown" [(ngModel)]="centerObject.address.town"  ngModel required>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="col">
                 <label class="form-label" for="centerStreetName">Street Name:</label>
                 <input type="text" class="form-control" id="centerStreetName" name="centerStreetName" [(ngModel)]="centerObject.address.streetName"  ngModel required>
-            </div>
-            <div class="col">
                 <label class="form-label" for="centerStreetNumber">Street Number:</label>
                 <input type="text" class="form-control" id="centerStreetNumber"  name="centerStreetNumber" [(ngModel)]="centerObject.address.streetNumber"  ngModel required>
+                <div class="button-div">
+                    <button type="submit" class="button" (click)="saveChanges()">Apply changes</button>
+                </div>
             </div>
-        </div> 
-        <ul>
-            <li *ngFor="let user of centerObject.adminsCenter">
-                {{user.name}} {{user.surname}}, {{user.workStatus}}, {{user.email}}
-            </li>
-        </ul>
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col">
-                <button type="submit" class="button" (click)="saveChanges()">Apply changes</button>
-            </div>
-        </div> 
+
+
     </div>
+    <!-- </div> -->
 </form>

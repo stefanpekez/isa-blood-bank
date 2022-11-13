@@ -31,7 +31,9 @@ INSERT INTO blood (amount, blood_type) values (5, 3);
 
 -- DONATOR
 
-INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (2, 0, 0, 20, 1);
+INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (2, 0, 0, 20, 3);
+INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (1, 0, 15, 20, 1);
+
 
 -- CENTER_DONATORS
 
