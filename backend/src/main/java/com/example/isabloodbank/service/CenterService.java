@@ -37,8 +37,7 @@ public class CenterService implements ICenterService {
     }
 
     @Override
-    public List<Center> getAll(String sortBy, String sortOrder) {
-        List<Center> centers = centerRepository.findAll();
+    public List<Center> getAll(String sortBy, String sortOrder, List<Center> centers) {
         centers.sort((c1, c2) -> {
             int order;
             if (sortOrder.equals("asc")) {
@@ -57,7 +56,7 @@ public class CenterService implements ICenterService {
         return centers;
     }
 
-    public CenterDTO create(@RequestBody CenterDTO centerDTO) throws Exception {
+    public CenterDTO create(CenterDTO centerDTO) throws Exception {
         Center center = centerMapper.dtoToEntity(centerDTO);
 
         List<Address> addresses = addressRepository.findAll();
@@ -102,6 +101,38 @@ public class CenterService implements ICenterService {
         return centerRepository.save(center);
     }
 
+    @Override
+    public List<Center> getAll(double filterBy) {
+        List<Center> centers = centerRepository.findAll();
+        List<Center> result = new ArrayList<Center>();
+        for(Center center: centers){
+            if(center.getRating() > filterBy){
+                result.add(center);
+            }
+        }
+        if(result.isEmpty()){
+            return null;
+        }
+        return result;
+    }
+
+    @Override
+    public List<Center> getAllBySearch(String searchName, String searchStreetName) {
+        List<Center> centers = centerRepository.findAll();
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(searchName.toLowerCase())
+                    && center.getAddress().getStreetName().toLowerCase().contains(searchStreetName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        if(result.isEmpty()){
+            return null;
+        }
+        return result;
+    }
+
     private Address addressInRepo(List<Address> addresses, Address address) {
         for (Address a: addresses) {
             if (!a.getStreetName().equals(address.getStreetName()))
@@ -116,4 +147,6 @@ public class CenterService implements ICenterService {
         }
         return null;
     }
+
+
 }

@@ -3,6 +3,7 @@ import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.service.ICenterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +23,19 @@ public class CenterController {
     ICenterService centerService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Center>> getAll(@RequestParam("sort-order") Optional<String> sortOrder, @RequestParam("sort-by") Optional<String> sortBy) {
+    public ResponseEntity<List<Center>> getAll(@RequestParam("sort-order") Optional<String> sortOrder, @RequestParam("sort-by") Optional<String> sortBy, @RequestParam("filter-by") Optional<Double> filterBy) {
         List<Center> centers;
+        if(filterBy.isPresent()){
+            centers = centerService.getAll(filterBy.get());
+        }else{
+            centers = centerService.getAll();
+        }
         if (sortOrder.isPresent() && sortBy.isPresent()) {
             if ((!sortOrder.get().equals("asc") && !sortOrder.get().equals("desc")) ||
                     (!sortBy.get().equals("name") && !sortBy.get().equals("city") && !sortBy.get().equals("rating"))) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
-            centers = centerService.getAll(sortBy.get(), sortOrder.get());
-        } else {
-            centers = centerService.getAll();
+            centers = centerService.getAll(sortBy.get(), sortOrder.get(), centers);
         }
         return new ResponseEntity<>(centers, HttpStatus.OK);
     }
@@ -48,5 +52,18 @@ public class CenterController {
     public Center edit(@RequestBody Center center, @PathVariable("id") Long id){
         return centerService.edit(center, id);
 
+    }
+
+    @GetMapping("/filterCenter")
+    @ResponseBody
+    public ResponseEntity<List<Center>> getAllBySearch(@RequestParam("filterBy") Optional<Double> filterBy){
+        List<Center> centers;
+        if(filterBy.isPresent()){
+            centers = centerService.getAll(filterBy.get());
+        }else{
+            centers = centerService.getAll();
+        }
+
+        return new ResponseEntity<>(centers, HttpStatus.OK);
     }
 }
