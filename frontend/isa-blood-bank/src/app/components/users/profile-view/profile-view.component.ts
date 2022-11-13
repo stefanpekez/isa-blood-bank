@@ -3,6 +3,7 @@ import { User } from '../shared/user.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UsersService } from '../shared/users.service';
 import { Donator } from '../shared/donator.model';
+import { Address } from 'src/app/shared/address.model';
 
 @Component({
   selector: 'app-profile-view',
@@ -21,10 +22,10 @@ export class ProfileViewComponent implements OnInit {
   workStatusSelect = ['SCHOOL', 'UNIVERSITY', 'WORK'];
   donatorObject : Donator = {} as Donator;
   loyaltyStatus: boolean = true;
-
   constructor(private usersService: UsersService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.userObject.address = {} as Address;
     this.route.params.subscribe((params: Params)=> {
       this.usersService.getUser(params['id'])
       .subscribe((response:User) =>{

@@ -14,7 +14,10 @@ export class CenterService {
   constructor(private http: HttpClient) { }
 
   public getAll() {
-    return this.http.get(`${this.baseUrl}`);
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<Center[]>(`${this.baseUrl}`, {headers: headers});
   }
 
   public create(centerCreateDTO: Center) {
@@ -38,4 +41,12 @@ export class CenterService {
     });
      return this.http.put<Center>(`${this.baseUrl}/${center.id}`, JSON.stringify(center), {headers: headers})
   }
+
+  public filterByRating(filterBy:number){
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<Center[]>(`${this.baseUrl}?filter-by=${filterBy}`, {headers: headers});
+  }
+  
 }

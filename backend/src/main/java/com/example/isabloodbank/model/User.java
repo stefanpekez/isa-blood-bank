@@ -43,6 +43,7 @@ public class User {
     private WorkStatus workStatus;
     @Column
     private Role role;
+    @Column
     private Long centerId;
 
 }
