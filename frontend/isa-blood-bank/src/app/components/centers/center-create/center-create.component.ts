@@ -48,7 +48,8 @@ export class CenterCreateComponent implements OnInit {
       this.center.admins = [];
       this.center.admins.push(this.admin);
       this.centerService.create(this.center).subscribe((response: any) => {
-        this.router.navigate(['']);
+        // this.router.navigate(['']);
+        console.log(response);
       });
     }
 

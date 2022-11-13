@@ -43,7 +43,6 @@ public class User {
     private WorkStatus workStatus;
     @Column
     private Role role;
-    @ManyToOne
-    private Center center;
+    private Long centerId;
 
 }

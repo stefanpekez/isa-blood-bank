@@ -51,7 +51,7 @@ public class UserService implements IUserService{
         for (User user: users) {
             if (!(user.getRole() == Role.ADMIN_CENTER))
                 continue;
-            if(!(user.getCenter() == null))
+            if(!(user.getCenterId() == null))
                 continue;
 
             centerAdmins.add(userMapper.entityToDto(user));
