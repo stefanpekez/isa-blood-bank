@@ -48,5 +48,30 @@ export class CenterService {
     });
     return this.http.get<Center[]>(`${this.baseUrl}?filter-by=${filterBy}`, {headers: headers});
   }
+
+  public getCenters(filterBy?: number, sortBy?: string, sortOrder?: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    
+    if((!filterBy && !sortBy && !sortOrder) || (filterBy === -1.0 && sortOrder === '')) {
+      return this.http.get<Center[]>(`${this.baseUrl}`, {headers: headers});
+    } 
+
+    const filterParam = `filter-by=${filterBy}`;
+    const sortByParam = `sort-by=${sortBy}`;
+    const sortOrderParam = `sort-order=${sortOrder}`;
+
+    let url: string;
+    if(filterBy !== -1.0 && sortOrder !== '') {
+      url = `${this.baseUrl}?${filterParam}&${sortByParam}&${sortOrderParam}`;
+    } else if (filterBy === -1.0) {
+      url = `${this.baseUrl}?${sortByParam}&${sortOrderParam}`;
+    } else {
+      url = `${this.baseUrl}?${filterParam}`;
+    }
+
+    return this.http.get<Center[]>(url, {headers: headers});
+  }
   
 }
