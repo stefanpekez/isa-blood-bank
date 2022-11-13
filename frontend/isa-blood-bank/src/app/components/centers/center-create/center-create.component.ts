@@ -47,10 +47,11 @@ export class CenterCreateComponent implements OnInit {
       this.center.admins = [];
       this.center.admins.push(this.admin);
       this.centerService.create(this.center).subscribe((response: any) => {
-        // this.router.navigate(['']);
-        console.log(response);
-      });
-    }
+        this.router.navigate([''])
+        }, (error: Error) => {
+          alert('Center with this address already exists');
+        });
+      }
 
   }
 
