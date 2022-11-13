@@ -84,7 +84,7 @@
             </div>
             <div class="col">
                 <label class="form-label" for="userTelefonNumber">Telefon Number:</label>
-                <input type="text" class="form-control" id="userTelefonNumber"  name="userTelefonNumber"  [disabled]="editStatus" ngModel required>
+                <input type="text" class="form-control" id="userTelefonNumber"  name="userTelefonNumber" [(ngModel)]="userObject.phoneNumber" [disabled]="editStatus" ngModel pattern="\+?[0-9]*" ngModel required>
             </div>
         </div> 
         <div class="row">

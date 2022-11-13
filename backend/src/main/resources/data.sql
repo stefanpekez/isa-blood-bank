@@ -15,11 +15,13 @@ INSERT INTO center (description, donation_price, name, rating, working_hours, ad
 
 -- USER
 
+
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, phone_number, work_status, address_id) values (null, 'john.johnson@gmail.com', 0, 'John',  'Student', '123', 0, 'Johnson', '0000000000001', '065-1236367', 1, 4);
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, phone_number, work_status, address_id) values (2, 'marko.markovic@gmail.com', 0, 'Marko', null, '123', 1, 'Markovic', '0000000000002', '062-2645377', 2, 2);
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, phone_number, work_status, address_id) values (null, 'zarko.zarkovic@gmail.com', 0, 'Zarko', null, '123', 1, 'Zarkovic', '0000000000003', '065-7387897', 2, 5);
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, phone_number, work_status, address_id) values (null, 'marija.marijanovic@gmail.com', 1, 'Marija', null, '123', 1, 'Marijanovic', '0000000000004', '064-2136597', 2, 7);
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role, surname, upin, phone_number, work_status, address_id) values (null, 'nina.ninkovic@gmail.com', 1, 'Nina', null, '123', 2, 'Ninkovic', '0000000000005', '063-2435632', 2, 6);
+
 
 -- BLOOD
 
@@ -29,7 +31,9 @@ INSERT INTO blood (amount, blood_type) values (5, 3);
 
 -- DONATOR
 
-INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (2, 0, 0, 20, 1);
+INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (2, 0, 0, 20, 3);
+INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (1, 0, 15, 20, 1);
+
 
 -- CENTER_DONATORS
 

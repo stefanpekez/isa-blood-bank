@@ -13,4 +13,5 @@ export interface User{
     occupation: string;
     workStatus: string;
     role: string;
+    centerId: number;
 }
