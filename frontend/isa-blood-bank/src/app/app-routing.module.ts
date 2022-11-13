@@ -5,12 +5,14 @@ import { CenterAdminCreateComponent } from './components/users/center-admin-crea
 import { ProfileViewComponent } from './components/users/profile-view/profile-view.component';
 import { UsersComponent } from './components/users/users.component';
 import { QuestionnairesComponent } from './components/questionnaires/questionnaires.component';
+import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent},
   {path: 'questionnaires', component: QuestionnairesComponent},
   {path: 'users/profile-view/:id' , component: ProfileViewComponent},
   {path: 'users/create', component: CenterAdminCreateComponent},
+  {path: 'users/register', component: RegisterRegularComponent},
   {path: 'users', component: UsersComponent}
 ];
 

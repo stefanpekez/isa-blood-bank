@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Donator } from './donator.model';
-import { UserTable } from './user-table.model';
 import { User } from './user.model';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { User } from './user.model';
 export class UsersService {
 
   baseUrl: string = environment.baseApiUrl + '/users/';
-  baseUrlDonator = environment.baseApiUrl + '/donators/'
+  baseUrlDonator = environment.baseApiUrl + '/donators/';
   
   
   constructor(private http: HttpClient) { }
@@ -39,10 +38,10 @@ export class UsersService {
   }
 
   public create(user: User) {
-    var headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<User>(`${this.baseUrl}`, JSON.stringify(user), {headers: headers});
+    return this.http.post<User>(this.baseUrl, JSON.stringify(user), {headers: headers});
   }
 
   public getAllCenterAdmin() {
