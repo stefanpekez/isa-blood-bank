@@ -36,7 +36,11 @@
             </select>
 </div>
 <div class="sort-container">
-
+    <label class="sort-label" for="btn btn-primary">Sort by:</label>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'name')">Name</button>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'city')">Town</button>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'rating')">Rating</button>
+    <h4 *ngIf="orderValues[sortOrder] !== ''">| {{orderValues[sortOrder]}}</h4>
 </div>
 <div class="container">
     <div class="card" *ngFor="let c of centers | centerSearchComponent :name:streetName:townName;  let i = index;">

@@ -48,7 +48,7 @@
     margin-left: 2%;
 }
 
-.search-label{
+.search-label, .sort-label{
     margin-left: 5%;
 }
 
@@ -72,5 +72,15 @@
     height: 50px;
     /*box-shadow: rgba(0, 0, 0, 0.35) 15px 15px 20px;*/
     border-bottom: solid rgba(0, 0, 0, 0.35) ;
+}
+
+.sort-container h4 {
+    margin-left: 1%;
+}
+
+.btn-primary {
+    margin-left: 3%;
+    background-color: #5dd7e7;
+    color: #ffffff;
 }
 
