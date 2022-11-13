@@ -67,23 +67,25 @@ public class CenterService implements ICenterService {
         if (userService.findUserByEmail(admin.getEmail()).isPresent()) {
             admin = userService.findUserByEmail(admin.getEmail()).get();
         }
-        admin.setCenter(center);
-        admins.add(admin);
-
-        center.setAdminsCenter(admins);
 
         Address centerAddress = addressInRepo(addresses, center.getAddress());
         if (centerAddress != null)
             center.setAddress(centerAddress);
 
+        if (centerRepository.findCenterByAddressId(center.getAddress().getId()).isPresent())
+            throw new Exception("Center located on that address already exists");
+
         Address adminAddress = addressInRepo(addresses, admin.getAddress());
         if (adminAddress != null)
             admin.setAddress(adminAddress);
 
-        if (centerRepository.findCenterByAddressId(center.getAddress().getId()).isPresent())
-            throw new Exception("Center located on that address already exists");
+        admins.add(admin);
+        center.setAdminsCenter(admins);
 
-        return centerMapper.entityToDto(centerRepository.save(center));
+        center = centerRepository.save(center);
+        admin.setCenterId(center.getId());
+        userService.create(admin);
+        return centerMapper.entityToDto(center);
     }
     public Center getById(Long id) {
         Optional<Center> center = centerRepository.findById(id);
