@@ -3,7 +3,6 @@ package com.example.isabloodbank.mapper;
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.model.enums.Gender;
-import com.example.isabloodbank.model.enums.Role;
 import com.example.isabloodbank.model.enums.WorkStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,9 +41,9 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
             userCreateDTO.setWorkStatus("UNIVERSITY");
         }
 
-        if (user.getRole() == Role.REGULAR) {
+        if (user.getRole().equals("REGULAR")) {
             userCreateDTO.setRole("REGULAR");
-        } else if (user.getRole() == Role.ADMIN_CENTER) {
+        } else if (user.getRole().equals("ADMIN_CENTER")) {
             userCreateDTO.setRole("ADMIN_CENTER");
         } else {
             userCreateDTO.setRole("ADMIN_SYSTEM");
@@ -87,13 +86,13 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
             }
         }
 
-        if (userCreateDTO.getRole().equals("REGULAR")) {
-            user.setRole(Role.REGULAR);
-        } else if (userCreateDTO.getRole().equals("ADMIN_CENTER")) {
-            user.setRole(Role.ADMIN_CENTER);
-        } else {
-            user.setRole(Role.ADMIN_SYSTEM);
-        }
+//        if (userCreateDTO.getRole().equals("REGULAR")) {
+//            user.setRole("REGULAR");
+//        } else if (userCreateDTO.getRole().equals("")) {
+//            user.setRole("ADMIN_CENTER");
+//        } else {
+//            user.setRole("ADMIN_SYSTEM");
+//        }
 
         return user;
     }

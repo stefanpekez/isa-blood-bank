@@ -3,9 +3,11 @@ package com.example.isabloodbank.service;
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.mapper.UserMapper;
 import com.example.isabloodbank.model.User;
-import com.example.isabloodbank.model.enums.Role;
 import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService, UserDetailsService {
     @Autowired
     IUserRepository userRepository;
 
@@ -45,11 +47,13 @@ public class UserService implements IUserService{
         return userRepository.findOneByEmail(email);
     }
 
+
+    /** TODO: Fix role retrieval */
     public List<UserCreateDTO> getAllUnemployedAdmins() {
         List<User> users = userRepository.findAll();
         List<UserCreateDTO> centerAdmins = new ArrayList<>();
         for (User user: users) {
-            if (!(user.getRole() == Role.ADMIN_CENTER))
+            if (!(user.getRole().equals("ADMIN_CENTER")))
                 continue;
             if(!(user.getCenterId() == null))
                 continue;
@@ -66,5 +70,15 @@ public class UserService implements IUserService{
 
     public Optional<User> findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findOneByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
+        } else {
+            return user;
+        }
     }
 }

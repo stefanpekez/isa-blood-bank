@@ -5,6 +5,7 @@ import com.example.isabloodbank.model.enums.Loyalty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +25,6 @@ public class Donator {
     private int penalties;
     @Column
     private int points;
+    @ManyToMany
+    private List<Center> center;
 }
