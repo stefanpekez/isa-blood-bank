@@ -30,4 +30,7 @@ public class Appointment {
 
     @Column
     private boolean isReserved;
+
+    @ManyToOne
+    private WorkCalendar workCalendar;
 }

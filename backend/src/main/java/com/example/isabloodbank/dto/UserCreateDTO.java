@@ -1,15 +1,8 @@
 package com.example.isabloodbank.dto;
 
-import com.example.isabloodbank.model.Address;
-import com.example.isabloodbank.model.enums.Gender;
-import com.example.isabloodbank.model.enums.Role;
-import com.example.isabloodbank.model.enums.WorkStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter

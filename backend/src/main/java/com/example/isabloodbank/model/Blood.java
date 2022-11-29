@@ -19,4 +19,6 @@ public class Blood {
     private BloodType bloodType;
     @Column
     private int amount;
+    @Column
+    private Long centerId;
 }
