@@ -1,0 +1,70 @@
+#adminForm {
+    width: 100%;
+    background-color: violet;
+}
+
+.container-fluid {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    height: 80%;
+    align-items: center;
+}
+
+.container-fluid .container-fluid-rounded {
+    border-radius: 5px;
+    height: 100%;
+}
+
+.container-fluid .container-fluid-rounded .form-group {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+.container-fluid .container-fluid-rounded .form-group .form-header {
+    margin-bottom: 1%;
+    background-color: #00bcd4;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.container-fluid .container-fluid-rounded .form-group .form-header h1 {
+    margin-left: 3%;
+    padding-bottom: 1%;
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+}
+
+.container-fluid .container-fluid-rounded .form-group .form-body {
+    padding: 5%;
+}
+
+.container-fluid .container-fluid-rounded .form-group .form-body label {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+
+.submit-button {
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+}
+
+.form-label {
+    word-wrap: break-word;
+}

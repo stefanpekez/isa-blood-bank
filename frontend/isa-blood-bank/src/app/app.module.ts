@@ -15,6 +15,7 @@ import { UserNameSurnameFilterPipe } from './shared/user-name-surname-filter.pip
 import { QuestionnairesComponent } from './components/questionnaires/questionnaires.component';
 import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter.pipe';
+import { LoginComponent } from './components/users/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter
     UserNameSurnameFilterPipe,
     QuestionnairesComponent,
     RegisterRegularComponent,
-    CenterNameAddressFilterPipe
+    CenterNameAddressFilterPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

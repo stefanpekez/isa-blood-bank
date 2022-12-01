@@ -8,6 +8,7 @@ import { UsersComponent } from './components/users/users.component';
 import { QuestionnairesComponent } from './components/questionnaires/questionnaires.component';
 import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 import { CenterUpdateComponent } from './components/centers/center-update/center-update.component';
+import { LoginComponent } from './components/users/login/login.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'users/profile-view/:id' , component: ProfileViewComponent},
   {path: 'users/create', component: CenterAdminCreateComponent},
   {path: 'users/register', component: RegisterRegularComponent},
+  {path: 'users/login', component: LoginComponent},
   {path: 'users', component: UsersComponent},
   {path: 'centers/create', component: CenterCreateComponent},
   {path: 'centers/view/:id' , component: CenterUpdateComponent},
