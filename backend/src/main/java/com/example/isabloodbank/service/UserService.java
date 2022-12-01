@@ -2,12 +2,14 @@ package com.example.isabloodbank.service;
 
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.mapper.UserMapper;
+import com.example.isabloodbank.model.Role;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,8 +24,21 @@ public class UserService implements IUserService, UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleService roleService;
+
     @Override
-    public User create(User user) {
+    public User create(User user, String role) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        List<Role> roles;
+
+        if(role == null) roles = roleService.findByName("ROLE_REGULAR");
+        else roles = roleService.findByName(role);
+
+        user.setRole(roles.get(0));
         return userRepository.save(user);
     }
 
@@ -73,10 +88,10 @@ public class UserService implements IUserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findOneByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findOneByEmail(username);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
+            throw new UsernameNotFoundException(String.format("No user found with email '%s'.", username));
         } else {
             return user;
         }

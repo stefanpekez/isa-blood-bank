@@ -17,17 +17,6 @@ public class UserController {
     @Autowired
     IUserService userService;
 
-    @Autowired
-    private UserMapper userMapper;
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@RequestBody UserCreateDTO user) {
-        User newUser = new User();
-        newUser = userMapper.dtoToEntity(user);
-        newUser = userService.create(newUser);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
-
     @GetMapping
     public ResponseEntity<List<UserCreateDTO>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
