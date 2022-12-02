@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="calendar-view-container">
+        <div class="calendar-header">
+            <div class="time-period-container">
+                <button (click)="changeMonth(-1)"><</button>
+                <label class="time-period-label">{{ currentMonth }}</label>
+                <button (click)="changeMonth(1)">></button>
+            </div>
+            <div class="time-span-container">
+                <button class="btn btn-primary">
+                    Month
+                </button>
+                <button class="btn btn-primary">
+                    Week
+                </button>
+                <button class="btn btn-primary">
+                    Day
+                </button>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <div class="month-view">
+                <div class="time-slot" *ngFor="let item of [].constructor(30); let i = index;">
+                    <label class="day-label">{{ i+1 }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="calendar-footer">
+
+        </div>
+    </div>
+</div>

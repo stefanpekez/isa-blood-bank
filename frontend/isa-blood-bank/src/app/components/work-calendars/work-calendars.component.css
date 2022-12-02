@@ -1,0 +1,122 @@
+.container-fluid {
+    width: 90%;
+    height: 55em;
+    margin-top: 1%;
+    border: 2px solid black;
+    display: flex;
+}
+
+.container-fluid .calendar-view-container {
+    width: 100%;
+    margin-top: 1%;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-header {
+    width: 100%;
+    height: 5%;
+    /* border: 2px solid black; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-header .time-period-container {
+    /* width: 100%;
+    height: 5%; */
+    /* border: 2px solid black; */
+    display: flex;
+}
+.container-fluid .calendar-view-container 
+.calendar-header .time-period-container
+.time-period-label {
+    /* width: 100%;
+    height: 5%; */
+    /* border: 2px solid black; */
+    display: flex;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-header .time-period-container
+button {
+    /* width: 100%;
+    height: 5%; */
+    /* border: 2px solid black; */
+    border: none;
+    display: flex;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-header .time-span-container {
+    width: fit-content;
+    height: 100%;
+    /* border: 2px solid blue; */
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.container-fluid .calendar-view-container .calendar-body {
+    height: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /* border: 2px solid black; */
+    display: flex;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .month-view {
+    width: 100%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .month-view .time-slot {
+    width: 14.03%;
+    height: 18%;
+    margin-left: 0.3%;
+    border: 2px solid lightcoral;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .month-view 
+.time-slot:nth-child(7n+1) {
+    margin-left: 0%;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .month-view 
+.time-slot:nth-child(30n) {
+    justify-self: flex-start;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .month-view .time-slot:hover {
+    cursor: pointer;
+    border: 2px solid black;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    background-color: rgb(247, 247, 247);
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .month-view .time-slot
+.day-label {
+    font-weight: 800;
+    font-size: 1.4em;
+    margin-left: 2%;
+}
+
+.container-fluid .calendar-view-container .calendar-footer {
+    display: flex;
+}
