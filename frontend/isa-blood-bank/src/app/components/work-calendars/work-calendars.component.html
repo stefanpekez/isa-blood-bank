@@ -2,9 +2,9 @@
     <div class="calendar-view-container">
         <div class="calendar-header">
             <div class="time-period-container">
-                <button (click)="changeMonth(-1)"><</button>
+                <button class="btn btn-primary" (click)="changeMonth(-1)"><</button>
                 <label class="time-period-label">{{ currentMonth }}</label>
-                <button (click)="changeMonth(1)">></button>
+                <button class="btn btn-primary" (click)="changeMonth(1)">></button>
             </div>
             <div class="time-span-container">
                 <button class="btn btn-primary">
@@ -19,9 +19,18 @@
             </div>
         </div>
         <div class="calendar-body">
+            <div class="day-bar">
+                <label>Sunday</label>
+                <label>Monday</label>
+                <label>Tuesday</label>
+                <label>Wednesday</label>
+                <label>Thursday</label>
+                <label>Friday</label>
+                <label>Saturday</label>
+            </div>
             <div class="month-view">
-                <div class="time-slot" *ngFor="let item of [].constructor(30); let i = index;">
-                    <label class="day-label">{{ i+1 }}</label>
+                <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of calendarItems;">
+                    <label class="day-label">{{ item.id }}</label>
                 </div>
             </div>
         </div>
