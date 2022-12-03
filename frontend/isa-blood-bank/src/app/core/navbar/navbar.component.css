@@ -21,3 +21,13 @@
     font-weight: bold;
     font-size: 24px;
 }
+
+.nav-buttons {
+    display: flex;
+}
+
+.nav-buttons button {
+    margin-left: 10px;
+    margin-top: 5%;
+    height: 40px;
+}

@@ -5,5 +5,6 @@ export interface LoginCredentials {
 
 export interface UserTokenState {
     accessToken: string,
-    expiresIn: number
+    expiresIn: number,
+    role: string
 }

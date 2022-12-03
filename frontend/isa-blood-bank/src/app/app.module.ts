@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CentersComponent } from './components/centers/centers.component';
 import { CenterCreateComponent } from './components/centers/center-create/center-create.component';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { QuestionnairesComponent } from './components/questionnaires/questionnai
 import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter.pipe';
 import { LoginComponent } from './components/users/login/login.component';
+import { TokenInterceptor } from './components/users/shared/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,13 @@ import { LoginComponent } from './components/users/login/login.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
