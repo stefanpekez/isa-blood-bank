@@ -83,7 +83,7 @@ public class CenterService implements ICenterService {
 
         center = centerRepository.save(center);
         admin.setCenterId(center.getId());
-        userService.create(admin);
+        userService.create(admin, "ROLE_ADMIN_CENTER");
         return centerMapper.entityToDto(center);
     }
     public Center getById(Long id) {

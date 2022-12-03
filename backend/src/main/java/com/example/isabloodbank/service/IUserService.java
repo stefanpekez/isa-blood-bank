@@ -6,7 +6,7 @@ import com.example.isabloodbank.model.User;
 import java.util.List;
 
 public interface IUserService {
-    User create(User user);
+    User create(User user, String role);
 
     User getById(Long id);
 

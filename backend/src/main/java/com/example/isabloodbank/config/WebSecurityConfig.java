@@ -62,11 +62,12 @@ public class WebSecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+        http.csrf().disable();
         http.authorizeRequests().antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), BasicAuthenticationFilter.class);
-        http.csrf().disable();
+
         http.authenticationProvider(authenticationProvider());
 
         return http.build();

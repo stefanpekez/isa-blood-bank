@@ -27,9 +27,6 @@ public class TokenUtils {
     @Value("Authorization")
     private String AUTH_HEADER;
 
-    private static final String AUDIENCE_WEB = "web";
-
-    // Algoritam za potpisivanje JWT
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     public String generateToken(String email) {
