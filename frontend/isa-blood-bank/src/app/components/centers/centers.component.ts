@@ -10,11 +10,13 @@ import { CenterService } from './shared/center.service';
 export class CentersComponent implements OnInit {
 
   centers: Center[] = [];
-  name: string = "";
-  streetName: string ="";
-  townName: string = "";
-  ratingScore: String[] = ["1","2","3","4","5"];
-  selectRating = -1.0;
+  name: string = '';
+  streetName: string ='';
+  townName: string = '';
+  ratingScoreMin: number[] = [1.0, 2.0, 3.0, 4.0];
+  ratingScoreMax: number[] = [5.0, 4.0, 3.0, 2.0];
+  selectRatingMin = -1.0;
+  selectRatingMax = -1.0;
   sortBy = '';
   sortOrder = 0;
   orderValues = ['', 'asc', 'desc']
@@ -26,20 +28,28 @@ export class CentersComponent implements OnInit {
   }
 
   public loadCenters() {
-    if(this.selectRating === -1.0 && this.orderValues[this.sortOrder] === '') {
+    if((this.selectRatingMin === -1.0 && this.selectRatingMax === -1.0 && this.orderValues[this.sortOrder] === '' && this.name === '' && this.streetName === '' && this.townName === '')
+       ||( this.selectRatingMax <= this.selectRatingMin && (this.selectRatingMin !== -1.0 || this.selectRatingMax !== -1.0))) {
       this.centerService.getCenters().subscribe((response: Center[])=>{
         this.centers = response;
       })  
     } else {
-      this.centerService.getCenters(this.selectRating, this.sortBy, this.orderValues[this.sortOrder]).subscribe((response: Center[])=>{
+      this.centerService.getCenters(this.selectRatingMin, this.selectRatingMax, this.sortBy, this.orderValues[this.sortOrder], this.name, this.streetName, this.townName).subscribe((response: Center[])=>{
         this.centers = response;
       })  
     }
   }
 
-  public filterRating(event:any){
-    this.selectRating = event.target.value;
-    this.loadCenters();
+  public filterRatingMin(event:any){
+    event.preventDefault();
+    if(this.selectRatingMin < this.selectRatingMax)
+      this.loadCenters();
+  }
+
+  public filterRatingMax(event:any){
+    event.preventDefault();
+    if(this.selectRatingMax > this.selectRatingMin)
+      this.loadCenters();
   }
 
   public handleSort(event: Event, value: string) {
@@ -53,4 +63,15 @@ export class CentersComponent implements OnInit {
     this.loadCenters();
   } 
 
+  public searchCenters(){
+    if(this.name !== '' || this.streetName !== '' || this.townName !== '')
+      this.loadCenters();
+  }
+
+  public clearSearchInputs(){
+    this.name = '';
+    this.streetName = '';
+    this.townName = '';
+    this.loadCenters();
+  }
 }

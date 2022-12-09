@@ -49,28 +49,35 @@ export class CenterService {
     return this.http.get<Center[]>(`${this.baseUrl}?filter-by=${filterBy}`, {headers: headers});
   }
 
-  public getCenters(filterBy?: number, sortBy?: string, sortOrder?: string) {
+  public getCenters(filterMin?: number, filterMax?: number, sortBy?: string, sortOrder?: string, searchName?: string, searchStreet?: string, searchTown?: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     
-    if((!filterBy && !sortBy && !sortOrder) || (filterBy === -1.0 && sortOrder === '')) {
+    if((!filterMin && !filterMax && !sortBy && !sortOrder) || (filterMin === -1.0 && filterMax === -1.0 && sortOrder === '' && searchName === '' && searchStreet === '' && searchTown === '')) {
       return this.http.get<Center[]>(`${this.baseUrl}`, {headers: headers});
     } 
 
-    const filterParam = `filter-by=${filterBy}`;
+    const filterParamMin = `filter-min=${filterMin}`;
+    const filterParamMax = `filter-max=${filterMax}`;
     const sortByParam = `sort-by=${sortBy}`;
     const sortOrderParam = `sort-order=${sortOrder}`;
+    const searchNameParam = `search-name=${searchName}`;
+    const searchStreetParam = `search-street=${searchStreet}`;
+    const searchTownParam = `search-town=${searchTown}`;
 
     let url: string;
-    if(filterBy !== -1.0 && sortOrder !== '') {
-      url = `${this.baseUrl}?${filterParam}&${sortByParam}&${sortOrderParam}`;
-    } else if (filterBy === -1.0) {
-      url = `${this.baseUrl}?${sortByParam}&${sortOrderParam}`;
-    } else {
-      url = `${this.baseUrl}?${filterParam}`;
+    if(filterMin !== -1.0 || filterMax !== -1.0 || sortOrder !== ''){
+      if(filterMin !== -1.0 && filterMax !== -1.0 && sortOrder !== '') {
+        url = `${this.baseUrl}?${filterParamMin}&${filterParamMax}&${sortByParam}&${sortOrderParam}&${searchNameParam}&${searchStreetParam}&${searchTownParam}`;
+      } else if (filterMin === -1.0 || filterMax === -1.0) {
+        url = `${this.baseUrl}?${sortByParam}&${sortOrderParam}&${searchNameParam}&${searchStreetParam}&${searchTownParam}`;
+      } else {
+         url = `${this.baseUrl}?${filterParamMin}&${filterParamMax}&${searchNameParam}&${searchStreetParam}&${searchTownParam}`;
+      }
+    }else{
+      url = `${this.baseUrl}?${searchNameParam}&${searchStreetParam}&${searchTownParam}`;
     }
-
     return this.http.get<Center[]>(url, {headers: headers});
   }
   
