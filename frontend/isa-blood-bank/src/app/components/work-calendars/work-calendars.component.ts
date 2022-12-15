@@ -9,7 +9,9 @@ import { WorkCalendarItem } from './shared/work-calendar-item';
 export class WorkCalendarsComponent implements OnInit {
   month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   currentMonth: string = '';
+  currentWeek: string = '';
   currentDate: Date = {} as Date;
+  currentDateWeek: Date = {} as Date;
   dayAmount: number = -1;
   previousAmount: number = -1;
   calendarItems: WorkCalendarItem[] = [];
@@ -24,6 +26,8 @@ export class WorkCalendarsComponent implements OnInit {
     }
 
     this.currentDate = new Date();
+    this.currentDateWeek = new Date();
+    this.getCurrentWeek(0);
     this.currentMonth = this.currentDate.toLocaleString('default', {month: 'long', year: 'numeric'});
     this.currentDate = new Date(this.currentMonth);
     this.dayAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth()+1, 0).getDate();
@@ -32,14 +36,43 @@ export class WorkCalendarsComponent implements OnInit {
     this.loadCalendar();
   }
 
-  changeMonth(value: number) {
-    this.currentDate.setMonth(this.currentDate.getMonth()+value)
-    this.currentMonth = this.currentDate.toLocaleString('default', {month: 'long', year: 'numeric'});
-    this.currentDate = new Date(this.currentMonth);
-    this.dayAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth()+1, 0).getDate();
-    this.previousAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate();
+  // changeMonth(value: number) {
+    // this.currentDate.setMonth(this.currentDate.getMonth()+value)
+    // this.currentMonth = this.currentDate.toLocaleString('default', {month: 'long', year: 'numeric'});
+    // this.currentDate = new Date(this.currentMonth);
+    // this.dayAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth()+1, 0).getDate();
+    // this.previousAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate();
     
-    this.loadCalendar();
+    // this.loadCalendar();
+  // }
+
+  changeMonth(value: number) {
+    if (this.view === 'Month') {
+      this.currentDate.setMonth(this.currentDate.getMonth()+value)
+      this.currentMonth = this.currentDate.toLocaleString('default', {month: 'long', year: 'numeric'});
+      this.currentDate = new Date(this.currentMonth);
+      this.dayAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth()+1, 0).getDate();
+      this.previousAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate();
+      
+      this.loadCalendar();
+    } else if (this.view === 'Week') {
+      if (value === 1)
+        this.getCurrentWeek(7);
+      else 
+        this.getCurrentWeek(-7);
+      
+    } else {
+
+    }
+
+
+    // this.currentDate.setMonth(this.currentDate.getMonth()+value)
+    // this.currentMonth = this.currentDate.toLocaleString('default', {month: 'long', year: 'numeric'});
+    // this.currentDate = new Date(this.currentMonth);
+    // this.dayAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth()+1, 0).getDate();
+    // this.previousAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate();
+    
+    // this.loadCalendar();
   }
 
   loadCalendar() {
@@ -59,6 +92,25 @@ export class WorkCalendarsComponent implements OnInit {
       }
       this.calendarItems.push(new WorkCalendarItem(value, isCurrent));
     }
+  }
+
+  getCurrentWeek(byDays: number) {
+    const today = this.currentDateWeek;
+    today.setDate(today.getDate() + byDays);
+    this.currentDateWeek = today;
+
+    const firstDay = new Date(today.setDate(today.getDate() - today.getDay()));
+    const lastDay = new Date(today.setDate(today.getDate() - today.getDay() + 6));
+
+    console.log(firstDay);
+    console.log(lastDay);
+
+    let first: string = firstDay.toLocaleString('default', {day: 'numeric', month: 'long'});
+    let second: string = lastDay.toLocaleString('default', {day: 'numeric'});
+
+    this.currentWeek = first + '-' + second + ', ' + firstDay.toLocaleString('default', {year: 'numeric'});
+
+    console.log('Current week: ' + this.currentWeek);
   }
 
   setView(view: string) {

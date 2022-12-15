@@ -28,9 +28,8 @@
 
 .container-fluid .calendar-view-container 
 .calendar-header .time-period-container {
-    width: 15%;
+    width: 30%;
     display: flex;
-    justify-content: space-around;
 }
 .container-fluid .calendar-view-container 
 .calendar-header .time-period-container

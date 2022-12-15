@@ -3,7 +3,8 @@
         <div class="calendar-header">
             <div class="time-period-container">
                 <button class="btn btn-primary" (click)="changeMonth(-1)"><</button>
-                <label class="time-period-label">{{ currentMonth }}</label>
+                <label class="time-period-label" *ngIf="view === 'Month'">{{ currentMonth }}</label>
+                <label class="time-period-label" *ngIf="view === 'Week'">{{ currentWeek }}</label>
                 <button class="btn btn-primary" (click)="changeMonth(1)">></button>
             </div>
             <div class="time-span-container">
