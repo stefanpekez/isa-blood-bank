@@ -303,11 +303,13 @@ button {
 .calendar-body .calendar-body-view 
 .week-view {
     width: 90%;
-    height: 100%;
+    height: 105em;
     padding-left: 1%;
     padding-right: 1%;
     display: flex;
+    flex-flow: column;
     flex-wrap: wrap;
+    /* flex-direction: column; */
 }
 
 .container-fluid .calendar-view-container 
@@ -322,13 +324,22 @@ button {
     margin-top: 0.3%;
 }
 
-.week-view .week-slot:not(:first-child) {
+/* .container-fluid .calendar-view-container 
+.calendar-body .calendar-body-view 
+.week-view .week-slot:first-child {
+    width: 14%;
+    height: 8.25em;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 142);
+} */
+
+/* .week-view .week-slot:not(:first-child) {
     margin-left: 0.3%;
 }
 
 .week-view .week-slot:nth-child(7n+1) {
     margin-left: 0%;
-}
+} */
 
 .container-fluid .calendar-view-container .calendar-footer {
     display: flex;

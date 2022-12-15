@@ -17,6 +17,8 @@ export class WorkCalendarsComponent implements OnInit {
   calendarItems: WorkCalendarItem[] = [];
   view: string = 'Week';
   hours: string[] = [];
+  appointmentAmount: number = 0;
+  selectedTimeSlot: number = -1;
 
   constructor() { }
 
@@ -116,6 +118,18 @@ export class WorkCalendarsComponent implements OnInit {
   setView(view: string) {
     this.view = view;
     console.log('Selected view: ' + this.view);
+  }
+
+  schedule(timeSlot: number) {
+    this.appointmentAmount += 1;
+    (<HTMLElement>document.querySelector('.week-slot:nth-child(timeSlot)')).style.height = "8.25em";
+    (<HTMLElement>document.querySelector('.week-slot:nth-child(timeSlot)')).style.backgroundColor = "rgb(255, 255, 142)";
+
+  }
+
+  selectTimeSlot(index: number) {
+    this.selectedTimeSlot = index;
+    console.log(this.selectedTimeSlot);
   }
 
 }
