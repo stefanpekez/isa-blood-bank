@@ -13,11 +13,16 @@ export class WorkCalendarsComponent implements OnInit {
   dayAmount: number = -1;
   previousAmount: number = -1;
   calendarItems: WorkCalendarItem[] = [];
+  view: string = 'Week';
+  hours: string[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    
+    for (let i = 0; i < 24; ++i) {
+      this.hours.push(i + ':00');
+    }
+
     this.currentDate = new Date();
     this.currentMonth = this.currentDate.toLocaleString('default', {month: 'long', year: 'numeric'});
     this.currentDate = new Date(this.currentMonth);
@@ -25,7 +30,6 @@ export class WorkCalendarsComponent implements OnInit {
     this.previousAmount = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0).getDate();
     console.log('Previous: ' + this.previousAmount);
     this.loadCalendar();
-    // console.log(this.dayAmount);
   }
 
   changeMonth(value: number) {
@@ -55,6 +59,11 @@ export class WorkCalendarsComponent implements OnInit {
       }
       this.calendarItems.push(new WorkCalendarItem(value, isCurrent));
     }
+  }
+
+  setView(view: string) {
+    this.view = view;
+    console.log('Selected view: ' + this.view);
   }
 
 }

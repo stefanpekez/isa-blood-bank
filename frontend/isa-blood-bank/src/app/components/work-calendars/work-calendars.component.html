@@ -7,30 +7,45 @@
                 <button class="btn btn-primary" (click)="changeMonth(1)">></button>
             </div>
             <div class="time-span-container">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" (click)="setView('Month')">
                     Month
                 </button>
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" (click)="setView('Week')">
                     Week
                 </button>
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" (click)="setView('Day')">
                     Day
                 </button>
             </div>
         </div>
+        <div>
+
+        </div>
         <div class="calendar-body">
-            <div class="day-bar">
-                <label>Sunday</label>
-                <label>Monday</label>
-                <label>Tuesday</label>
-                <label>Wednesday</label>
-                <label>Thursday</label>
-                <label>Friday</label>
-                <label>Saturday</label>
+            <div class="time-container" *ngIf="view !== 'Month'">
+                <div class="time-bar" *ngFor="let hour of hours">
+                    <label>{{ hour }}</label>
+                </div>
             </div>
-            <div class="month-view">
-                <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of calendarItems;">
-                    <label class="day-label">{{ item.id }}</label>
+            <div class="days-container">
+                <div class="day-bar">
+                    <label>Sunday</label>
+                    <label>Monday</label>
+                    <label>Tuesday</label>
+                    <label>Wednesday</label>
+                    <label>Thursday</label>
+                    <label>Friday</label>
+                    <label>Saturday</label>
+                </div>
+                <div class="month-view" *ngIf="view === 'Month'">
+                    <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of calendarItems;">
+                        <label class="day-label">{{ item.id }}</label>
+                    </div>
+                </div>
+                <div class="week-view" *ngIf="view === 'Week'">
+                    <div class="time-slot" *ngFor="let item of [].constructor(24*7);">
+                        <label>-------</label>
+                    </div>
                 </div>
             </div>
         </div>

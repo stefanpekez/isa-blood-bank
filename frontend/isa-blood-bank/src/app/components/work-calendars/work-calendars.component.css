@@ -65,6 +65,37 @@ button {
     margin-bottom: 1%;
     /* border: 2px solid black; */
     display: flex;
+    overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .time-container {
+    height: 100%;
+    margin-top: 2%;
+    width: 5%;
+    /* background-color: #7be0f0; */
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .time-container
+.time-bar {
+    width: 100%;
+    height: 9%;
+    border: 2px solid black;
+    margin-top: 20%;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .days-container {
+    height: 100%;
+    width: 100%;
+    /* border: 2px solid black; */
+    display: flex;
     flex-direction: column;
     overflow: scroll;
 }
@@ -88,6 +119,7 @@ button {
 .day-bar label:not(:first-child) {
     margin-left: 0.3%;
 }
+
 
 .container-fluid .calendar-view-container 
 .calendar-body .month-view {
@@ -178,6 +210,33 @@ button {
     font-weight: 800;
     font-size: 1.4em;
     margin-left: 2%;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .week-view {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 1%;
+    padding-right: 1%;
+    justify-content: center;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .week-view .time-slot {
+    width: 14%;
+    height: 10%;
+    border: 2px solid black;
+    display: flex;
+    /* margin-left: 1.1%; */
+    margin-top: 0.5%;
+}
+
+.week-view .time-slot:not(:first-child) {
+    margin-left: 0.3%;
+}
+
+.week-view .time-slot:nth-child(7n+1) {
+    margin-left: 0%;
 }
 
 .container-fluid .calendar-view-container .calendar-footer {
