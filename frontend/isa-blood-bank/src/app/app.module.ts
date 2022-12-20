@@ -21,6 +21,7 @@ import { WorkCalendarsComponent } from './components/work-calendars/work-calenda
 import { ActivateComponent } from './components/users/activate/activate.component';
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
 import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
+import { AppointmentsComponent } from './components/appointments/appointments.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AdminRegistrationComponent } from './components/users/admin-registratio
     WorkCalendarsComponent,
     ActivateComponent,
     SystemAdminCreateComponent,
-    AdminRegistrationComponent
+    AdminRegistrationComponent,
+    AppointmentsComponent
   ],
   imports: [
     BrowserModule,
