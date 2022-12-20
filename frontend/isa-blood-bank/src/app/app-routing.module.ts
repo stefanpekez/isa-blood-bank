@@ -9,6 +9,7 @@ import { QuestionnairesComponent } from './components/questionnaires/questionnai
 import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 import { CenterUpdateComponent } from './components/centers/center-update/center-update.component';
 import { LoginComponent } from './components/users/login/login.component';
+import { WorkCalendarsComponent } from './components/work-calendars/work-calendars.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent},
   {path: 'centers/create', component: CenterCreateComponent},
   {path: 'centers/view/:id' , component: CenterUpdateComponent},
-  {path: '', component: CentersComponent}
+  {path: '', component: CentersComponent},
+  {path: 'work-calendar' , component: WorkCalendarsComponent}
 ];
 
 @NgModule({
