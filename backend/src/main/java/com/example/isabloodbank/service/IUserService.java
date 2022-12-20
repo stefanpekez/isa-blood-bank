@@ -16,4 +16,6 @@ public interface IUserService {
     List<UserCreateDTO> getAllUnemployedAdmins();
 
     List<UserCreateDTO> getAll();
+
+    String activate(Long id);
 }

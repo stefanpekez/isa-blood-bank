@@ -5,6 +5,7 @@ import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.dto.UserTokenStateDTO;
 import com.example.isabloodbank.mapper.UserMapper;
 import com.example.isabloodbank.model.User;
+import com.example.isabloodbank.service.EmailService;
 import com.example.isabloodbank.service.UserService;
 import com.example.isabloodbank.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class AuthenticationController {
     private UserService userService;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private UserMapper userMapper;
 
 
@@ -56,6 +60,7 @@ public class AuthenticationController {
         User newUser = new User();
         newUser = userMapper.dtoToEntity(user);
         newUser = userService.create(newUser, user.getRole());
+        emailService.sendActivationEmail(newUser);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 }

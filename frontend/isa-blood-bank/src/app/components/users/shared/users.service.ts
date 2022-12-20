@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Donator } from './donator.model';
-import { User } from './user.model';
+import { ActivationResponse, User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,13 @@ export class UsersService {
       'Content-Type': 'application/json'
     });
     return this.http.post<User>(this.baseUrl, JSON.stringify(user), {headers: headers});
+  }
+
+  public activate(userId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<ActivationResponse>(`${this.baseUrl}activate/${userId}`, {headers: headers})
   }
 
   public getAllCenterAdmin() {

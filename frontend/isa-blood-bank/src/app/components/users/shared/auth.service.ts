@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, throwIfEmpty } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, throwIfEmpty } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginCredentials, UserTokenState } from './auth.model';
 
@@ -23,12 +23,13 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  public login(credentials: LoginCredentials): void {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    
-    this.http.post<UserTokenState>(`${this.baseUrl}login`, JSON.stringify(credentials), { headers: headers }).subscribe((res: UserTokenState) => {
+  public handleLogin(credentials: LoginCredentials) {
+    this.login(credentials)
+    .pipe(catchError(()=> {
+      alert('Account not activated');
+      return of()
+    }))
+    .subscribe((res: UserTokenState) => {
       localStorage.setItem('jwt', res.accessToken);
       this.accessToken = res.accessToken;
 
@@ -42,7 +43,16 @@ export class AuthService {
 
       this.nav.next('true');
       this.router.navigate(['/']);
+      return res;
     });
+  }
+
+  private login(credentials: LoginCredentials) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    
+    return this.http.post<UserTokenState>(`${this.baseUrl}login`, JSON.stringify(credentials), { headers: headers })
   }
 
   public logout():void {

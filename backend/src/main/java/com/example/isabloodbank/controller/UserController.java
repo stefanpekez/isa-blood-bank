@@ -1,4 +1,5 @@
 package com.example.isabloodbank.controller;
+import com.example.isabloodbank.dto.ActivationResponseDTO;
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.mapper.UserMapper;
 import com.example.isabloodbank.model.User;
@@ -35,5 +36,10 @@ public class UserController {
     @GetMapping("/role/center")
     public ResponseEntity<List<UserCreateDTO>> getAllUnemployedAdmin() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUnemployedAdmins());
+    }
+
+    @GetMapping("/activate/{id}")
+    public ResponseEntity<ActivationResponseDTO> activateAccount(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(new ActivationResponseDTO(userService.activate(id)), HttpStatus.OK);
     }
 }
