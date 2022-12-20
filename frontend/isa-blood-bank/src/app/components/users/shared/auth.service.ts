@@ -12,7 +12,9 @@ export class AuthService {
 
   private baseUrl: string = environment.baseApiUrl + '/auth/';
   private accessToken = localStorage.getItem('jwt');
-  private currentRole = localStorage.getItem('role');;
+  private currentRole = localStorage.getItem('role');
+  private currentCenterId = Number(localStorage.getItem('centerId'));
+  private authenticated = localStorage.getItem('role') ? true : false;
   private nav = new BehaviorSubject<string>(localStorage.getItem('jwt')? 'true': 'false');
   public currentNav = this.nav.asObservable();
 
@@ -33,6 +35,11 @@ export class AuthService {
       localStorage.setItem('role', res.role);
       this.currentRole = res.role;
 
+      this.authenticated = this.currentRole ? true : false;
+    
+      localStorage.setItem('centerId', res.centerId ? res.centerId.toString() : '-1');
+      this.currentCenterId = Number(res.centerId);
+
       this.nav.next('true');
       this.router.navigate(['/']);
     });
@@ -52,5 +59,14 @@ export class AuthService {
 
   public getRole() {
     return this.currentRole;
+  }
+
+  public getCenterId() {
+    return this.currentCenterId;
+  }
+
+  public isAuthenticated() {
+    console.log(this.authenticated);
+    return this.authenticated;
   }
 }

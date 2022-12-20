@@ -10,19 +10,20 @@ import { RegisterRegularComponent } from './components/users/register-regular/re
 import { CenterUpdateComponent } from './components/centers/center-update/center-update.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { WorkCalendarsComponent } from './components/work-calendars/work-calendars.component';
+import { AuthGuardService as AuthGuard } from './components/users/shared/auth-guard.service';
 
 const routes: Routes = [
-  {path: 'centers/create', component: CenterCreateComponent},
-  {path: 'questionnaires', component: QuestionnairesComponent},
-  {path: 'users/profile-view/:id' , component: ProfileViewComponent},
-  {path: 'users/create', component: CenterAdminCreateComponent},
+  {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
+  {path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthGuard]},
+  {path: 'users/profile-view/:id' , component: ProfileViewComponent, canActivate: [AuthGuard]},
+  {path: 'users/create', component: CenterAdminCreateComponent, canActivate: [AuthGuard]},
   {path: 'users/register', component: RegisterRegularComponent},
   {path: 'users/login', component: LoginComponent},
-  {path: 'users', component: UsersComponent},
-  {path: 'centers/create', component: CenterCreateComponent},
-  {path: 'centers/view/:id' , component: CenterUpdateComponent},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
+  {path: 'centers/view/:id' , component: CenterUpdateComponent, canActivate: [AuthGuard]},
   {path: '', component: CentersComponent},
-  {path: 'work-calendar' , component: WorkCalendarsComponent}
+  {path: 'work-calendar' , component: WorkCalendarsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
