@@ -14,16 +14,17 @@
                 <button class="btn btn-primary" (click)="setView('Week')">
                     Week
                 </button>
-                <button class="btn btn-primary" (click)="setView('Day')">
+                <!-- <button class="btn btn-primary" (click)="setView('Day')">
                     Day
-                </button>
+                </button> -->
             </div>
-            <button (click)="schedule(selectedTimeSlot)">Schedule apointment</button>
+            <button>Schedule apointment</button>
         </div>
         <div class="calendar-body">
             <div class="calendar-body-header">
                 <div class="time-column">
-                    <label>Time</label>
+                    <label *ngIf="view !== 'Month'">Time</label>
+                    <label *ngIf="view === 'Month'">Days</label>
                 </div>
                 <div class="day-bar">
                     <label>Sunday</label>
@@ -36,50 +37,30 @@
                 </div>
             </div>
             <div class="calendar-body-view">
-                <div class="time-bar">
-                    <ng-container *ngIf="view !== 'Month'">
+                <div class="time-bar" *ngIf="view !== 'Month'">
+                    <ng-container>
                         <div class="time" *ngFor="let hour of hours">
                             <label>{{ hour }}</label>
                         </div>
                     </ng-container>
                 </div>
                 <div class="month-view" *ngIf="view === 'Month'">
-                    <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of calendarItems;">
-                        <label class="day-label">{{ item.id }}</label>
+                    <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of monthSlots;">
+                        <label class="day-label">{{ item.date.split(' ')[1].replace(',', '') }}</label>
+                        <div class="event-list" *ngFor="let a of item.appointments">
+                            <label class="appoint">Appointment</label>
+                        </div>
                     </div>
                 </div>
                 <div class="week-view" *ngIf="view === 'Week'">
-                    <div class="week-slot" *ngFor="let item of [].constructor(24*7-appointmentAmount); let i = index;" (click)="selectTimeSlot(i+1)">
-                        <label>-------------------------------</label>
-                    </div>
+                    <ng-container *ngFor="let item of daySlots; let i = index;">
+                        <div [ngClass]="item.appointment.date == null ? 'week-slot' : 'week-slot-active'" (click)="selectTimeSlot(i+1)">
+                            <label style="cursor: pointer;"></label>
+                        </div>
+                    </ng-container>
+                    
                 </div>
             </div>
-            <!-- <div class="time-container" *ngIf="view !== 'Month'">
-                <div class="time-bar" *ngFor="let hour of hours">
-                    <label>{{ hour }}</label>
-                </div>
-            </div>
-            <div class="days-container">
-                <div class="day-bar">
-                    <label>Sunday</label>
-                    <label>Monday</label>
-                    <label>Tuesday</label>
-                    <label>Wednesday</label>
-                    <label>Thursday</label>
-                    <label>Friday</label>
-                    <label>Saturday</label>
-                </div>
-                <div class="month-view" *ngIf="view === 'Month'">
-                    <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of calendarItems;">
-                        <label class="day-label">{{ item.id }}</label>
-                    </div>
-                </div>
-                <div class="week-view" *ngIf="view === 'Week'">
-                    <div class="time-slot" *ngFor="let item of [].constructor(24*7);">
-                        <label>-------</label>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="calendar-footer">
 
