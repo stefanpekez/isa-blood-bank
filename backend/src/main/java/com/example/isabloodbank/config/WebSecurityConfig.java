@@ -63,7 +63,9 @@ public class WebSecurityConfig {
 
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/auth/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/centers").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/users/activate/{id}").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()

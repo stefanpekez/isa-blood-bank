@@ -66,6 +66,7 @@ export class CentersComponent implements OnInit {
   public searchCenters(){
     if(this.name !== '' || this.streetName !== '' || this.townName !== '')
       this.loadCenters();
+    else alert("please input search parameters");
   }
 
   public clearSearchInputs(){
