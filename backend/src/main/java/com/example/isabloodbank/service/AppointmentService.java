@@ -1,6 +1,7 @@
 package com.example.isabloodbank.service;
 
 
+import com.example.isabloodbank.dto.AppointmentDTO;
 import com.example.isabloodbank.dto.AppointmentReviewDto;
 import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.enums.AppointmentStatus;
@@ -12,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import com.example.isabloodbank.mapper.AppointmentMapper;
 
 @Service
-public class AppointmentService {
+public class AppointmentService implements IAppointmentService{
 
     @Autowired
     IAppointmentRepository appointmentRepository;
@@ -24,6 +26,9 @@ public class AppointmentService {
 
     @Autowired
     CenterService centerService;
+
+    @Autowired
+    AppointmentMapper appointmentMapper;
 
     public List<Appointment> getAllByUser(Long userId) {
         return appointmentRepository.findAllByDonatorId(userId);
@@ -74,6 +79,10 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
         return appointment;
     }
-}
 
+    public Appointment create(AppointmentDTO appointmentDTO){
+        Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);
+        return null;
+    }
+}
 
