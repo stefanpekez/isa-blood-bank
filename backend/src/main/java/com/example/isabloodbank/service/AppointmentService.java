@@ -1,12 +1,15 @@
 package com.example.isabloodbank.service;
 
+
 import com.example.isabloodbank.dto.AppointmentReviewDto;
 import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.enums.AppointmentStatus;
+import com.example.isabloodbank.dto.ScheduleAppointmentDTO;
+import com.example.isabloodbank.model.Appointment;
+import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.repository.IAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -58,4 +61,19 @@ public class AppointmentService {
         }
     }
 
+
+    public Appointment schedule(User user, Long appointmentId) {
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
+        if (appointmentOptional.isEmpty() || appointmentOptional.get().isReserved()) return null;
+
+        Appointment appointment = appointmentOptional.get();
+
+        appointment.setDonator(user);
+        appointment.setReserved(true);
+
+        appointmentRepository.save(appointment);
+        return appointment;
+    }
 }
+
+

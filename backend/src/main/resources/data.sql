@@ -62,9 +62,9 @@ INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 1);
 INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 2);
 INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 3);
 
--- WORK_CALENDAR_APPOINTMENTS
-
--- INSERT INTO work_calendar_scheduled_appointments (work_calendar_id, scheduled_appointments_id) VALUES (1, 1);
+-- APPOINTMENTS
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id) values (2, false, '2022-12-21', null, null);
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id) values (1, false, '2022-12-23', null, null);
 
 INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno davali krv ili komponente krvi?-;
 2. Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?-;
@@ -77,7 +77,9 @@ INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno da
 9. Da li ste vadili zub u proteklih 7 dana?-;
 10. Da li ste u drugom stanju?-;
 11. Da li trenutno imate menstruaciju?-;
-12. Da li ste u poslednjih 6 meseci imali porodjaj ili prekid trudnoce?-;');
+12. Da li ste u poslednjih 6 meseci imali porodjaj ili prekid trudnoce?-;
+13. Da li ste u proteklih 6 meseci davali krv?-;');
 
 INSERT INTO templates (id, data) values (2, 'Dear <Name>, please activate your account by clicking the following link:' ||
                                             'http://localhost:4200/activate/<UserId>');
+INSERT INTO templates (id, data) values (3, 'Dear <Name>, you have successfully reserved an appointment at <Date> which lasts for <Duration> hours!');

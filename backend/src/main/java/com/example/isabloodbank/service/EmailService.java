@@ -1,5 +1,6 @@
 package com.example.isabloodbank.service;
 
+import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.repository.ITemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,23 @@ public class EmailService {
 
         template = template.replace("<Name>", user.getName());
         template = template.replace("<UserId>", user.getId().toString());
+
+        message.setText(template);
+        emailSender.send(message);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public void sendScheduledAppointmentEmail(User user, Appointment appointment) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@bloodbank.com");
+        message.setTo(user.getEmail());
+        message.setSubject("Appointment Scheduled");
+
+        String template = templateRepository.findById(3L).get().getData();
+
+        template = template.replace("<Name>", user.getName());
+        template = template.replace("<Date>", appointment.getScheduledTime().toString());
+        template = template.replace("<Duration>", appointment.getDuration().toString());
 
         message.setText(template);
         emailSender.send(message);
