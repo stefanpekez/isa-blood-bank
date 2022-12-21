@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -102,35 +103,44 @@ public class CenterService implements ICenterService {
     }
 
     @Override
-    public List<Center> getAll(double filterBy) {
+    public List<Center> getAll(double filterMin, double filterMax) {
         List<Center> centers = centerRepository.findAll();
         List<Center> result = new ArrayList<Center>();
-        for(Center center: centers){
-            if(center.getRating() > filterBy){
+        if(filterMax > filterMin){
+          for(Center center: centers){
+            if(center.getRating() >= filterMin && center.getRating() <= filterMax){
                 result.add(center);
             }
-        }
-        if(result.isEmpty()){
-            return null;
+          }
         }
         return result;
     }
 
     @Override
-    public List<Center> getAllBySearch(String searchName, String searchStreetName) {
-        List<Center> centers = centerRepository.findAll();
-        List<Center> result = new ArrayList<Center>();
-        for(Center center : centers){
-            if(center.getName().toLowerCase().contains(searchName.toLowerCase())
-                    && center.getAddress().getStreetName().toLowerCase().contains(searchStreetName.toLowerCase()))
-            {
-                result.add(center);
+    public List<Center> getAll(Optional<String> byName, Optional<String> byStreetName, Optional<String> byTown, List<Center> centers) {
+        if((byName.isPresent() && byStreetName.isPresent() && byTown.isPresent()) && (!byName.get().isEmpty() && !byStreetName.get().isEmpty() && !byTown.get().isEmpty())){
+            return combineSearch(byName.get(),byStreetName.get(), byTown.get(), centers);
+        }
+        else if (byName.isPresent() && !byName.get().isEmpty()) {
+            if (byStreetName.isPresent() && !byStreetName.get().isEmpty()){
+                return  nameAndStreetSearch(byName.get(), byStreetName.get(), centers);
+            } else if (byTown.isPresent() && !byTown.get().isEmpty()) {
+                return nameAndTownSearch(byName.get(), byTown.get(), centers);
             }
+            return nameSearch(byName.get(), centers);
         }
-        if(result.isEmpty()){
-            return null;
+        else if (byStreetName.isPresent() && !byStreetName.get().isEmpty()){
+            if (byTown.isPresent() && !byTown.get().isEmpty()) {
+                return streetAndTownSearch(byStreetName.get(), byTown.get(), centers);
+            }
+            return streetSearch(byStreetName.get(), centers);
         }
-        return result;
+        else if(byTown.isPresent() && !byTown.get().isEmpty()){
+            return townSearch(byTown.get(),centers);
+        }
+        else {
+            return centers;
+        }
     }
 
     private Address addressInRepo(List<Address> addresses, Address address) {
@@ -146,6 +156,88 @@ public class CenterService implements ICenterService {
             return a;
         }
         return null;
+    }
+
+    public List<Center> combineSearch(String byName, String byStreetName, String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase())
+                    && center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase())
+                    && center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> nameAndStreetSearch(String byName, String byStreetName, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase())
+                    && center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> nameAndTownSearch(String byName, String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase())
+                    && center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> streetAndTownSearch(String byStreetName, String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase())
+                    && center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> nameSearch(String byName, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> streetSearch(String byStreetName, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> townSearch(String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
     }
 
 

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,14 +23,25 @@ public class CenterController {
     @Autowired
     ICenterService centerService;
 
+    @PreAuthorize("hasRole('ROLE_REGULAR')  OR hasRole('ROLE_ADMIN_CENTER') OR hasRole('ROLE_ADMIN_SYSTEM')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Center>> getAll(@RequestParam("sort-order") Optional<String> sortOrder, @RequestParam("sort-by") Optional<String> sortBy, @RequestParam("filter-by") Optional<Double> filterBy) {
+    public ResponseEntity<List<Center>> getAll(@RequestParam("sort-order") Optional<String> sortOrder, @RequestParam("sort-by") Optional<String> sortBy,
+                                               @RequestParam("filter-min") Optional<Double> filterMin, @RequestParam("filter-max") Optional<Double> filterMax,
+                                               @RequestParam("search-name") Optional<String> searchName, @RequestParam("search-street") Optional<String> searchStreet, @RequestParam("search-town") Optional<String> searchTown) {
         List<Center> centers;
-        if(filterBy.isPresent()){
-            centers = centerService.getAll(filterBy.get());
+        if(filterMin.isPresent() && filterMax.isPresent()){
+            centers = centerService.getAll(filterMin.get(), filterMax.get());
+            if(centers.isEmpty())
+                return new ResponseEntity<>(centers, HttpStatus.OK);
         }else{
             centers = centerService.getAll();
         }
+
+        centers = centerService.getAll(searchName,searchStreet, searchTown, centers);
+        if(centers.isEmpty())
+            return new ResponseEntity<>(centers, HttpStatus.OK);
+
+
         if (sortOrder.isPresent() && sortBy.isPresent()) {
             if ((!sortOrder.get().equals("asc") && !sortOrder.get().equals("desc")) ||
                     (!sortBy.get().equals("name") && !sortBy.get().equals("city") && !sortBy.get().equals("rating"))) {
@@ -54,16 +66,15 @@ public class CenterController {
 
     }
 
-    @GetMapping("/filterCenter")
+    @GetMapping("/filterScore")
     @ResponseBody
-    public ResponseEntity<List<Center>> getAllBySearch(@RequestParam("filterBy") Optional<Double> filterBy){
+    public ResponseEntity<List<Center>> getAlLByFilter(@RequestParam("filter-min") Optional<Double> filterMin, @RequestParam("filter-max") Optional<Double> filterMax){
         List<Center> centers;
-        if(filterBy.isPresent()){
-            centers = centerService.getAll(filterBy.get());
+        if(filterMin.isPresent() && filterMax.isPresent()){
+            centers = centerService.getAll(filterMin.get(), filterMax.get());
         }else{
             centers = centerService.getAll();
         }
-
         return new ResponseEntity<>(centers, HttpStatus.OK);
     }
 }

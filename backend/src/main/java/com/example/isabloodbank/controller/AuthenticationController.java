@@ -52,7 +52,7 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(user.getUsername());
         int expiresIn = tokenUtils.getExpiredIn();
 
-        return new ResponseEntity<>(new UserTokenStateDTO(jwt, (long) expiresIn, user.getRole().getName(), user.getCenterId()), HttpStatus.OK);
+        return new ResponseEntity<>(new UserTokenStateDTO(jwt, (long) expiresIn, user.getRole().getName(), user.getCenterId(), user.getId()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

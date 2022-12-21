@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
   public userExists = '';
   public role = '';
   public centerId = -1;
+  public id = -1;
 
   constructor(private authService: AuthService) { }
 
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
       this.role = role ? role : '';
       this.centerId = this.authService.getCenterId();
       this.userExists = message;
+      this.id = this.authService.getUserId();
     });
   }
 

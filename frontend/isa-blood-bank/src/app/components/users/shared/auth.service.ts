@@ -17,6 +17,7 @@ export class AuthService {
   private authenticated = localStorage.getItem('role') ? true : false;
   private nav = new BehaviorSubject<string>(localStorage.getItem('jwt')? 'true': 'false');
   public currentNav = this.nav.asObservable();
+  private currentUserId = Number(localStorage.getItem('id'));
 
   constructor(
     private router: Router,
@@ -40,6 +41,9 @@ export class AuthService {
     
       localStorage.setItem('centerId', res.centerId ? res.centerId.toString() : '-1');
       this.currentCenterId = Number(res.centerId);
+
+      localStorage.setItem('id', res.id ? res.id.toString() : '-1');
+      this.currentUserId = Number(res.id);
 
       this.nav.next('true');
       this.router.navigate(['/']);
@@ -73,6 +77,10 @@ export class AuthService {
 
   public getCenterId() {
     return this.currentCenterId;
+  }
+
+  public getUserId() {
+    return this.currentUserId;
   }
 
   public isAuthenticated() {

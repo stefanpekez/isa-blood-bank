@@ -1,39 +1,23 @@
-<!--<div class="centers-table">
-    <div class="card">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Center Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Working Hours</th>
-                    <th scope="col">Rating</th>
-                </tr>
-            </thead>
-            <tbody class="table-light">-->
-                <!-- <tr *ngFor="let center of centers; let row = index">
-                    <th scope="row">{{ row+1 }}</th>
-                    <td> {{center.name}} </td>
-                    <td> {{center.description}} </td>
-                    <td> {{center.address}} </td>
-                    <td> {{center.workingHours}} </td>
-                    <td> {{center.rating}} </td>
-                </tr> -->
-           <!-- </tbody>
-        </table>
-    </div>
-    <button (click)="loadCenters()">load centers</button>
-</div>-->
 <div class="search-container">
             <label class="search-label">Search by:</label>
-            <input type="text" class="form-control search-field" placeholder="Enter name..." [(ngModel)]="name">
+            <input type="text" class="form-control search-field" placeholder="Enter center name..." [(ngModel)]="name">
             <input type="text" class="form-control search-field" placeholder="Enter street name..." [(ngModel)]="streetName">
             <input type="text" class="form-control search-field" placeholder="Enter town name..." [(ngModel)]="townName">
-            <label class="select-label">Select minimal grade:</label>
-            <select class="ratingScale" (change)="filterRating($event)">
-                <option *ngFor="let r of ratingScore">{{r}}</option>
-            </select>
+            <button class="btn btn-primary" (click)="searchCenters()">Search</button>
+            <button class="btn btn-primary" (click)="clearSearchInputs()">Clear</button>
+</div>
+<div class="filter-container">
+    <label class="select-label">Filter by:</label>
+    <label class="select-min-value-label">Score min</label>
+    <select class="ratingScale" (change)="filterRatingMin($event)" [(ngModel)]="selectRatingMin">
+        <option disabled selected hidden>Min score</option>
+        <option *ngFor="let r of ratingScoreMin">{{r}}</option>
+    </select>
+    <label class="select-max-value-label">Score max</label>
+    <select class="ratingScale" (change)="filterRatingMax($event)" [(ngModel)]="selectRatingMax">
+        <option disabled selected hidden>Max score</option>
+        <option *ngFor="let r of ratingScoreMax">{{r}}</option>
+    </select>
 </div>
 <div class="sort-container">
     <label class="sort-label" for="btn btn-primary">Sort by:</label>
@@ -43,7 +27,7 @@
     <h4 *ngIf="orderValues[sortOrder] !== ''">| {{orderValues[sortOrder]}}</h4>
 </div>
 <div class="container">
-    <div class="card" *ngFor="let c of centers | centerSearchComponent :name:streetName:townName;  let i = index;">
+    <div class="card" *ngFor="let c of centers">
         <div class="card-header">
            <h3>{{c.name}}</h3>
            <p>{{c.description}}</p>
