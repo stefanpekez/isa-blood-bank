@@ -39,6 +39,14 @@ INSERT INTO blood (amount, blood_type, center_id) values (5, 3, 2);
 INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (2, 0, 0, 20, 3);
 INSERT INTO donator (blood_type, loyalty, penalties, points, user_id) values (1, 0, 15, 20, 1);
 
+-- WORK_CALENDAR
+
+INSERT INTO work_calendar (center_id) VALUES (1);
+
+-- APPOINTMENT
+
+INSERT INTO appointment (donator_id, duration, is_reserved, work_calendar_id) VALUES (1, 45, false, 1);
+
 
 -- CENTER_DONATORS
 
@@ -53,6 +61,10 @@ INSERT INTO center_admins_center (center_id, admins_center_id) values (2, 2);
 INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 1);
 INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 2);
 INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 3);
+
+-- WORK_CALENDAR_APPOINTMENTS
+
+-- INSERT INTO work_calendar_scheduled_appointments (work_calendar_id, scheduled_appointments_id) VALUES (1, 1);
 
 INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno davali krv ili komponente krvi?-;
 2. Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?-;

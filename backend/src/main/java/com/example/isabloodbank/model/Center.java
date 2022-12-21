@@ -38,4 +38,7 @@ public class Center {
     private List<User> adminsCenter = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Blood> typesOfBlood = new ArrayList<>();
+
+    @Column(columnDefinition = "integer default 10")
+    private Integer equipment;
 }

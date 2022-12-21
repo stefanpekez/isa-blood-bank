@@ -2,17 +2,14 @@ package com.example.isabloodbank.service;
 import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.mapper.CenterMapper;
 import com.example.isabloodbank.model.Address;
+import com.example.isabloodbank.model.Blood;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.repository.IAddressRepository;
 import com.example.isabloodbank.repository.ICenterRepository;
-import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -241,4 +238,49 @@ public class CenterService implements ICenterService {
     }
 
 
+    public void changeBloodAndEquipment(Blood blood, Integer equipmentUsed, Long centerId) {
+        Optional<Center> optionalCenter = centerRepository.findById(centerId);
+        if (optionalCenter.isEmpty()) {
+            return;
+        }
+        Center center = optionalCenter.get();
+        changeEquipment(equipmentUsed, center);
+        changeBlood(blood, center);
+        centerRepository.save(center);
+    }
+
+    private void changeEquipment(Integer equipmentUsed, Center center) {
+        Integer newEquipment = center.getEquipment() - equipmentUsed;
+        if (newEquipment < 0) {
+            newEquipment = 0;
+        }
+        center.setEquipment(newEquipment);
+    }
+
+    private void changeBlood(Blood blood, Center center) {
+        List<Blood> bloodList = center.getTypesOfBlood();
+        if (bloodList == null) {
+            bloodList = new ArrayList<>();
+        }
+        if (!bloodTypeExists(blood, bloodList)) {
+            bloodList.add(blood);
+        }
+        for (Blood b : bloodList) {
+            if (blood.getBloodType() == b.getBloodType()) {
+                int index = bloodList.indexOf(b);
+                b.setAmount(b.getAmount() + blood.getAmount());
+                bloodList.set(index, b);
+            }
+        }
+        center.setTypesOfBlood(bloodList);
+    }
+
+    private boolean bloodTypeExists(Blood blood, List<Blood> bloodList) {
+        for (Blood b : bloodList) {
+            if (blood.getBloodType() == b.getBloodType() && blood.getBloodType().isPositive() == b.getBloodType().isPositive()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

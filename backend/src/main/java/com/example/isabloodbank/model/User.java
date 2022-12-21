@@ -54,8 +54,11 @@ public class User implements UserDetails {
     private Long centerId;
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
-    @Column
+    @Column(columnDefinition = "boolean default false")
     private boolean activated;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer penalties;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

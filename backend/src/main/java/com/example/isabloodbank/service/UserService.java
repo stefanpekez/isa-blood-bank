@@ -115,4 +115,9 @@ public class UserService implements IUserService, UserDetailsService {
             return user;
         }
     }
+
+    public void addPenalty(User donator) {
+        donator.setPenalties(donator.getPenalties() + 1);
+        userRepository.save(donator);
+    }
 }
