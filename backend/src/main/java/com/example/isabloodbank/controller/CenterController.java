@@ -22,7 +22,8 @@ public class CenterController {
 
     @Autowired
     ICenterService centerService;
-    
+
+    @PreAuthorize("hasRole('ROLE_REGULAR')  OR hasRole('ROLE_ADMIN_CENTER') OR hasRole('ROLE_ADMIN_SYSTEM')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Center>> getAll(@RequestParam("sort-order") Optional<String> sortOrder, @RequestParam("sort-by") Optional<String> sortBy,
                                                @RequestParam("filter-min") Optional<Double> filterMin, @RequestParam("filter-max") Optional<Double> filterMax,

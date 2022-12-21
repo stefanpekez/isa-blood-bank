@@ -12,4 +12,5 @@ public class UserTokenStateDTO {
     private Long expiresIn;
     private String role;
     private Long centerId;
+    private Long id;
 }
