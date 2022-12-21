@@ -1,5 +1,6 @@
 package com.example.isabloodbank.model;
 
+import com.example.isabloodbank.model.enums.AppointmentStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "appointment")
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +28,17 @@ public class Appointment {
     private List<User> assignedStaff = new ArrayList<>();
 
     @OneToOne
+    @JoinColumn(name="donator_id")
     private User donator;
 
     @Column
     private boolean isReserved;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "work_calendar_id")
     private WorkCalendar workCalendar;
+
+    private String description;
+
+    private AppointmentStatus status;
 }
