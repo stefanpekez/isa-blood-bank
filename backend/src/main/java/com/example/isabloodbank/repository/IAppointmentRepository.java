@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface IAppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findAllByDonatorId(Long userId);
-
 }
