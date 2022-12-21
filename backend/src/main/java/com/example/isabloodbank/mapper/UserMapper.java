@@ -4,6 +4,7 @@ import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.model.enums.Gender;
 import com.example.isabloodbank.model.enums.WorkStatus;
+import com.example.isabloodbank.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,8 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 
     @Autowired
     private AddressMapper addressMapper;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public UserCreateDTO entityToDto(User user) {
@@ -41,9 +44,9 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
             userCreateDTO.setWorkStatus("UNIVERSITY");
         }
 
-        if (user.getRole().equals("REGULAR")) {
+        if (user.getRole().getName().equals("ROLE_REGULAR")) {
             userCreateDTO.setRole("REGULAR");
-        } else if (user.getRole().equals("ADMIN_CENTER")) {
+        } else if (user.getRole().getName().equals("ROLE_ADMIN_CENTER")) {
             userCreateDTO.setRole("ADMIN_CENTER");
         } else {
             userCreateDTO.setRole("ADMIN_SYSTEM");
@@ -86,13 +89,14 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
             }
         }
 
-//        if (userCreateDTO.getRole().equals("REGULAR")) {
-//            user.setRole("REGULAR");
-//        } else if (userCreateDTO.getRole().equals("")) {
-//            user.setRole("ADMIN_CENTER");
-//        } else {
-//            user.setRole("ADMIN_SYSTEM");
-//        }
+
+        if (userCreateDTO.getRole().equals("REGULAR")) {
+            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+        } else if (userCreateDTO.getRole().equals("ADMIN_CENTER")) {
+            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+        } else {
+            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+        }
 
         return user;
     }

@@ -19,6 +19,8 @@ import { LoginComponent } from './components/users/login/login.component';
 import { TokenInterceptor } from './components/users/shared/auth.interceptor';
 import { WorkCalendarsComponent } from './components/work-calendars/work-calendars.component';
 import { ActivateComponent } from './components/users/activate/activate.component';
+import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
+import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ActivateComponent } from './components/users/activate/activate.componen
     CenterNameAddressFilterPipe,
     LoginComponent,
     WorkCalendarsComponent,
-    ActivateComponent
+    ActivateComponent,
+    SystemAdminCreateComponent,
+    AdminRegistrationComponent
   ],
   imports: [
     BrowserModule,
