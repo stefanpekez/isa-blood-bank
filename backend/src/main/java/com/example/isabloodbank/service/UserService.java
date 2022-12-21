@@ -46,14 +46,19 @@ public class UserService implements IUserService, UserDetailsService {
     @Override
     public String activate(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if(user.isEmpty()) return "No user with this id exists";
+        if (user.isEmpty()) return "No user with this id exists";
 
-        if(user.get().isActivated()) return "Account already activated!";
+        if (user.get().isActivated()) return "Account already activated!";
 
         user.get().setActivated(true);
         userRepository.save(user.get());
 
         return String.format("Hello %s, Welcome to the isa-blood-bank portal, your account has been successfully activated and you will be redirected to the login screen soon", user.get().getName());
+    }
+    public UserCreateDTO create(UserCreateDTO userCreateDTO) {
+        User user = userMapper.dtoToEntity(userCreateDTO);
+        userRepository.save(user);
+        return userCreateDTO;
     }
 
     public User getById(Long id) {

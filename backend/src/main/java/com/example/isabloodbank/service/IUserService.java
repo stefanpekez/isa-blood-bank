@@ -18,4 +18,6 @@ public interface IUserService {
     List<UserCreateDTO> getAll();
 
     String activate(Long id);
+
+    UserCreateDTO create(UserCreateDTO userCreateDTO);
 }

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="register-header">
+        <label id="title-label">Choose user type to register</label>
+    </div>
+    <div class="register-body">
+        <div class="admin-reg-container" (click)="redirect('center')">
+            <div class="header">
+                <label class="header-title">Center Admin</label>
+            </div>
+            <div class="body">
+                <img src="assets/images/center-admin.png" width="256" height="256"/>
+            </div>
+        </div>
+        <div class="admin-reg-container" (click)="redirect('system')">
+            <div class="header">
+                <label class="header-title">System Admin</label>
+            </div>
+            <div class="body">
+                <img src="assets/images/system-admin.png" width="256" height="256"/>
+            </div>
+        </div>
+    </div>
+</div>

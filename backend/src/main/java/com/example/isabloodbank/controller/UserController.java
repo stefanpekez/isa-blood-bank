@@ -18,6 +18,9 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @GetMapping
     public ResponseEntity<List<UserCreateDTO>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
@@ -41,5 +44,10 @@ public class UserController {
     @GetMapping("/activate/{id}")
     public ResponseEntity<ActivationResponseDTO> activateAccount(@PathVariable("id") Long id) {
         return new ResponseEntity<>(new ActivationResponseDTO(userService.activate(id)), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserCreateDTO> create(@RequestBody UserCreateDTO userCreateDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userCreateDTO));
     }
 }

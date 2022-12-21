@@ -1,0 +1,118 @@
+<div class="container-fluid">
+    <div class="container-fluid-rounded">
+        <div class="form-group">
+            <form #centerAdminRegistration="ngForm">
+                <div class="form-header">
+                    <h1>Register System Admin</h1>
+                </div>
+                <div class="form-body">
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" [(ngModel)]="admin.email" name="adminEmail" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="text" class="form-control" id="password" [(ngModel)]="admin.password" name="adminPassword" ngModel required>
+                        </div>
+                    </div>
+                    <div class="names form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="adminName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="adminName" [(ngModel)]="admin.name" name="adminName" ngModel required>
+                        </div>
+                        <div class="col-md-0">
+                            <label for="adminSurame" class="form-label">Surname</label>
+                            <input type="text" class="form-control" id="adminSurame" [(ngModel)]="admin.surname" name="adminSurname" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <label class="form-label">Address</label>
+                        <div class="address col-md-8">
+                            <input type="text" class="address-input form-control" placeholder="{{addressTB}}" name="adminAddress" disabled ngModel required>
+                            <span class="set-address form-control">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#AddressModal">
+                                    <img src="assets/images/address.png" width="26" height="26">
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="upin" class="form-label">Upin</label>
+                            <input type="text" class="form-control" id="upin" [(ngModel)]="admin.upin" name="adminUpin" ngModel required>
+                        </div>
+                    </div>
+                    <div class="enums form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" #gender (change)="handleGender($event, gender.value)" required>
+                                <option disabled selected hidden>-- Select --</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-0">
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="admin.phoneNumber" name="adminPhoneNumber" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <input type="submit" class="form-control btn submit-button" (click)="handleSubmit($event)" [disabled]="centerAdminRegistration.invalid">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddressModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLabel">Set Center Address</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #addressSetting="ngForm">
+                <div class="form-body">
+                    <div class="street-info form-row mb-4">
+                        <div class="street">
+                            <div class="col-md-6" id="s-name">
+                                <label for="streetName" class="form-label">Street Name</label>
+                                <input type="text" class="form-control" id="streetName" [(ngModel)]="admin.address.streetName" name="streetName" ngModel required>
+                            </div>
+                            <div class="col-md-3" id="s-num">
+                                <label for="streetNum" class="form-label">Number</label>
+                                <input type="number" class="form-control" id="streetNum" [(ngModel)]="admin.address.streetNumber" name="streetNum" ngModel required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-6">
+                            <label for="town" class="form-label">Town</label>
+                            <input type="text" class="form-control" id="town" [(ngModel)]="admin.address.town" name="town" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-6">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="country" [(ngModel)]="admin.address.country" name="country" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <input type="submit" class="form-control btn submit-button"
+                            value="Done"
+                            data-bs-dismiss="modal" (click)="handleAddress($event)" [disabled]="addressSetting.invalid">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
