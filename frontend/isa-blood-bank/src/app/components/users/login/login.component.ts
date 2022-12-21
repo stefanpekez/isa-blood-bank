@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginCredentials } from '../shared/auth.model';
+import { LoginCredentials, UserTokenState } from '../shared/auth.model';
 import { AuthService } from '../shared/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    this.authService.login(this.credentials);
+    this.authService.handleLogin(this.credentials);
   }
 
 }

@@ -18,6 +18,7 @@ import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter
 import { LoginComponent } from './components/users/login/login.component';
 import { TokenInterceptor } from './components/users/shared/auth.interceptor';
 import { WorkCalendarsComponent } from './components/work-calendars/work-calendars.component';
+import { ActivateComponent } from './components/users/activate/activate.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { WorkCalendarsComponent } from './components/work-calendars/work-calenda
     RegisterRegularComponent,
     CenterNameAddressFilterPipe,
     LoginComponent,
-    WorkCalendarsComponent
+    WorkCalendarsComponent,
+    ActivateComponent
   ],
   imports: [
     BrowserModule,

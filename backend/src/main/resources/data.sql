@@ -66,3 +66,6 @@ INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno da
 10. Da li ste u drugom stanju?-;
 11. Da li trenutno imate menstruaciju?-;
 12. Da li ste u poslednjih 6 meseci imali porodjaj ili prekid trudnoce?-;');
+
+INSERT INTO templates (id, data) values (2, 'Dear <Name>, please activate your account by clicking the following link:' ||
+                                            'http://localhost:4200/activate/<UserId>');

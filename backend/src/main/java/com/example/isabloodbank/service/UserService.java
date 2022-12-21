@@ -39,7 +39,21 @@ public class UserService implements IUserService, UserDetailsService {
         else roles = roleService.findByName(role);
 
         user.setRole(roles.get(0));
+        user.setActivated(false);
         return userRepository.save(user);
+    }
+
+    @Override
+    public String activate(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isEmpty()) return "No user with this id exists";
+
+        if(user.get().isActivated()) return "Account already activated!";
+
+        user.get().setActivated(true);
+        userRepository.save(user.get());
+
+        return String.format("Hello %s, Welcome to the isa-blood-bank portal, your account has been successfully activated and you will be redirected to the login screen soon", user.get().getName());
     }
 
     public User getById(Long id) {

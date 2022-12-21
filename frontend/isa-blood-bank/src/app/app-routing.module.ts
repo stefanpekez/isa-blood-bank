@@ -11,6 +11,7 @@ import { CenterUpdateComponent } from './components/centers/center-update/center
 import { LoginComponent } from './components/users/login/login.component';
 import { WorkCalendarsComponent } from './components/work-calendars/work-calendars.component';
 import { AuthGuardService as AuthGuard } from './components/users/shared/auth-guard.service';
+import { ActivateComponent } from './components/users/activate/activate.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -23,7 +24,13 @@ const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
   {path: 'centers/view/:id' , component: CenterUpdateComponent, canActivate: [AuthGuard]},
   {path: '', component: CentersComponent},
-  {path: 'work-calendar' , component: WorkCalendarsComponent, canActivate: [AuthGuard]}
+  {path: 'work-calendar' , component: WorkCalendarsComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UsersComponent},
+  {path: 'centers/create', component: CenterCreateComponent},
+  {path: 'centers/view/:id' , component: CenterUpdateComponent},
+  {path: 'activate/:id', component: ActivateComponent},
+  {path: '', component: CentersComponent},
+
 ];
 
 @NgModule({

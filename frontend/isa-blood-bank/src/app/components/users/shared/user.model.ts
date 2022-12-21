@@ -15,3 +15,7 @@ export interface User{
     role: string;
     centerId: number;
 }
+
+export interface ActivationResponse {
+    message: string;
+}

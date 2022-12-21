@@ -54,6 +54,8 @@ public class User implements UserDetails {
     private Long centerId;
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
+    @Column
+    private boolean activated;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -88,6 +90,6 @@ public class User implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isEnabled() {
-        return true;
+        return activated;
     }
 }
