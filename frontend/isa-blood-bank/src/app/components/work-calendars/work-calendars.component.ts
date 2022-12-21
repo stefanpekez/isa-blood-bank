@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Appointment } from './shared/appointment';
 import { DaySlot } from './shared/day-slot';
 import { MonthSlot } from './shared/month-slot';
@@ -23,7 +24,7 @@ export class WorkCalendarsComponent implements OnInit {
   monthSlots: MonthSlot[] = [];
   appointments: Appointment[] = [];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     for (let i = 0; i < 24; ++i) {
@@ -169,6 +170,10 @@ export class WorkCalendarsComponent implements OnInit {
   selectTimeSlot(index: number) {
     this.selectedTimeSlot = index;
     console.log(this.selectedTimeSlot);
+  }
+
+  public defineAppointment():void{
+     this.router.navigate(['appointments']);
   }
 
 }

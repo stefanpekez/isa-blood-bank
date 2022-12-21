@@ -80,9 +80,11 @@ public class AppointmentService implements IAppointmentService{
         return appointment;
     }
 
-    public Appointment create(AppointmentDTO appointmentDTO){
+    public AppointmentDTO create(AppointmentDTO appointmentDTO){
         Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);
-        return null;
+        appointment = appointmentRepository.save(appointment);
+
+        return appointmentMapper.entityToDto(appointment);
     }
 }
 

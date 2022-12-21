@@ -26,7 +26,9 @@ public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentD
     public Appointment dtoToEntity(AppointmentDTO appointmentDTO) {
         Appointment appointment = new Appointment();
         appointment.setScheduledTime(appointmentDTO.getScheduleTime());
-        return null;
+        appointment.setDuration(appointmentDTO.getDuration());
+        appointment.setReserved(appointmentDTO.isReserved());
+        return appointment;
     }
 
     @Override
