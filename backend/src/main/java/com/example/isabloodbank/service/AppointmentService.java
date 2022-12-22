@@ -13,8 +13,12 @@ import com.example.isabloodbank.model.WorkCalendar;
 import com.example.isabloodbank.repository.IAppointmentRepository;
 import com.example.isabloodbank.repository.ICenterRepository;
 import com.example.isabloodbank.repository.IWorkCalendarRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import com.example.isabloodbank.mapper.AppointmentMapper;
@@ -88,6 +92,29 @@ public class AppointmentService implements IAppointmentService{
         appointmentRepository.save(appointment);
         return appointment;
     }
+
+    public Appointment cancel(Long appointmentId) {
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
+        if (appointmentOptional.isEmpty() || !checkDate(appointmentOptional.get().getScheduledTime(), appointmentOptional.get().getStartTime())) return null;
+
+        Appointment appointment = appointmentOptional.get();
+        appointment.setDonator(null);
+        appointment.setReserved(false);
+
+        appointmentRepository.save(appointment);
+        return appointment;
+    }
+
+    private boolean checkDate(LocalDate appointmentDate, LocalTime appointmentTime) {
+        LocalDate now = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+
+        if(appointmentDate.isBefore(now) && appointmentTime.isBefore(nowTime))
+            return true;
+
+        return false;
+    }
+
 
     public AppointmentDTO create(AppointmentDTO appointmentDTO, Long id) throws Exception{
         Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);

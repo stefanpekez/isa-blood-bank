@@ -91,4 +91,10 @@ public class AppointmentController {
     public ResponseEntity<List<Appointment>> getAllByCenter(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllByCenter(id));
     }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Appointment> cancel(@PathVariable Long id) {
+        Appointment appointment = appointmentService.cancel(id);
+        return new ResponseEntity<>(appointment, appointment == null ? HttpStatus.BAD_GATEWAY : HttpStatus.OK);
+    }
+
 }
