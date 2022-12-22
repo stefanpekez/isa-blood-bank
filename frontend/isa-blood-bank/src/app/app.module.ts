@@ -21,11 +21,8 @@ import { WorkCalendarsComponent } from './components/work-calendars/work-calenda
 import { ActivateComponent } from './components/users/activate/activate.component';
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
 import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
-<<<<<<< HEAD
 import { AppointmentsComponent } from './components/appointments/appointments.component';
-=======
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
->>>>>>> a0876d8 (Complete pass change after first login of system admin)
 
 @NgModule({
   declarations: [
@@ -46,11 +43,8 @@ import { SystemAdminPassChangeComponent } from './components/users/system-admin-
     ActivateComponent,
     SystemAdminCreateComponent,
     AdminRegistrationComponent,
-<<<<<<< HEAD
-    AppointmentsComponent
-=======
+    AppointmentsComponent,
     SystemAdminPassChangeComponent
->>>>>>> a0876d8 (Complete pass change after first login of system admin)
   ],
   imports: [
     BrowserModule,

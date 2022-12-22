@@ -14,11 +14,8 @@ import { AuthGuardService as AuthGuard } from './components/users/shared/auth-gu
 import { ActivateComponent } from './components/users/activate/activate.component';
 import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
-<<<<<<< HEAD
 import { AppointmentsComponent } from './components/appointments/appointments.component';
-=======
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
->>>>>>> a0876d8 (Complete pass change after first login of system admin)
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -39,12 +36,9 @@ const routes: Routes = [
   {path: 'activate/:id', component: ActivateComponent},
   {path: '', component: CentersComponent},
   {path: 'users/create', component: AdminRegistrationComponent, canActivate: [AuthGuard]},
-<<<<<<< HEAD
   {path: 'work-calendar' , component: WorkCalendarsComponent},
-  {path: 'appointments', component: AppointmentsComponent}
-=======
+  {path: 'appointments', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]}
->>>>>>> a0876d8 (Complete pass change after first login of system admin)
 ];
 
 @NgModule({
