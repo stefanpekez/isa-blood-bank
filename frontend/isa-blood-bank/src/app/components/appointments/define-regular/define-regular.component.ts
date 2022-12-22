@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Center } from '../../centers/shared/center.model';
 import { CenterService } from '../../centers/shared/center.service';
 
@@ -16,7 +17,8 @@ export class DefineRegularComponent implements OnInit {
   sortOrder = 0;
   orderValues = ['', 'asc', 'desc']
 
-  constructor(private centerService: CenterService) { }
+  constructor(private centerService: CenterService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.loadCenters();
@@ -48,6 +50,10 @@ export class DefineRegularComponent implements OnInit {
     }
     //this.loadCenters();
   } 
+
+  public procedeSchedule(){
+    this.router.navigate(['questionnaires']);
+  }
 
   
 

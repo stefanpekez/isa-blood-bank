@@ -37,10 +37,10 @@
   </div>
 
   <div class="container">
-    <div class="card" *ngFor="let c of centers">
+    <div class="card" *ngFor="let c of centers" (click)="procedeSchedule()">
         <div class="card-header">
            <h3>{{c.name}}</h3>
-           <p>Please fill the <a href="">questionare</a></p>
+           <p>Please fill the <b>questionare</b></p>
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
