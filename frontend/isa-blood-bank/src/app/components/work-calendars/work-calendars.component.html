@@ -54,7 +54,8 @@
                 </div>
                 <div class="week-view" *ngIf="view === 'Week'">
                     <ng-container *ngFor="let item of daySlots; let i = index;">
-                        <div [ngClass]="item.appointment.date == null ? 'week-slot' : 'week-slot-active'" (click)="selectTimeSlot(i+1)">
+                        <div [ngClass]="{'week-slot-deactive' : item.appointment == null, 'week-slot-active' : item.appointment?.reserved === true,
+                                'week-slot' : item.appointment?.reserved === false}" (click)="selectTimeSlot(i+1)">
                             <label style="cursor: pointer;"></label>
                         </div>
                     </ng-container>

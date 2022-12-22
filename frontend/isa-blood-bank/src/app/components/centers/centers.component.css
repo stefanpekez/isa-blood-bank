@@ -29,6 +29,13 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.card:hover {
+    cursor: pointer;
+    filter: brightness(1.05);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 15px 25px;
+    /* border: 3px solid black; */
+}
+
 .card-header{
     background-color: #b2ebf2;
 }
@@ -102,3 +109,13 @@
     margin-left: 2%;
 }
 
+.alert {
+    height: 0;
+    display: flex;
+    justify-content: center;
+}
+
+app-custom-alert {
+    position: absolute;
+    z-index: 800;
+}

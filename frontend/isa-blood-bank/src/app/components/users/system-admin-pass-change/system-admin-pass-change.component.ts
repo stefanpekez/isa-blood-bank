@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 import { User } from '../shared/user.model';
 import { UsersService } from '../shared/users.service';
@@ -13,7 +13,8 @@ export class SystemAdminPassChangeComponent implements OnInit {
   password: string = '';
   confirmPassword: string = '';
 
-  constructor(private userService: UsersService, private authService: AuthService, private router: Router) { }
+  constructor(private userService: UsersService, private authService: AuthService, 
+      private router: Router) { }
 
   ngOnInit(): void {
   }

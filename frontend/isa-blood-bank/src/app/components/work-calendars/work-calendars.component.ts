@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Appointment } from './shared/appointment';
 import { DaySlot } from './shared/day-slot';
 import { MonthSlot } from './shared/month-slot';
+import { WorkCalendar } from './shared/work-calendar';
+import { WorkCalendarService } from './shared/work-calendar.service';
 
 @Component({
   selector: 'app-work-calendars',
@@ -23,10 +25,35 @@ export class WorkCalendarsComponent implements OnInit {
   daySlots: DaySlot[] = [];
   monthSlots: MonthSlot[] = [];
   appointments: Appointment[] = [];
+  centerId: number = -1;
+  workCalendar: WorkCalendar = {} as WorkCalendar;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private _activatedRoute: ActivatedRoute, private workCalendarService: WorkCalendarService) { }
 
   ngOnInit(): void {
+    const param = this._activatedRoute.snapshot.paramMap.get("id");
+    if (param !== null) {
+      this.centerId = +param;
+    }
+
+    this.workCalendarService.getById(this.centerId).subscribe((response: WorkCalendar) => {
+      this.workCalendar = response;
+      this.workCalendarService.getAllAppointments(this.workCalendar.id).subscribe((res: Appointment[]) => {
+        console.log(res);
+        this.appointments = res;
+        this.appointments.forEach(element => {
+          const periods: string[] = element.scheduleTime.split('-');
+          element.scheduleTime = this.month[+periods[1]-1] + ' ' + periods[2] + ', ' + periods[0];
+          element.startTime = this.findHours(element.startTime);
+        });
+        console.log(this.appointments);
+      });
+    });
+
+    
+
+    // console.log(this.appointments[1].scheduleTime);
+
     for (let i = 0; i < 24; ++i) {
       if (i === 23) {
         this.hours.push(i + ':00-' + '00:00');
@@ -35,17 +62,38 @@ export class WorkCalendarsComponent implements OnInit {
       this.hours.push(i + ':00-' + (i+1) + ':00');
     }
 
-    // Hardkodovani pregledi radi testiranja prikaza
-    this.appointments.push(new Appointment('December 18, 2022', '2:00-3:00'));
-    this.appointments.push(new Appointment('December 18, 2022', '3:00-4:00'));
-    this.appointments.push(new Appointment('December 21, 2022', '7:00-8:00'));
-
     this.currentDateWeek = new Date();
     this.loadWeek();
 
     this.currentDate = new Date();
     this.getCurrentWeek(0);
     this.changeMonth(0);
+  }
+
+  findHours(hour: string): string {
+    let hourNum = 0;
+    let hourTuned = '';
+    if (hour[0] === '0') {
+      hour = hour.substring(1);
+      hourNum = +hour[0]+1;
+      if (hourNum < 10) {
+        hourTuned = hourNum + ":00"
+      } else {
+        hourTuned = hourNum + ":00"
+      }
+      hour = hour + '-' + hourTuned;
+    } else {
+      hourNum = +hour.substring(0, 2)+1;
+      if (hourNum === 24) {
+        hourNum = 0;
+        hourTuned = '0' + hourNum + ':00'
+        hour = hour + '-' + hourTuned;
+      } else {
+        hour = hour + '-' + hourNum + ':00'
+      }
+    }
+    // console.log(hour);
+    return hour;
   }
 
   loadWeek() {
@@ -61,7 +109,7 @@ export class WorkCalendarsComponent implements OnInit {
     if (this.view === 'Month') {
       for (let i = 0; i < this.appointments.length; ++i) {
         for (let j = 0; j < this.monthSlots.length; ++j) {
-          if (this.monthSlots[j].date === this.appointments[i].date) {
+          if (this.monthSlots[j].date === this.appointments[i].scheduleTime) {
             this.monthSlots[j].addAppointment(this.appointments[i]);
           }
         }
@@ -69,13 +117,19 @@ export class WorkCalendarsComponent implements OnInit {
     } else {
       for (let i = 0; i < this.appointments.length; ++i) {
         for (let j = 0; j < this.daySlots.length; ++j) {
-          if (this.appointments[i].date === this.daySlots[j].date
-              && this.appointments[i].time === this.daySlots[j].time) {
+          if (this.appointments[i].scheduleTime === this.daySlots[j].date
+              && this.appointments[i].startTime === this.daySlots[j].time) {
+                console.log('appointment date: ' + this.appointments[i].scheduleTime);
+                console.log('dayslot date: ' + this.daySlots[j].date);
+
+                console.log('appointment time: ' + this.appointments[i].startTime);
+                console.log('dayslot time: ' + this.daySlots[j].time);
                 this.daySlots[j].appointment = this.appointments[i];
           }
         }
       }
     }
+    // console.log(Object.keys(this.daySlots[0].appointment).length === 0);
   }
 
   calculateDate(byDays: number): string {
@@ -173,7 +227,7 @@ export class WorkCalendarsComponent implements OnInit {
   }
 
   public defineAppointment():void{
-     this.router.navigate(['appointments']);
+     this.router.navigate(['appointments', this.centerId, this.workCalendar.id]);
   }
 
 }

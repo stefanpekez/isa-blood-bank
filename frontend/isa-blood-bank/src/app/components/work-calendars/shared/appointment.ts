@@ -1,9 +1,13 @@
 export class Appointment {
-    date: string;
-    time: string;
+    scheduleTime: string;
+    duration: number;
+    reserved: boolean;
+    startTime: string;
 
-    constructor(date: string, time: string) {
-        this.date = date;
-        this.time = time;
+    constructor(scheduleTime: string, duration: number, reserved: boolean, startTime: string) {
+        this.scheduleTime = scheduleTime;
+        this.duration = duration;
+        this.reserved = reserved;
+        this.startTime = startTime;
     }
 }

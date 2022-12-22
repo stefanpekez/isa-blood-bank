@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { User } from '../users/shared/user.model';
+import { UsersService } from '../users/shared/users.service';
 import { Center } from './shared/center.model';
 import { CenterService } from './shared/center.service';
 
@@ -20,8 +23,11 @@ export class CentersComponent implements OnInit {
   sortBy = '';
   sortOrder = 0;
   orderValues = ['', 'asc', 'desc']
+  hidden: boolean = true;
+  alertMessage: string = '';
+  type: string = '';
 
-  constructor(private centerService: CenterService) { }
+  constructor(private centerService: CenterService, private router: Router, private userService: UsersService) { }
 
   ngOnInit(): void {
     this.loadCenters();
@@ -74,5 +80,38 @@ export class CentersComponent implements OnInit {
     this.streetName = '';
     this.townName = '';
     this.loadCenters();
+  }
+
+  public openCalendar(centerId: number) {
+    const userRole = localStorage.getItem('role');
+    const center = localStorage.getItem('centerId');
+    if (userRole === 'ROLE_REGULAR') {
+      this.alertMessage = 'Insufficient authority to view the calendar';
+      this.type = 'no';
+      this.hidden = false;
+      setTimeout(()=>{
+        this.hidden = true;
+      }, 3000)
+      return;
+    }
+
+    if (userRole === 'ROLE_ADMIN_CENTER' && center !== centerId.toString()) {
+      this.alertMessage = 'Insufficient authority to view the calendar';
+      this.type = 'no';
+      this.hidden = false;
+      setTimeout(()=>{
+        this.hidden = true;
+      }, 3000)
+      return;
+    }
+
+    // this.alertMessage = 'Successfully loaded the calendar';
+    // this.type = 'yes';
+    // this.hidden = false;
+    // setTimeout(()=>{
+    //   this.hidden = true;
+    // }, 3000)
+
+    this.router.navigate(['work-calendar', centerId]);
   }
 }
