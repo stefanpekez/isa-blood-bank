@@ -35,11 +35,10 @@ const routes: Routes = [
   {path: 'centers/view/:id' , component: CenterUpdateComponent, canActivate: [AuthGuard]},
   {path: 'activate/:id', component: ActivateComponent},
   {path: 'users/create', component: AdminRegistrationComponent, canActivate: [AuthGuard]},
-<<<<<<< HEAD
   {path: 'work-calendar/:id' , component: WorkCalendarsComponent},
   {path: 'appointments/:id/:calId', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]},
-  {path: 'appointments/user/:id', component: AppointmentReviewComponent, canActivate: [AuthGuard]},
+  {path: 'appointment/user/:id', component: AppointmentReviewComponent, canActivate: [AuthGuard]},
   {path: 'appointment-processing/:id', component: AppointmentProcessingComponent, canActivate: [AuthGuard]}
 ];
 

@@ -16,4 +16,5 @@ public class AppointmentDTO {
     private Integer duration;
     private boolean isReserved;
     private String startTime;
+    private Long id;
 }
