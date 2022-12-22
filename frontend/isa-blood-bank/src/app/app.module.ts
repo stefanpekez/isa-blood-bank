@@ -27,6 +27,8 @@ import { CustomAlertComponent } from './shared/custom-alert/custom-alert.compone
 import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
 import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
 
+import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +52,8 @@ import { AppointmentProcessingComponent } from './components/appointment-review/
     SystemAdminPassChangeComponent,
     CustomAlertComponent,
     AppointmentReviewComponent,
-    AppointmentProcessingComponent  
+    AppointmentProcessingComponent,
+    SchedulePredefinedComponent
   ],
   imports: [
     BrowserModule,

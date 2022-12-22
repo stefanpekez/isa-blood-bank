@@ -1,3 +1,4 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { User } from '../users/shared/user.model';
@@ -28,6 +29,7 @@ export class CentersComponent implements OnInit {
   type: string = '';
 
   constructor(private centerService: CenterService, private router: Router, private userService: UsersService) { }
+
 
   ngOnInit(): void {
     this.loadCenters();
@@ -82,16 +84,18 @@ export class CentersComponent implements OnInit {
     this.loadCenters();
   }
 
+
   public openCalendar(centerId: number) {
     const userRole = localStorage.getItem('role');
     const center = localStorage.getItem('centerId');
     if (userRole === 'ROLE_REGULAR') {
-      this.alertMessage = 'Insufficient authority to view the calendar';
       this.type = 'no';
       this.hidden = false;
       setTimeout(()=>{
         this.hidden = true;
       }, 3000)
+      
+      this.router.navigate([`appointments-predefined/${centerId}`])
       return;
     }
 
@@ -113,5 +117,6 @@ export class CentersComponent implements OnInit {
     // }, 3000)
 
     this.router.navigate(['work-calendar', centerId]);
+
   }
 }

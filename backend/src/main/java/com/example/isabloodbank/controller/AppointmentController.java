@@ -5,6 +5,7 @@ import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.service.AppointmentService;
 import com.example.isabloodbank.service.ICenterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class AppointmentController {
     }
 
     @PutMapping
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PreAuthorize("hasRole('REGULAR')")
     public ResponseEntity<Appointment> reserve(@RequestBody ScheduleAppointmentDTO scheduleDto) {
         User user = userService.findByEmail(scheduleDto.getUserEmail());
@@ -90,10 +92,22 @@ public class AppointmentController {
     public ResponseEntity<List<Appointment>> getAllByCenter(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllByCenter(id));
     }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping(value = "/{id}")
     public ResponseEntity<Appointment> cancel(@PathVariable Long id) {
         Appointment appointment = appointmentService.cancel(id);
         return new ResponseEntity<>(appointment, appointment == null ? HttpStatus.BAD_GATEWAY : HttpStatus.OK);
     }
 
+    @GetMapping("/filter/{centerId}")
+    public ResponseEntity<List<Appointment>> getAllByCenterAndUser(@PathVariable("centerId") Long centerId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllByCenterAndUser(centerId, user));
+    }
+
+    @GetMapping("/filter-free/{centerId}")
+    public ResponseEntity<List<Appointment>> getAllFreeByCenter(@PathVariable("centerId") Long centerId){
+        return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllFreeByCenter(centerId));
+    }
 }
