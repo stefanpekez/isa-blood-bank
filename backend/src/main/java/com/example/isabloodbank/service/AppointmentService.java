@@ -167,6 +167,33 @@ public class AppointmentService implements IAppointmentService{
         return appointmentRepository.findAllByWorkCalendar_Center_Id(id);
     }
 
+    public List<Center> getAllAvailableBySearch(AppointmentDTO appointmentDTO){
+        Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);
+        List<Appointment> allAppointments = new ArrayList<Appointment>();
+        List<Center> result = new ArrayList<Center>();
+        allAppointments = appointmentRepository.findAll();
+
+        for(Appointment a: allAppointments) {
+            if (a.getScheduledTime().equals(appointment.getScheduledTime())) {
+                System.out.println(appointment.getScheduledTime());
+                if (a.getStartTime().getHour() == appointment.getStartTime().getHour() && !a.isReserved()) {
+                    Center center = a.getWorkCalendar().getCenter();
+                    result.add(center);
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<Center> sortAvailableByScore(AppointmentDTO appointmentDTO, String sortOrder, String sortBy){
+        List<Center> centers = getAllAvailableBySearch(appointmentDTO);
+        List<Center> result = new ArrayList<>();
+
+        if(!centers.isEmpty())
+            result = centerService.getAll(sortBy, sortOrder,centers);
+        return result;
+    }
+
     @Override
     public List<Appointment> getAllByCenterAndUser(Long id, User user) {
         List<Appointment> appointments = getAllByCenter(id);

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Appointment, ScheduleAppointment } from './appointments.model';
+import { Center } from '../../centers/shared/center.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,19 @@ export class AppointmentService {
       'Content-Type': 'application/json'
     });
     return this.http.put<Appointment>(`${this.baseUrl}`, JSON.stringify(schedule), {headers: headers});
+  }
+
+  public findCentersByAvailableAppointment(appointmentDTO: Appointment) {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<Center[]>(`${this.baseUrl}/find-available`, JSON.stringify(appointmentDTO), {headers: headers});
+  }
+
+  public sortAvailableCentersByScore(appointmentDTO: Appointment, sortOrder: string, sortBy: string) {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<Center[]>(`${this.baseUrl}/sort-available?sort-order=${sortOrder}&sort-by=${sortBy}`, JSON.stringify(appointmentDTO), {headers: headers});
   }
 }

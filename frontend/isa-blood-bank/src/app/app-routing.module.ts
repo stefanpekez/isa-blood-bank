@@ -19,6 +19,7 @@ import { SystemAdminPassChangeComponent } from './components/users/system-admin-
 import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
 import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
 import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
+import { DefineRegularComponent } from './components/appointments/define-regular/define-regular.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'appointments', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]},
   {path: 'appointments-predefined/:id', component: SchedulePredefinedComponent, canActivate: [AuthGuard]},
+  {path: 'appointments/define-regular', component: DefineRegularComponent}
 ];
 
 @NgModule({

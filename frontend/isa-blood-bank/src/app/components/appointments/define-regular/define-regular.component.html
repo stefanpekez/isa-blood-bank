@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div class="container-fluid-rounded">
+      <div class="form-group">
+          <form style="width: 100%;">
+              <div class="form-header">
+                  <h1>Make an appointment</h1>
+              </div>
+              <div class="form-body">
+                  <div class="form-row mb-4">
+                      <div class="col-md-0">
+                          <label for="startDate" class="form-label">Choose date:</label>
+                          <input id="startDate" class="form-control" type="date" (change)="selectDate($event)"/>
+                      </div>
+                  </div>
+                  <div class="form-row mb-4">
+                      <div class="col-md-0">
+                          <label for="pickedTime" class="form-label">Choose start time:</label>
+                          <input id="pickedTime" type="time" class="form-control" name="pickedTime" [(ngModel)]="pickedTime" ngModel required>
+                      </div>
+                  </div>
+                  <div class="form-row mb-4">
+                      <div class="col-md-0">
+                          <button type="button" class="form-control btn submit-button" (click)="searchAppointment()">Search</button>
+                      </div>
+                  </div>
+                  <div class="form-row mb-4">
+                    <div class="sort-container">
+                        <label class="sort-label" for="btn btn-primary">Sort found centers by:</label>
+                        <button class="btn btn-primary"  (click)="handleSort($event, 'rating')">Rating</button>
+                        <h4 *ngIf="orderValues[sortOrder] !== ''">| {{orderValues[sortOrder]}}</h4>
+                    </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+   </div>
+  </div>
+
+  <div class="container">
+    <div class="card" *ngFor="let c of centers" (click)="procedeSchedule()">
+        <div class="card-header">
+           <h3>{{c.name}}</h3>
+           <p>Please fill the <b>questionare</b></p>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i>Country:</i> {{c.address.country}}</li>
+                <li class="list-group-item"><i>Town:</i> {{c.address.town}}</li>
+                <li class="list-group-item"><i>Address:</i> {{c.address.streetName}} {{c.address.streetNumber}}</li>
+                <li class="list-group-item"><i>Average rating:</i> {{c.rating}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
