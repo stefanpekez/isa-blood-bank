@@ -44,6 +44,7 @@ public class EmailService {
 
         template = template.replace("<Name>", user.getName());
         template = template.replace("<Date>", appointment.getScheduledTime().toString());
+        template = template.replace("<Time>", appointment.getStartTime().toString());
         template = template.replace("<Duration>", appointment.getDuration().toString());
 
         message.setText(template);

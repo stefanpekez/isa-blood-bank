@@ -97,7 +97,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 
 
 //        if (userCreateDTO.getRole().equals("REGULAR")) {
-        System.out.println("ROLE: " + roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0).getName());
+       // System.out.println("ROLE: " + roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0).getName());
 //        user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
 //        } else if (userCreateDTO.getRole().equals("ADMIN_CENTER")) {
 //            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));

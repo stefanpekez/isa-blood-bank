@@ -93,7 +93,8 @@ public class AppointmentController {
     }
     @PutMapping(value = "/{id}")
     public ResponseEntity<Appointment> cancel(@PathVariable Long id) {
-        return new ResponseEntity<>(appointmentService.cancel(id), HttpStatus.OK);
+        Appointment appointment = appointmentService.cancel(id);
+        return new ResponseEntity<>(appointment, appointment == null ? HttpStatus.BAD_GATEWAY : HttpStatus.OK);
     }
 
 }

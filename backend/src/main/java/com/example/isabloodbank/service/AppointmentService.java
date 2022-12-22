@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import com.example.isabloodbank.mapper.AppointmentMapper;
@@ -94,7 +95,7 @@ public class AppointmentService implements IAppointmentService{
 
     public Appointment cancel(Long appointmentId) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
-        if (appointmentOptional.isEmpty() || !checkDate(appointmentOptional.get().getScheduledTime())) return null;
+        if (appointmentOptional.isEmpty() || !checkDate(appointmentOptional.get().getScheduledTime(), appointmentOptional.get().getStartTime())) return null;
 
         Appointment appointment = appointmentOptional.get();
         appointment.setDonator(null);
@@ -104,10 +105,11 @@ public class AppointmentService implements IAppointmentService{
         return appointment;
     }
 
-    private boolean checkDate(LocalDate appointmentDate) {
+    private boolean checkDate(LocalDate appointmentDate, LocalTime appointmentTime) {
         LocalDate now = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
 
-        if(appointmentDate.isBefore(now))
+        if(appointmentDate.isBefore(now) && appointmentTime.isBefore(nowTime))
             return true;
 
         return false;
