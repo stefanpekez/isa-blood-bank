@@ -1,5 +1,6 @@
 package com.example.isabloodbank.dto;
 
+import com.example.isabloodbank.model.Donator;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,5 @@ public class AppointmentDTO {
     private boolean isReserved;
     private String startTime;
     private Long id;
+    private UserCreateDTO donator;
 }

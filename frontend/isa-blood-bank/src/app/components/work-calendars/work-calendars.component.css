@@ -50,11 +50,62 @@ button {
 
 .container-fluid .calendar-view-container 
 .calendar-header .time-span-container {
-    width: fit-content;
+    width: 20em;
     height: 100%;
     /* border: 2px solid blue; */
     display: flex;
-    /* justify-content: space-around; */
+    justify-content: center;
+}
+
+.month-b {
+    width: 30%;
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+}
+
+.week-b {
+    margin-left: 2%;
+    width: 25%;
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+}
+
+.left-b {
+    width: 10%;
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-b {
+    width: 10%;
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-fluid .calendar-view-container 
@@ -84,6 +135,8 @@ button {
     width: 10%;
     height: 40%;
     border: 2px solid black;
+    display: flex;
+    justify-content: center;
 }
 
 .container-fluid .calendar-view-container 
@@ -234,7 +287,6 @@ button {
     background-color: white;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
 }
 
 .container-fluid .calendar-view-container 
@@ -306,6 +358,7 @@ button {
     border: 2px solid black;
     background-color: #cecece;
     display: flex;
+    flex-direction: column;
 }
 
 .container-fluid .calendar-view-container 
@@ -330,6 +383,32 @@ button {
     font-weight: 800;
     font-size: 1.4em;
     margin-left: 2%;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .calendar-body-view 
+.month-view .time-slot-noncurrent
+.event-list {
+    width: 95%;
+    height: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    display: flex;
+}
+
+.container-fluid .calendar-view-container 
+.calendar-body .calendar-body-view 
+.month-view .time-slot-noncurrent
+.event-list .appoint {
+    width: 98%;
+    height: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    border: 2px solid black;
+    background-color: #7be0f0;
+    display: flex;
 }
 
 .container-fluid .calendar-view-container 
@@ -377,7 +456,7 @@ button {
     align-items: center;
     justify-content: center;
     margin-top: 0.3%;
-    background-color: #81ebfc;
+    background-color: #5dd7e7;
 }
 
 .container-fluid .calendar-view-container 
@@ -427,6 +506,74 @@ button {
 .week-view .week-slot:nth-child(7n+1) {
     margin-left: 0%;
 } */
+
+.modal-title {
+    font-size: 1.5em;
+}
+
+.modal-body {
+    height: 20em;
+}
+
+.appointment-container {
+    height: 100%;
+    border: 2px solid black;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.appoint-container {
+    width: 80%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid black; */
+    overflow: scroll;
+}
+
+.a-c {
+    width: 90%;
+    height: fit-content;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #bdf6ff;
+}
+
+.appoint {
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.view-perspective {
+    font-weight: 800;
+}
+
+.schedule {
+    width: 15%;
+    background-color: #5dd7e7;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    letter-spacing: 0.7px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 4px solid #50c4ff;
+}
 
 .container-fluid .calendar-view-container .calendar-footer {
     display: flex;

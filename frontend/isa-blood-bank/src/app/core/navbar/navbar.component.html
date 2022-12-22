@@ -30,9 +30,6 @@
             <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
               <a class="dropdown-item" routerLink="/centers/view/{{centerId}}">Center-View</a>
             </li>
-            <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
-              <a class="dropdown-item" routerLink="/work-calendar">Work Calendar</a>
-            </li>
             <li class="nav-item" *ngIf="role === 'ROLE_REGULAR'">
               <a class="dropdown-item" routerLink="/appointments/define-regular">Make appointment</a>
             </li>

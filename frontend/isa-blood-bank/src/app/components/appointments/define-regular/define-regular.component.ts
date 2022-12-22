@@ -32,7 +32,7 @@ export class DefineRegularComponent implements OnInit {
   }
 
   public searchAppointment(){
-    this.appointment.scheduleTime = this.pickedDate;
+    this.appointment.scheduledTime = this.pickedDate;
     this.appointment.startTime = this.pickedTime;
     this.appointment.isReserved = false;
     this.appointment.duration = 1;

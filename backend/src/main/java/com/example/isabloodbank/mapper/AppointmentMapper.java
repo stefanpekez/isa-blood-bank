@@ -2,6 +2,7 @@ package com.example.isabloodbank.mapper;
 
 import com.example.isabloodbank.dto.AppointmentDTO;
 import com.example.isabloodbank.model.Appointment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -12,6 +13,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentDTO>{
+
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public AppointmentDTO entityToDto(Appointment appointment) {
         AppointmentDTO appointmentDTO = new AppointmentDTO();
@@ -21,6 +26,9 @@ public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentD
         appointmentDTO.setId(appointment.getId());
         if (appointment.getStartTime() != null)
             appointmentDTO.setStartTime(appointment.getStartTime().toString());
+        if (appointment.getDonator() != null)
+            appointmentDTO.setDonator(userMapper.entityToDto(appointment.getDonator()));
+
         return appointmentDTO;
     }
 
@@ -37,6 +45,8 @@ public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentD
         appointment.setReserved(appointmentDTO.isReserved());
         if (appointmentDTO.getStartTime() != null)
             appointment.setStartTime(LocalTime.parse(appointmentDTO.getStartTime()));
+        if (appointmentDTO.getDonator() != null)
+            appointment.setDonator(appointment.getDonator());
         return appointment;
     }
 

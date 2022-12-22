@@ -41,6 +41,9 @@ public class UserService implements IUserService, UserDetailsService {
 
         user.setRole(roles.get(0));
         user.setActivated(false);
+        if (user.getRole().getName().equals("ROLE_ADMIN_SYSTEM") || user.getRole().getName().equals("ROLE_ADMIN_CENTER")) {
+            user.setActivated(true);
+        }
         return userRepository.save(user);
     }
 
