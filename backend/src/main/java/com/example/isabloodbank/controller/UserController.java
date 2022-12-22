@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     @Autowired
     IUserService userService;
@@ -48,6 +50,19 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserCreateDTO> create(@RequestBody UserCreateDTO userCreateDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userCreateDTO));
+        User user = userMapper.dtoToEntity(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.entityToDto(userService.create(user, userCreateDTO.getRole())));
+    }
+
+    @PreAuthorize("hasRole('ADMIN_SYSTEM')")
+    @PutMapping("/change")
+    public ResponseEntity<UserCreateDTO> updatePassword(@RequestBody UserCreateDTO userCreateDTO) {
+        UserCreateDTO dto = userService.updatePassword(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @GetMapping("/find/{email}")
+    public ResponseEntity<UserCreateDTO> findUserByEmail(@PathVariable String email) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.entityToDto(userService.findByEmail(email)));
     }
 }

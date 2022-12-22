@@ -20,4 +20,6 @@ public interface IUserService {
     String activate(Long id);
 
     UserCreateDTO create(UserCreateDTO userCreateDTO);
+
+    UserCreateDTO updatePassword(UserCreateDTO userCreateDTO);
 }

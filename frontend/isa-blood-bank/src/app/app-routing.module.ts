@@ -15,6 +15,7 @@ import { ActivateComponent } from './components/users/activate/activate.componen
 import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -36,7 +37,8 @@ const routes: Routes = [
   {path: '', component: CentersComponent},
   {path: 'users/create', component: AdminRegistrationComponent, canActivate: [AuthGuard]},
   {path: 'work-calendar' , component: WorkCalendarsComponent},
-  {path: 'appointments', component: AppointmentsComponent}
+  {path: 'appointments', component: AppointmentsComponent},
+  {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

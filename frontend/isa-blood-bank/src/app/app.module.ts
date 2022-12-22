@@ -22,6 +22,7 @@ import { ActivateComponent } from './components/users/activate/activate.componen
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
 import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
     ActivateComponent,
     SystemAdminCreateComponent,
     AdminRegistrationComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    SystemAdminPassChangeComponent
   ],
   imports: [
     BrowserModule,
