@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, of, throwIfEmpty } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginCredentials, UserTokenState } from './auth.model';
+import { User } from './user.model';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,14 @@ export class AuthService {
   private currentCenterId = Number(localStorage.getItem('centerId'));
   private authenticated = localStorage.getItem('role') ? true : false;
   private nav = new BehaviorSubject<string>(localStorage.getItem('jwt')? 'true': 'false');
+  private user: User = {} as User;
   public currentNav = this.nav.asObservable();
   private currentUserId = Number(localStorage.getItem('id'));
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UsersService
   ) { }
 
   public handleLogin(credentials: LoginCredentials) {
@@ -46,7 +50,25 @@ export class AuthService {
       this.currentUserId = Number(res.id);
 
       this.nav.next('true');
-      this.router.navigate(['/']);
+
+      let decodedJWT;
+      if (this.accessToken != null) {
+        decodedJWT = JSON.parse(window.atob(this.accessToken.split('.')[1]));
+      }
+
+      this.userService.findByEmail(decodedJWT.sub).subscribe((response: User) => {
+        this.user = response;
+        console.log(this.user);
+        if (this.user.role === 'ADMIN_SYSTEM' && this.user.lastPasswordResetDate == null) {
+          this.router.navigate(['/pass-change']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      });
+
+      
+
+      // this.router.navigate(['/']);
       return res;
     });
   }

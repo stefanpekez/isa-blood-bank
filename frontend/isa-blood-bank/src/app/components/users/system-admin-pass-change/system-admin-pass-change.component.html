@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="change-header">
+        <label>Please change your password</label>
+    </div>
+    <div class="change-body">
+        <form class="form-container">
+            <div class="password">
+                <label for="exampleInputPassword1" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password" name="password">
+            </div>
+            <div class="password">
+                <label for="exampleInputPassword2" class="form-label">Confirm password:</label>
+                <input type="password" class="form-control" id="exampleInputPassword2" [(ngModel)]="confirmPassword" name="confirmPassword">
+            </div>
+        </form>
+        <div class="button-container">
+            <button class="form-control confirm-button" (click)="change()">
+                Confirm
+            </button>
+        </div>
+    </div>
+</div>

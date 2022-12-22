@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -119,5 +120,11 @@ public class UserService implements IUserService, UserDetailsService {
     public void addPenalty(User donator) {
         donator.setPenalties(donator.getPenalties() + 1);
         userRepository.save(donator);
+    }
+    public UserCreateDTO updatePassword(UserCreateDTO userCreateDTO) {
+        User user = userRepository.findById(userCreateDTO.getId()).get();
+        user.setLastPasswordResetDate(Timestamp.valueOf(userCreateDTO.getLastPasswordResetDate()));
+        user.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()));
+        return userMapper.entityToDto(userRepository.save(user));
     }
 }

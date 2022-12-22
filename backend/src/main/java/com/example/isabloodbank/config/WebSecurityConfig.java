@@ -65,6 +65,7 @@ public class WebSecurityConfig {
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/auth/**").permitAll()
                 .antMatchers("/users/activate/{id}").permitAll()
+                .antMatchers("/users/change").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), BasicAuthenticationFilter.class);

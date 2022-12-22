@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class UserCreateDTO {
     @NotNull
+    private Long id;
+    @NotNull
     private String email;
     @NotNull
     private String password;
@@ -27,5 +29,6 @@ public class UserCreateDTO {
     private String workStatus;
     @NotNull
     private String role;
+    private String lastPasswordResetDate;
 
 }

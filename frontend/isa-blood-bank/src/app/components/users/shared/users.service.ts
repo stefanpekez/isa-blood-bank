@@ -58,4 +58,16 @@ export class UsersService {
   public getAll() {
     return this.http.get<User[]>(`${this.baseUrl}`);
   }
+
+  public findByEmail(email: string) {
+    return this.http.get<User>(`${this.baseUrl}find/${email}`);
+  }
+
+  public updatePassword(user: User) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    
+    return this.http.put<User>(`${this.baseUrl}change`, JSON.stringify(user), {headers: headers}, );
+  }
 }

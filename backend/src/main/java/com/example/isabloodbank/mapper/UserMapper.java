@@ -8,6 +8,7 @@ import com.example.isabloodbank.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
     @Override
     public UserCreateDTO entityToDto(User user) {
         UserCreateDTO userCreateDTO = new UserCreateDTO();
+        userCreateDTO.setId(user.getId());
         userCreateDTO.setEmail(user.getEmail());
         userCreateDTO.setPassword(user.getPassword());
         userCreateDTO.setName(user.getName());
@@ -52,6 +54,9 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 //            userCreateDTO.setRole("ADMIN_SYSTEM");
 //        }
 
+        if (user.getLastPasswordResetDate() != null)
+            userCreateDTO.setLastPasswordResetDate(user.getLastPasswordResetDate().toString());
+
         return userCreateDTO;
     }
 
@@ -63,6 +68,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
     @Override
     public User dtoToEntity(UserCreateDTO userCreateDTO) {
         User user = new User();
+        user.setId(userCreateDTO.getId());
         user.setEmail(userCreateDTO.getEmail());
         user.setPassword(userCreateDTO.getPassword());
         user.setName(userCreateDTO.getName());
@@ -97,6 +103,9 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 //        } else {
 //            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
 //        }
+
+        if (userCreateDTO.getLastPasswordResetDate() != null)
+            user.setLastPasswordResetDate(Timestamp.valueOf(userCreateDTO.getLastPasswordResetDate()));
 
         return user;
     }
