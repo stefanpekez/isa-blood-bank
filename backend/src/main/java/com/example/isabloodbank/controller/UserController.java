@@ -1,5 +1,6 @@
 package com.example.isabloodbank.controller;
 import com.example.isabloodbank.dto.ActivationResponseDTO;
+import com.example.isabloodbank.dto.LoggedInUserDTO;
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.mapper.UserMapper;
 import com.example.isabloodbank.model.User;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,5 +66,11 @@ public class UserController {
     @GetMapping("/find/{email}")
     public ResponseEntity<UserCreateDTO> findUserByEmail(@PathVariable String email) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.entityToDto(userService.findByEmail(email)));
+    }
+
+    @GetMapping("/findLoggedIn")
+    public ResponseEntity<LoggedInUserDTO> findLoggedInUser() {
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ResponseEntity<>(new LoggedInUserDTO(user.getEmail()), HttpStatus.OK);
     }
 }
