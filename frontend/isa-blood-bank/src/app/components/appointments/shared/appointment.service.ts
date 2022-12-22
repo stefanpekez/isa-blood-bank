@@ -12,10 +12,10 @@ export class AppointmentService {
 
   constructor(private http: HttpClient) { }
 
-  public create(appointmentDTO: Appointment, centerId: number) {
+  public create(appointmentDTO: Appointment, id: number) {
     var headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.baseUrl}`, JSON.stringify(appointmentDTO), {headers: headers});
+    return this.http.post(`${this.baseUrl}/${id}`, JSON.stringify(appointmentDTO), {headers: headers});
   }
 }

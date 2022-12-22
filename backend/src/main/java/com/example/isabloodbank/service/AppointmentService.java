@@ -36,6 +36,9 @@ public class AppointmentService implements IAppointmentService{
     @Autowired
     AppointmentMapper appointmentMapper;
 
+    @Autowired
+    IWorkCalendarRepository workCalendarRepository;
+
     public List<Appointment> getAllByUser(Long userId) {
         return appointmentRepository.findAllByDonatorId(userId);
     }
@@ -86,10 +89,41 @@ public class AppointmentService implements IAppointmentService{
         return appointment;
     }
 
-    public AppointmentDTO create(AppointmentDTO appointmentDTO){
+    public AppointmentDTO create(AppointmentDTO appointmentDTO, Long id) throws Exception{
         Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);
         Center center = new Center();
+        WorkCalendar workCalendar = new WorkCalendar();
+        center = centerService.getById(id);
+        workCalendar = workCalendarRepository.findWorkCalendarByCenter_Id(id);
+
+        //System.out.println("Unos: " +appointment.getScheduledTime());
+
+        int workHourEnd =  Integer.parseInt(center.getWorkingHours().substring(6,8));
+        int workHourStart =  Integer.parseInt(center.getWorkingHours().substring(0,2));
+
+
+        if(center.getWorkingHours().substring(0,1).equals("0")){  workHourStart =  Integer.parseInt(center.getWorkingHours().substring(1,2));}
+        if(appointment.getStartTime().getHour() < workHourStart || appointment.getStartTime().getHour() + appointment.getDuration() > workHourEnd){
+            throw new Exception("Appointment time slot is not define within center working hours");
+        }
+        appointment.setWorkCalendar(workCalendar);
+
+        List<Appointment> defineAppointments = workCalendar.getScheduledAppointments();
+        System.out.println(defineAppointments.size());
+        if(!workCalendar.getScheduledAppointments().isEmpty()){
+            for(Appointment scheduledAppointment: defineAppointments){
+                if(scheduledAppointment.getScheduledTime().equals(appointment.getScheduledTime())){
+                    if(scheduledAppointment.getStartTime().getHour() == appointment.getStartTime().getHour()){
+                        throw new Exception("This time and date are already taken");
+                    }
+                }
+            }
+        }
+
         appointment = appointmentRepository.save(appointment);
+        defineAppointments.add(appointment);
+        workCalendar.setScheduledAppointments(defineAppointments);
+        workCalendar = workCalendarRepository.save(workCalendar);
         return appointmentMapper.entityToDto(appointment);
     }
 

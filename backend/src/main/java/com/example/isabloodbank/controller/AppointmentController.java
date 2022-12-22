@@ -77,9 +77,9 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<AppointmentDTO> create(@RequestBody AppointmentDTO appointmentDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.create(appointmentDTO));
+    @PostMapping("/{id}")
+    public ResponseEntity<AppointmentDTO> create(@RequestBody AppointmentDTO appointmentDTO, @PathVariable("id") Long id) throws Exception{
+        return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.create(appointmentDTO, id));
     }
 
     @GetMapping("/getAll")
@@ -88,7 +88,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/center/{id}")
-    public ResponseEntity<List<Appointment>> getAllByCenter(@PathVariable("id") long id){
+    public ResponseEntity<List<Appointment>> getAllByCenter(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllByCenter(id));
     }
 }

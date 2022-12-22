@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IAppointmentService {
 
-    AppointmentDTO create(AppointmentDTO appointmentDTO);
+    AppointmentDTO create(AppointmentDTO appointmentDTO, Long id) throws Exception;
     List<Appointment> getAll();
     List<Appointment> getAllByCenter(long id);
 }

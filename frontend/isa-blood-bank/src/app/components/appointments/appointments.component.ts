@@ -1,5 +1,6 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 import { AuthService } from '../users/shared/auth.service';
 import { User } from '../users/shared/user.model';
@@ -15,11 +16,12 @@ export class AppointmentsComponent implements OnInit {
 
   appointment: Appointment = {} as Appointment;
   pickedDate: Date = new Date();
-  pickedTime: string = '';
+  pickedTime: any;
   centerId: number = -1;
 
   constructor(private authService: AuthService,
-              private appointmentService: AppointmentService) { }
+              private appointmentService: AppointmentService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.centerId = this.authService.getCenterId();
@@ -27,8 +29,6 @@ export class AppointmentsComponent implements OnInit {
   }
 
   private setupAppointment(){
-      //this.appointment.assignedStaff = [];
-      //this.appointment.donator = {} as User;
       this.appointment.isReserved = false;
       this.appointment.duration = 1;
   }
@@ -41,10 +41,11 @@ export class AppointmentsComponent implements OnInit {
 
   public defineAppointment(){
     this.appointment.scheduleTime = this.pickedDate
-    alert(this.pickedTime);
-    /*this.appointmentService.create(this.appointment, this.centerId).subscribe((response: any)=>{
+    this.appointment.startTime = this.pickedTime;
+    this.appointmentService.create(this.appointment, this.centerId).subscribe((response: any)=>{
+      this.router.navigate(['/work-calendar']);
     },(error:Error) =>{ alert('greska');}
-    );*/
+    );
     
   }
 
