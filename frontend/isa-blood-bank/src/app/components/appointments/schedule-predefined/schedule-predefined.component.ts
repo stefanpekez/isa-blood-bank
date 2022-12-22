@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { catchError, of } from 'rxjs';
@@ -60,8 +61,6 @@ export class SchedulePredefinedComponent implements OnInit {
     this.scheduleEnable();
     this.userService.getLoggedInUserEmail()
     .subscribe(res => {
-      console.log(res);
-      console.log(appointment);
       this.appointmentService.reserve({
         userEmail: res.email,
         appointment: appointment
@@ -72,7 +71,15 @@ export class SchedulePredefinedComponent implements OnInit {
       }))
       .subscribe(() => this.loadMyAppointments());
     });
+  }
 
-    
+  public convertDate(date: any) {
+    return `${date[2]}/${date[1]}/${date[0]}`;
+  }
+
+  public convertTime(time: any) {
+    const hours = time[0] < 10 ? `0${time[0]}`:`${time[0]}`;
+    const minutes = time[1] < 10 ? `0${time[1]}`:`${time[1]}`;
+    return `${hours}:${minutes}`
   }
 }

@@ -49,7 +49,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   public defineAppointment(){
-    this.appointment.scheduleTime = this.pickedDate
+    this.appointment.scheduledTime = this.pickedDate
     this.pickedTime = this.pickedTime.split(':')[0] + ':' + '00';
     console.log(this.pickedTime)
     this.appointment.startTime = this.pickedTime;
