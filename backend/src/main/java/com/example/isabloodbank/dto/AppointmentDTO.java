@@ -14,5 +14,4 @@ public class AppointmentDTO {
     private LocalDate scheduleTime;
     private Integer duration;
     private boolean isReserved;
-    private List<UserCreateDTO> assignedStaff;
 }

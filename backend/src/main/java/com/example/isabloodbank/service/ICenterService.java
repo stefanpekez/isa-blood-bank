@@ -20,4 +20,6 @@ public interface ICenterService {
     List<Center> getAll(double filterMin, double filterMax);
 
     List<Center> getAll(Optional<String> searchName, Optional<String> searchStreetName, Optional<String> searchTown, List<Center> centers);
+
+    List<Center> getAll(String sortOrder, List<Center> centers);
 }

@@ -9,18 +9,18 @@
                 <div class="form-row mb-4">
                     <div class="col-md-0">
                         <label for="startDate" class="form-label">Choose date:</label>
-                        <input id="startDate" class="form-control" type="date" ([ngModel])="pickedDate" (change)="helloYou()"/>
+                        <input id="startDate" class="form-control" type="date" (change)="selectDate($event)"/>
                     </div>
                 </div>
                 <div class="form-row mb-4">
                     <div class="col-md-0">
-                        <label for="startTime" class="form-label">Choose start time:</label>
-                        <input id="startTime" type="time" class="form-control" name="toHours" ngModel required>
+                        <label for="pickedTime" class="form-label">Choose start time:</label>
+                        <input id="pickedTime" type="time" class="form-control" name="pickedTime" [(ngModel)]="pickedTime" ngModel required>
                     </div>
                 </div>
                 <div class="form-row mb-4">
                     <div class="col-md-0">
-                        <input type="submit" class="form-control btn submit-button">
+                        <input type="submit" class="form-control btn submit-button" (click)="defineAppointment()">
                     </div>
                 </div>
             </div>

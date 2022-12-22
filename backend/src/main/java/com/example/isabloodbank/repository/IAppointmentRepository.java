@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface IAppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findAllByDonatorId(Long userId);
-    Optional<Appointment> findAllByWorkCalendar_Center_Id(long centerId);
+    List<Appointment> findAllByWorkCalendar_Center_Id(long centerId);
 }

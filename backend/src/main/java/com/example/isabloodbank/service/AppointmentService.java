@@ -8,12 +8,18 @@ import com.example.isabloodbank.model.enums.AppointmentStatus;
 import com.example.isabloodbank.dto.ScheduleAppointmentDTO;
 import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.User;
+import com.example.isabloodbank.model.Center;
+import com.example.isabloodbank.model.WorkCalendar;
 import com.example.isabloodbank.repository.IAppointmentRepository;
+import com.example.isabloodbank.repository.ICenterRepository;
+import com.example.isabloodbank.repository.IWorkCalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import com.example.isabloodbank.mapper.AppointmentMapper;
+
+import java.util.List;
 
 @Service
 public class AppointmentService implements IAppointmentService{
@@ -82,9 +88,17 @@ public class AppointmentService implements IAppointmentService{
 
     public AppointmentDTO create(AppointmentDTO appointmentDTO){
         Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);
+        Center center = new Center();
         appointment = appointmentRepository.save(appointment);
-
         return appointmentMapper.entityToDto(appointment);
+    }
+
+    public List<Appointment> getAll(){
+        return appointmentRepository.findAll();
+    }
+
+    public List<Appointment> getAllByCenter(long id){
+        return appointmentRepository.findAllByWorkCalendar_Center_Id(id);
     }
 }
 

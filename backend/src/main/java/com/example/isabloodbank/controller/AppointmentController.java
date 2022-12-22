@@ -81,4 +81,14 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDTO> create(@RequestBody AppointmentDTO appointmentDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.create(appointmentDTO));
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Appointment>> getAll(){
+       return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAll());
+    }
+
+    @GetMapping("/center/{id}")
+    public ResponseEntity<List<Appointment>> getAllByCenter(@PathVariable("id") long id){
+        return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllByCenter(id));
+    }
 }
