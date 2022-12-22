@@ -2,6 +2,7 @@ package com.example.isabloodbank.controller;
 
 import com.example.isabloodbank.dto.AppointmentReviewDto;
 import com.example.isabloodbank.model.Appointment;
+import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.service.AppointmentService;
 import com.example.isabloodbank.service.ICenterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.isabloodbank.dto.QuestionnaireDTO;
 import com.example.isabloodbank.dto.ScheduleAppointmentDTO;
@@ -99,7 +101,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.cancel(id);
         return new ResponseEntity<>(appointment, appointment == null ? HttpStatus.BAD_GATEWAY : HttpStatus.OK);
     }
-
+    
     @GetMapping("/filter/{centerId}")
     public ResponseEntity<List<Appointment>> getAllByCenterAndUser(@PathVariable("centerId") Long centerId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -110,4 +112,22 @@ public class AppointmentController {
     public ResponseEntity<List<Appointment>> getAllFreeByCenter(@PathVariable("centerId") Long centerId){
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllFreeByCenter(centerId));
     }
+    @PostMapping("/find-available")
+    public ResponseEntity<List<Center>> getAllAvailableBySearch(@RequestBody AppointmentDTO appointmentDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllAvailableBySearch(appointmentDTO));
+    }
+
+    @PostMapping("/sort-available")
+    public ResponseEntity<List<Center>> sortAvailableByScore(@RequestBody AppointmentDTO appointmentDTO, @RequestParam("sort-order") Optional<String> sortOrder,  @RequestParam("sort-by") Optional<String> sortBy){
+        if (sortOrder.isPresent() && sortBy.isPresent()) {
+            if ((!sortOrder.get().equals("asc") && !sortOrder.get().equals("desc")) || !sortBy.get().equals("rating")) {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+           // centers = centerService.getAll(sortBy.get(), sortOrder.get(), centers);
+        }
+        //return new ResponseEntity<>(centers, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(appointmentService.sortAvailableByScore(appointmentDTO, sortOrder.get(), sortBy.get()));
+
+    }
+
 }
