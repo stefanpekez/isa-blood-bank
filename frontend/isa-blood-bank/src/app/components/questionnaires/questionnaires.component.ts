@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../users/shared/users.service';
 import { Question, Questionnaire, QuestionnaireCreate, QuestionnaireResponse } from './shared/questionnaire.model';
 import { QuestionnaireService } from './shared/questionnaire.service';
 
@@ -10,11 +11,18 @@ import { QuestionnaireService } from './shared/questionnaire.service';
 export class QuestionnairesComponent implements OnInit {
 
   public questions: Question[] = [];
-  public user = 'filip.milosevic30@gmail.com';
-  constructor(private questionnaireService: QuestionnaireService) { }
+  public user = '';
+  constructor(
+    private questionnaireService: QuestionnaireService,
+    private userService: UsersService
+  ) { }
 
   ngOnInit(): void {
-    this.loadQuestions();
+    this.userService.getLoggedInUserEmail().subscribe(res => {
+      this.user = res.email;
+      this.loadQuestions();
+    });
+    
   }
 
   private loadQuestions(): void {
