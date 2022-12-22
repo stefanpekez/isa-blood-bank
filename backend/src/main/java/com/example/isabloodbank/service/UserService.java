@@ -37,7 +37,7 @@ public class UserService implements IUserService, UserDetailsService {
         List<Role> roles;
 
         if(role == null) roles = roleService.findByName("ROLE_REGULAR");
-        else roles = roleService.findByName(role);
+        else roles = roleService.findByName("ROLE_"+role);
 
         user.setRole(roles.get(0));
         user.setActivated(false);

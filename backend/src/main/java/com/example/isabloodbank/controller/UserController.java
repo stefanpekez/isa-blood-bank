@@ -50,7 +50,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserCreateDTO> create(@RequestBody UserCreateDTO userCreateDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(userCreateDTO));
+        User user = userMapper.dtoToEntity(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.entityToDto(userService.create(user, userCreateDTO.getRole())));
     }
 
     @PreAuthorize("hasRole('ADMIN_SYSTEM')")

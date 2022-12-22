@@ -47,7 +47,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
         }
 
 //        if (user.getRole().getName().equals("ROLE_REGULAR")) {
-//            userCreateDTO.setRole("REGULAR");
+        userCreateDTO.setRole(user.getRole().getName());
 //        } else if (user.getRole().getName().equals("ROLE_ADMIN_CENTER")) {
 //            userCreateDTO.setRole("ADMIN_CENTER");
 //        } else {
@@ -97,7 +97,8 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 
 
 //        if (userCreateDTO.getRole().equals("REGULAR")) {
-//            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+        System.out.println("ROLE: " + roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0).getName());
+//        user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
 //        } else if (userCreateDTO.getRole().equals("ADMIN_CENTER")) {
 //            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
 //        } else {

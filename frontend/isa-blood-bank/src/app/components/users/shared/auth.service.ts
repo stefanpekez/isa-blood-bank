@@ -59,7 +59,7 @@ export class AuthService {
       this.userService.findByEmail(decodedJWT.sub).subscribe((response: User) => {
         this.user = response;
         console.log(this.user);
-        if (this.user.role === 'ADMIN_SYSTEM' && this.user.lastPasswordResetDate == null) {
+        if (this.user.role === 'ROLE_ADMIN_SYSTEM' && this.user.lastPasswordResetDate == null) {
           this.router.navigate(['/pass-change']);
         } else {
           this.router.navigate(['/']);
@@ -108,5 +108,12 @@ export class AuthService {
   public isAuthenticated() {
     console.log(this.authenticated);
     return this.authenticated;
+  }
+
+  public register(user: User) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<User>(`${this.baseUrl}register`, JSON.stringify(user), {headers: headers});
   }
 }

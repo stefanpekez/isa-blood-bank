@@ -10,7 +10,7 @@ import { ActivationResponse, User } from './user.model';
 })
 export class UsersService {
 
-  baseUrl: string = environment.baseApiUrl + '/users/';
+  baseUrl: string = environment.baseApiUrl + '/users';
   baseUrlDonator = environment.baseApiUrl + '/donators/';
   
   
@@ -20,39 +20,39 @@ export class UsersService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.get<User>(`${this.baseUrl}${id}`, {headers: headers});
+    return this.http.get<User>(`${this.baseUrl}/${id}`, {headers: headers});
   }
 
   public updateUser(user: User): Observable<User>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-     return this.http.put<User>(`${this.baseUrl}${user.id}`, JSON.stringify(user), {headers: headers})
+     return this.http.put<User>(`${this.baseUrl}/${user.id}`, JSON.stringify(user), {headers: headers})
   }
 
   public getDonator(id:number): Observable<Donator>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.get<Donator>(`${this.baseUrlDonator}${id}`, {headers: headers});
+    return this.http.get<Donator>(`${this.baseUrlDonator}/${id}`, {headers: headers});
   }
 
   public create(user: User) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<User>(this.baseUrl, JSON.stringify(user), {headers: headers});
+    return this.http.post<User>(`${this.baseUrl}`, JSON.stringify(user), {headers: headers});
   }
 
   public activate(userId: number) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.get<ActivationResponse>(`${this.baseUrl}activate/${userId}`, {headers: headers})
+    return this.http.get<ActivationResponse>(`${this.baseUrl}/activate/${userId}`, {headers: headers})
   }
 
   public getAllCenterAdmin() {
-    return this.http.get<User[]>(`${this.baseUrl}role/center`);
+    return this.http.get<User[]>(`${this.baseUrl}/role/center`);
   }
 
   public getAll() {
@@ -60,7 +60,7 @@ export class UsersService {
   }
 
   public findByEmail(email: string) {
-    return this.http.get<User>(`${this.baseUrl}find/${email}`);
+    return this.http.get<User>(`${this.baseUrl}/find/${email}`);
   }
 
   public updatePassword(user: User) {
@@ -68,6 +68,6 @@ export class UsersService {
       'Content-Type': 'application/json'
     });
     
-    return this.http.put<User>(`${this.baseUrl}change`, JSON.stringify(user), {headers: headers}, );
+    return this.http.put<User>(`${this.baseUrl}/change`, JSON.stringify(user), {headers: headers}, );
   }
 }
