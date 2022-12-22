@@ -16,12 +16,9 @@ import { AdminRegistrationComponent } from './components/users/admin-registratio
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
-<<<<<<< HEAD
 import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
 import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
-=======
 import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
->>>>>>> 92d45ea (Add frontend to appointment scheduling for regular users)
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -39,18 +36,14 @@ const routes: Routes = [
   {path: 'centers/view/:id' , component: CenterUpdateComponent, canActivate: [AuthGuard]},
   {path: 'activate/:id', component: ActivateComponent},
   {path: 'users/create', component: AdminRegistrationComponent, canActivate: [AuthGuard]},
-<<<<<<< HEAD
   {path: 'work-calendar/:id' , component: WorkCalendarsComponent},
   {path: 'appointments/:id/:calId', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]},
   {path: 'appointment/user/:id', component: AppointmentReviewComponent, canActivate: [AuthGuard]},
-  {path: 'appointment-processing/:id', component: AppointmentProcessingComponent, canActivate: [AuthGuard]}
-=======
-  {path: 'work-calendar' , component: WorkCalendarsComponent},
+  {path: 'appointment-processing/:id', component: AppointmentProcessingComponent, canActivate: [AuthGuard]},
   {path: 'appointments', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]},
   {path: 'appointments-predefined/:id', component: SchedulePredefinedComponent, canActivate: [AuthGuard]},
->>>>>>> 92d45ea (Add frontend to appointment scheduling for regular users)
 ];
 
 @NgModule({
