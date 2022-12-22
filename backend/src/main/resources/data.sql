@@ -69,7 +69,6 @@ INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-22', 2, 1, '13:00');
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-20', 1, 2, '05:00');
 
-
 INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno davali krv ili komponente krvi?-;
 2. Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?-;
 3. Da li se trenutno osecate zdravim, sposobnim i odmornim da date krv ili komponente krvi?-;
