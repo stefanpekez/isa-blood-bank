@@ -15,7 +15,6 @@ public interface IAppointmentService {
     List<Appointment> getAllByCenter(long id);
     List<Appointment> getAllByCenterAndUser(Long id, User user);
     List<Appointment> getAllFreeByCenter(Long id);
-    List<Appointment> getAllAvailableBySearch();
     List<Center> getAllAvailableBySearch(AppointmentDTO appointmentDTO);
     List<Center> sortAvailableByScore(AppointmentDTO appointmentDTO, String sortOrder, String sortBy);
 }

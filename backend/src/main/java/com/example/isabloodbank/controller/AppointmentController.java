@@ -101,7 +101,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.cancel(id);
         return new ResponseEntity<>(appointment, appointment == null ? HttpStatus.BAD_GATEWAY : HttpStatus.OK);
     }
-    
+
     @GetMapping("/filter/{centerId}")
     public ResponseEntity<List<Appointment>> getAllByCenterAndUser(@PathVariable("centerId") Long centerId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
