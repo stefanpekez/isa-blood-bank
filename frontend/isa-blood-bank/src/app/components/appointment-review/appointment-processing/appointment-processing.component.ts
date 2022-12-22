@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AppointmentReviewDto, Blood } from '../shared/apointment.model';
 import { AppointmentService } from '../shared/appointment.service';
+import { QuestionnaireService } from '../shared/questionnaire.service';
 
 @Component({
   selector: 'app-appointment-processing',
@@ -12,11 +13,18 @@ export class AppointmentProcessingComponent implements OnInit {
 
   appointment: AppointmentReviewDto = {} as AppointmentReviewDto;
   blood: Blood = {} as Blood;
-  isEditing: boolean = true;
+  isEditing: boolean = false;
+  isUserValid: boolean = false;
 
-  constructor(private appointmentService: AppointmentService, private route: ActivatedRoute) { }
+  constructor(private appointmentService: AppointmentService, private route: ActivatedRoute, private questionnaireService: QuestionnaireService) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) =>{
+      this.questionnaireService.isUserValidByAppointment(params['id'])
+        .subscribe((res: boolean) => {
+          this.isUserValid = res;
+        })
+    });
   }
 
   public reviewAppointment(status: string) {

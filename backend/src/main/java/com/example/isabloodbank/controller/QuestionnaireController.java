@@ -45,4 +45,10 @@ public class QuestionnaireController {
 
         return new ResponseEntity<>(questionnaireService.save(newQestionnaire), HttpStatus.CREATED);
     }
+
+    @CrossOrigin
+    @GetMapping("/valid/{id}")
+    public boolean isQuestionnaireValidByAppointment(@PathVariable("id") Long id) {
+        return questionnaireService.isQuestionnaireValidByAppointment(id);
+    }
 }

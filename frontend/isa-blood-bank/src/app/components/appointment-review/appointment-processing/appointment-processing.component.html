@@ -1,8 +1,12 @@
 <div>
-    <button type="submit" class="button" *ngIf="isEditing" (click)="reviewAppointment('CANCELED')">Cancel</button>
-    <button type="submit" class="button" *ngIf="isEditing" (click)="reviewAppointment('DENIED')">Deny</button>
-    <button type="submit" class="button" *ngIf="isEditing" (click)="changeIsEditing()">Start appointment</button>
     <div *ngIf="!isEditing">
+        <p *ngIf="isUserValid">User's survey is valid</p>
+        <p *ngIf="!isUserValid">User's survey is not valid, his appointment should be denied</p>
+        <button type="submit" class="button" (click)="reviewAppointment('CANCELED')">Cancel</button>
+        <button type="submit" class="button" (click)="reviewAppointment('DENIED')">Deny</button>
+        <button type="submit" class="button" (click)="changeIsEditing()">Start appointment</button>
+    </div>
+    <div *ngIf="isEditing">
         Description: <input type="text" class="form-control" [(ngModel)]="appointment.description">
         Blood Type: <input type="text" class="form-control" [(ngModel)]="blood.bloodType">
         Equipment used: <input type="text" class="form-control" [(ngModel)]="appointment.equipmentUsed">

@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface IQuestionnaireRepository extends JpaRepository<Questionnaire, Long> {
 
     public Questionnaire findByUserEmail(String email);
+
+    Questionnaire findByUserId(Long id);
 }

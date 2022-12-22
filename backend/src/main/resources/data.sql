@@ -69,19 +69,14 @@ INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-22', 2, 1, '13:00');
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-20', 1, 2, '05:00');
 
-INSERT INTO templates (id, data) values (1, '1. Da li ste do sada dobrovoljno davali krv ili komponente krvi?-;
-2. Da li ste ikada bili odbijeni kao davalac krvi ili komponente krvi?-;
+INSERT INTO templates (id, data) values (1, '1. Da li imate manje od 50kg?-;
+2. Da li imate promene na kozi?-;
 3. Da li se trenutno osecate zdravim, sposobnim i odmornim da date krv ili komponente krvi?-;
-4. Da li ste nesto jeli pre dolaska na davanje krvi ili komponente krvi?-;
-5. Da li se bavite opasnim zanimanjem ili hobijem?-;
-6. Da li redovno (svakodnevno) uzimate bilo kakve lekove?-;
-7. Da li ste poslednja 2 do 3 dana uzimali bilo kakve lekove (Npr. Brufen, Kafetin, Analgin...)?-;
-8. Da li stalno uzimate aspirin? Da li ste ga uzimali u poslenjih 5 dana?-;
-9. Da li ste vadili zub u proteklih 7 dana?-;
-10. Da li ste u drugom stanju?-;
-11. Da li trenutno imate menstruaciju?-;
-12. Da li ste u poslednjih 6 meseci imali porodjaj ili prekid trudnoce?-;
-13. Da li ste u proteklih 6 meseci davali krv?-;');
+4. Da li imate probleme sa pritiskom?-;
+5. Da li ste u poslednjih 6 meseci radili tetovaze, pojedine hiruske intervencije ili transfuzije krvi...)?-;
+6. Da li stalno uzimate lekove? Da li ste ga uzimali u poslenjih 7 dana?-;
+7. Da li ste vadili zub u proteklih 7 dana?-;
+8. Da li trenutno imate menstruaciju?-;');
 
 INSERT INTO templates (id, data) values (2, 'Dear <Name>, please activate your account by clicking the following link:' ||
                                             'http://localhost:4200/activate/<UserId>');
