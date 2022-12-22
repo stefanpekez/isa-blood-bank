@@ -18,6 +18,7 @@
                     <th scope="col" class="header">Gender</th>
                     <th scope="col" class="header">Work Status</th>
                     <th scope="col" class="header">Role</th>
+                    <th scope="col" class="header">Appointments</th>
                   </tr>
             </thead>
             <tbody class="table-body">
@@ -31,6 +32,7 @@
                   <td>{{ user.gender }}</td>
                   <td>{{ user.workStatus }}</td>
                   <td>{{ user.role }}</td>
+                  <td><a routerLink="/appointments/user/{{user.id}}">Appointments</a></td>
                 </tr>
             </tbody>
         </table>

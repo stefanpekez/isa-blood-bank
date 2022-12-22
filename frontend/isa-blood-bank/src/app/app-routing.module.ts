@@ -16,6 +16,7 @@ import { AdminRegistrationComponent } from './components/users/admin-registratio
 import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
+import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'work-calendar/:id' , component: WorkCalendarsComponent},
   {path: 'appointments/:id/:calId', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]}
+  {path: 'appointments/user/:id', component: AppointmentReviewComponent}
 ];
 
 @NgModule({
