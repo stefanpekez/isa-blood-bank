@@ -11,7 +11,7 @@ public interface IAppointmentService {
     AppointmentDTO create(AppointmentDTO appointmentDTO, Long id) throws Exception;
     List<Appointment> getAll();
     List<Appointment> getAllByCenter(long id);
-
     List<Appointment> getAllByCenterAndUser(Long id, User user);
     List<Appointment> getAllFreeByCenter(Long id);
+    List<Appointment> getAllAvailableBySearch();
 }

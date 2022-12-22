@@ -26,8 +26,8 @@ import { SystemAdminPassChangeComponent } from './components/users/system-admin-
 import { CustomAlertComponent } from './shared/custom-alert/custom-alert.component';
 import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
 import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
-
 import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
+import { DefineRegularComponent } from './components/appointments/define-regular/define-regular.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import { SchedulePredefinedComponent } from './components/appointments/schedule-
     CustomAlertComponent,
     AppointmentReviewComponent,
     AppointmentProcessingComponent,
-    SchedulePredefinedComponent
+    SchedulePredefinedComponent,
+    DefineRegularComponent
   ],
   imports: [
     BrowserModule,

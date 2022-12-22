@@ -167,6 +167,10 @@ public class AppointmentService implements IAppointmentService{
         return appointmentRepository.findAllByWorkCalendar_Center_Id(id);
     }
 
+    public List<Appointment> getAllAvailableBySearch(){
+        return null;
+    }
+
     @Override
     public List<Appointment> getAllByCenterAndUser(Long id, User user) {
         List<Appointment> appointments = getAllByCenter(id);
