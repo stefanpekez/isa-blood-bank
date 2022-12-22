@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.example.isabloodbank.mapper.AppointmentMapper;
@@ -94,7 +95,8 @@ public class AppointmentService implements IAppointmentService{
 
     public Appointment cancel(Long appointmentId) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
-        if (appointmentOptional.isEmpty() || !checkDate(appointmentOptional.get().getScheduledTime(), appointmentOptional.get().getStartTime())) return null;
+        if (appointmentOptional.isEmpty() || !checkDate(appointmentOptional.get().getScheduledTime(), appointmentOptional.get().getStartTime()))
+            return null;
 
         Appointment appointment = appointmentOptional.get();
         appointment.setDonator(null);
@@ -108,11 +110,14 @@ public class AppointmentService implements IAppointmentService{
         LocalDate now = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
 
-        if(appointmentDate.isBefore(now) && appointmentTime.isBefore(nowTime))
+        if(now.isBefore(appointmentDate.minusDays(1)))
+            return true;
+        else if(now.isBefore(appointmentDate) && nowTime.isBefore(appointmentTime))
             return true;
 
         return false;
     }
+
 
 
     public AppointmentDTO create(AppointmentDTO appointmentDTO, Long id) throws Exception{
@@ -160,5 +165,30 @@ public class AppointmentService implements IAppointmentService{
 
     public List<Appointment> getAllByCenter(long id){
         return appointmentRepository.findAllByWorkCalendar_Center_Id(id);
+    }
+
+    @Override
+    public List<Appointment> getAllByCenterAndUser(Long id, User user) {
+        List<Appointment> appointments = getAllByCenter(id);
+        List<Appointment> filteredAppointments = new ArrayList<>();
+
+        for(Appointment appointment: appointments) {
+            if(appointment.getDonator() != null && appointment.getDonator().getEmail().equals(user.getEmail()))
+                filteredAppointments.add(appointment);
+        }
+
+        return filteredAppointments;
+    }
+
+    @Override
+    public List<Appointment> getAllFreeByCenter(Long id) {
+        List<Appointment> appointments = getAllByCenter(id);
+        List<Appointment> filteredAppointments = new ArrayList<>();
+
+        for(Appointment appointment: appointments) {
+            if(!appointment.isReserved()) filteredAppointments.add(appointment);
+        }
+
+        return filteredAppointments;
     }
 }
