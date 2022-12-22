@@ -140,6 +140,21 @@ public class CenterService implements ICenterService {
         }
     }
 
+    @Override
+    public List<Center> getAll(String sortOrder, List<Center> centers) {
+        centers.sort((c1, c2) -> {
+            int order;
+            if (sortOrder.equals("asc")) {
+                order = 1;
+            } else {
+                order = -1;
+            }
+
+            return  c1.getRating().compareTo(c2.getRating()) * order;
+        });
+        return centers;
+    }
+
     private Address addressInRepo(List<Address> addresses, Address address) {
         for (Address a: addresses) {
             if (!a.getStreetName().equals(address.getStreetName()))
