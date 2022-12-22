@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Donator } from './donator.model';
-import { ActivationResponse, User } from './user.model';
+import { ActivationResponse, LoggedInUser, User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +69,9 @@ export class UsersService {
     });
     
     return this.http.put<User>(`${this.baseUrl}/change`, JSON.stringify(user), {headers: headers}, );
+  }
+
+  public getLoggedInUserEmail() {
+    return this.http.get<LoggedInUser>(`${this.baseUrl}/findLoggedIn`);
   }
 }

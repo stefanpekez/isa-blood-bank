@@ -20,3 +20,7 @@ export interface User{
 export interface ActivationResponse {
     message: string;
 }
+
+export interface LoggedInUser {
+    email: string;
+}

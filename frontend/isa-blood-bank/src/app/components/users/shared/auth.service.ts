@@ -31,7 +31,7 @@ export class AuthService {
   public handleLogin(credentials: LoginCredentials) {
     this.login(credentials)
     .pipe(catchError(()=> {
-      alert('Account not activated');
+      alert('Account not activated or does not exist');
       return of()
     }))
     .subscribe((res: UserTokenState) => {
