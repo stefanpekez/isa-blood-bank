@@ -36,8 +36,8 @@ const routes: Routes = [
   {path: 'activate/:id', component: ActivateComponent},
   {path: '', component: CentersComponent},
   {path: 'users/create', component: AdminRegistrationComponent, canActivate: [AuthGuard]},
-  {path: 'work-calendar' , component: WorkCalendarsComponent},
-  {path: 'appointments', component: AppointmentsComponent},
+  {path: 'work-calendar/:id' , component: WorkCalendarsComponent},
+  {path: 'appointments/:id/:calId', component: AppointmentsComponent},
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]}
 ];
 

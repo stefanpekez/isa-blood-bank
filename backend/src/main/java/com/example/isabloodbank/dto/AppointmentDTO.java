@@ -12,8 +12,8 @@ import java.util.List;
 @Setter
 @Data
 public class AppointmentDTO {
-    private LocalDate scheduleTime;
+    private String scheduleTime;
     private Integer duration;
     private boolean isReserved;
-    private LocalTime startTime;
+    private String startTime;
 }

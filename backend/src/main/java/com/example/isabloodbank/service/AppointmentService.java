@@ -129,6 +129,7 @@ public class AppointmentService implements IAppointmentService{
         int workHourStart =  Integer.parseInt(center.getWorkingHours().substring(0,2));
 
 
+
         if(center.getWorkingHours().substring(0,1).equals("0")){  workHourStart =  Integer.parseInt(center.getWorkingHours().substring(1,2));}
         if(appointment.getStartTime().getHour() < workHourStart || appointment.getStartTime().getHour() + appointment.getDuration() > workHourEnd){
             throw new Exception("Appointment time slot is not define within center working hours");

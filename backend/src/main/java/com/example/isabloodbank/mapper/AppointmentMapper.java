@@ -5,38 +5,42 @@ import com.example.isabloodbank.model.Appointment;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentDTO>{
     @Override
     public AppointmentDTO entityToDto(Appointment appointment) {
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        appointmentDTO.setScheduleTime(appointment.getScheduledTime());
+        appointmentDTO.setScheduleTime(appointment.getScheduledTime().toString());
         appointmentDTO.setDuration(appointment.getDuration());
         appointmentDTO.setReserved(appointment.isReserved());
-        appointmentDTO.setStartTime(appointment.getStartTime());
+        if (appointment.getStartTime() != null)
+            appointmentDTO.setStartTime(appointment.getStartTime().toString());
         return appointmentDTO;
     }
 
     @Override
     public List<AppointmentDTO> entityToDtoList(List<Appointment> appointments) {
-        return null;
+        return appointments.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
     }
 
     @Override
     public Appointment dtoToEntity(AppointmentDTO appointmentDTO) {
         Appointment appointment = new Appointment();
-        appointment.setScheduledTime(appointmentDTO.getScheduleTime());
+        appointment.setScheduledTime(LocalDate.parse(appointmentDTO.getScheduleTime()));
         appointment.setDuration(appointmentDTO.getDuration());
         appointment.setReserved(appointmentDTO.isReserved());
-        appointment.setStartTime(appointmentDTO.getStartTime());
+        if (appointmentDTO.getStartTime() != null)
+            appointment.setStartTime(LocalTime.parse(appointmentDTO.getStartTime()));
         return appointment;
     }
 
     @Override
     public List<Appointment> dtoListToEntityList(List<AppointmentDTO> appointmentDTOS) {
-        return null;
+        return appointmentDTOS.stream().map(x -> dtoToEntity(x)).collect(Collectors.toList());
     }
 }

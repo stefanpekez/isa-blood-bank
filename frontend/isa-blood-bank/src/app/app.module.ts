@@ -23,6 +23,7 @@ import { SystemAdminCreateComponent } from './components/users/system-admin-crea
 import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
+import { CustomAlertComponent } from './shared/custom-alert/custom-alert.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SystemAdminPassChangeComponent } from './components/users/system-admin-
     SystemAdminCreateComponent,
     AdminRegistrationComponent,
     AppointmentsComponent,
-    SystemAdminPassChangeComponent
+    SystemAdminPassChangeComponent,
+    CustomAlertComponent
   ],
   imports: [
     BrowserModule,
