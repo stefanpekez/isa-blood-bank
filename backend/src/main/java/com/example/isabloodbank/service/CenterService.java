@@ -278,7 +278,9 @@ public class CenterService implements ICenterService {
             bloodList = new ArrayList<>();
         }
         if (!bloodTypeExists(blood, bloodList)) {
+            blood.setCenterId(center.getId());
             bloodList.add(blood);
+            return;
         }
         for (Blood b : bloodList) {
             if (blood.getBloodType() == b.getBloodType()) {

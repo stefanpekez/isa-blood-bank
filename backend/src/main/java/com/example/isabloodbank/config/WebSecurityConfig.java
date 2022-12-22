@@ -64,9 +64,11 @@ public class WebSecurityConfig {
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/auth/**").permitAll()
+                .antMatchers("/appointments").permitAll()
                 .antMatchers("/centers").permitAll()
                 .antMatchers("/users/activate/{id}").permitAll()
                 .antMatchers("/centers").permitAll()
+//                .antMatchers("/appointments").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), BasicAuthenticationFilter.class);

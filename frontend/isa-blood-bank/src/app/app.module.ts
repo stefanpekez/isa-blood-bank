@@ -25,6 +25,7 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
 import { CustomAlertComponent } from './shared/custom-alert/custom-alert.component';
 import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
+import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +49,8 @@ import { AppointmentReviewComponent } from './components/appointment-review/appo
     AppointmentsComponent,
     SystemAdminPassChangeComponent,
     CustomAlertComponent,
-    AppointmentReviewComponent
-  
+    AppointmentReviewComponent,
+    AppointmentProcessingComponent  
   ],
   imports: [
     BrowserModule,

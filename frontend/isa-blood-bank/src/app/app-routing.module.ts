@@ -17,6 +17,7 @@ import { SystemAdminCreateComponent } from './components/users/system-admin-crea
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
 import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
+import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -31,16 +32,15 @@ const routes: Routes = [
   {path: 'centers/view/:id' , component: CenterUpdateComponent, canActivate: [AuthGuard]},
   {path: '', component: CentersComponent},
   {path: 'work-calendar' , component: WorkCalendarsComponent, canActivate: [AuthGuard]},
-  {path: 'users', component: UsersComponent},
-  {path: 'centers/create', component: CenterCreateComponent},
-  {path: 'centers/view/:id' , component: CenterUpdateComponent},
+  {path: 'centers/view/:id' , component: CenterUpdateComponent, canActivate: [AuthGuard]},
   {path: 'activate/:id', component: ActivateComponent},
-  {path: '', component: CentersComponent},
   {path: 'users/create', component: AdminRegistrationComponent, canActivate: [AuthGuard]},
+<<<<<<< HEAD
   {path: 'work-calendar/:id' , component: WorkCalendarsComponent},
   {path: 'appointments/:id/:calId', component: AppointmentsComponent},
-  {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]}
-  {path: 'appointments/user/:id', component: AppointmentReviewComponent}
+  {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]},
+  {path: 'appointments/user/:id', component: AppointmentReviewComponent, canActivate: [AuthGuard]},
+  {path: 'appointment-processing/:id', component: AppointmentProcessingComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
