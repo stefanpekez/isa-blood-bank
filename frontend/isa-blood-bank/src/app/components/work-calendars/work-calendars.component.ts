@@ -221,9 +221,18 @@ export class WorkCalendarsComponent implements OnInit {
     }
   }
 
-  selectTimeSlot(index: number) {
+  selectTimeSlot(index: number) {    
     this.selectedTimeSlot = index;
     console.log(this.selectedTimeSlot);
+    const role = localStorage.getItem('role');
+    console.log(role);
+    if (role === "ROLE_ADMIN_CENTER") {
+      this.navigateToAppointmentReview(this.daySlots[index-1].appointment?.id || 0);
+    }
+  }
+
+  public navigateToAppointmentReview(id: number) {
+    this.router.navigateByUrl(`/appointment-processing/${id}`);
   }
 
   public defineAppointment():void{

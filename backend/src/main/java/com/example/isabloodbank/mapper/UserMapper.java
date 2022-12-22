@@ -57,6 +57,8 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
         if (user.getLastPasswordResetDate() != null)
             userCreateDTO.setLastPasswordResetDate(user.getLastPasswordResetDate().toString());
 
+        userCreateDTO.setId(user.getId());
+
         return userCreateDTO;
     }
 

@@ -79,7 +79,6 @@ public class AppointmentService implements IAppointmentService{
         }
     }
 
-
     public Appointment schedule(User user, Long appointmentId) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentId);
         if (appointmentOptional.isEmpty() || appointmentOptional.get().isReserved()) return null;
@@ -163,4 +162,3 @@ public class AppointmentService implements IAppointmentService{
         return appointmentRepository.findAllByWorkCalendar_Center_Id(id);
     }
 }
-

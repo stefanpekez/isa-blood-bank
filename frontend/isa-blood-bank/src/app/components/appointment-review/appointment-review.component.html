@@ -1,0 +1,10 @@
+<ul>
+    <h5>
+        Spisak svih pregleda za datog korisnika:
+    </h5>
+    <li *ngFor="let appointment of appointments ">
+        Duration:{{appointment.duration}} Datum: {{appointment.scheduledTime}} Vreme: {{appointment.startTime}}
+        <a routerLink="/appointment-processing/{{appointment.id}}">Open appointment</a>
+    </li>
+</ul>
+

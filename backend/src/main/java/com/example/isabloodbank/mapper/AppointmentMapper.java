@@ -18,6 +18,7 @@ public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentD
         appointmentDTO.setScheduleTime(appointment.getScheduledTime().toString());
         appointmentDTO.setDuration(appointment.getDuration());
         appointmentDTO.setReserved(appointment.isReserved());
+        appointmentDTO.setId(appointment.getId());
         if (appointment.getStartTime() != null)
             appointmentDTO.setStartTime(appointment.getStartTime().toString());
         return appointmentDTO;

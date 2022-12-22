@@ -46,7 +46,6 @@ public class AppointmentController {
     @Autowired
     private QuestionnaireService questionnaireService;
 
-
     @GetMapping("/user/{id}")
     public List<Appointment> getAllByUser(@PathVariable("id")Long userId ) {
         return appointmentService.getAllByUser(userId);
