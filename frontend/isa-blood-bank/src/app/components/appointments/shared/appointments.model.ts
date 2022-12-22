@@ -3,7 +3,7 @@ import { User } from "../../users/shared/user.model";
 
 export interface Appointment{
     id:number;
-    scheduleTime: Date;
+    scheduledTime: Date;
     duration: number;
    // assignedStaff: User[];
     isReserved: boolean;
