@@ -6,7 +6,7 @@ import com.example.isabloodbank.model.User;
 import java.util.List;
 
 public interface IUserService {
-    User create(User user);
+    User create(User user, String role);
 
     User getById(Long id);
 
@@ -16,4 +16,12 @@ public interface IUserService {
     List<UserCreateDTO> getAllUnemployedAdmins();
 
     List<UserCreateDTO> getAll();
+
+    String activate(Long id);
+
+    UserCreateDTO create(UserCreateDTO userCreateDTO);
+
+    UserCreateDTO updatePassword(UserCreateDTO userCreateDTO);
+
+    User save(User user);
 }

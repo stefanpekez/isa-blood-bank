@@ -15,4 +15,8 @@ public enum BloodType {
     public void setIsPositive(boolean isPositive) {
         this.isPositive = isPositive;
     }
+
+    public boolean isPositive () {
+        return isPositive;
+    }
 }

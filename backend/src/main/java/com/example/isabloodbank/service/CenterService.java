@@ -2,15 +2,13 @@ package com.example.isabloodbank.service;
 import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.mapper.CenterMapper;
 import com.example.isabloodbank.model.Address;
+import com.example.isabloodbank.model.Blood;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.repository.IAddressRepository;
 import com.example.isabloodbank.repository.ICenterRepository;
-import com.example.isabloodbank.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +81,7 @@ public class CenterService implements ICenterService {
 
         center = centerRepository.save(center);
         admin.setCenterId(center.getId());
-        userService.create(admin);
+        userService.create(admin, "ROLE_ADMIN_CENTER");
         return centerMapper.entityToDto(center);
     }
     public Center getById(Long id) {
@@ -102,35 +100,59 @@ public class CenterService implements ICenterService {
     }
 
     @Override
-    public List<Center> getAll(double filterBy) {
+    public List<Center> getAll(double filterMin, double filterMax) {
         List<Center> centers = centerRepository.findAll();
         List<Center> result = new ArrayList<Center>();
-        for(Center center: centers){
-            if(center.getRating() > filterBy){
+        if(filterMax > filterMin){
+          for(Center center: centers){
+            if(center.getRating() >= filterMin && center.getRating() <= filterMax){
                 result.add(center);
             }
-        }
-        if(result.isEmpty()){
-            return null;
+          }
         }
         return result;
     }
 
     @Override
-    public List<Center> getAllBySearch(String searchName, String searchStreetName) {
-        List<Center> centers = centerRepository.findAll();
-        List<Center> result = new ArrayList<Center>();
-        for(Center center : centers){
-            if(center.getName().toLowerCase().contains(searchName.toLowerCase())
-                    && center.getAddress().getStreetName().toLowerCase().contains(searchStreetName.toLowerCase()))
-            {
-                result.add(center);
+    public List<Center> getAll(Optional<String> byName, Optional<String> byStreetName, Optional<String> byTown, List<Center> centers) {
+        if((byName.isPresent() && byStreetName.isPresent() && byTown.isPresent()) && (!byName.get().isEmpty() && !byStreetName.get().isEmpty() && !byTown.get().isEmpty())){
+            return combineSearch(byName.get(),byStreetName.get(), byTown.get(), centers);
+        }
+        else if (byName.isPresent() && !byName.get().isEmpty()) {
+            if (byStreetName.isPresent() && !byStreetName.get().isEmpty()){
+                return  nameAndStreetSearch(byName.get(), byStreetName.get(), centers);
+            } else if (byTown.isPresent() && !byTown.get().isEmpty()) {
+                return nameAndTownSearch(byName.get(), byTown.get(), centers);
             }
+            return nameSearch(byName.get(), centers);
         }
-        if(result.isEmpty()){
-            return null;
+        else if (byStreetName.isPresent() && !byStreetName.get().isEmpty()){
+            if (byTown.isPresent() && !byTown.get().isEmpty()) {
+                return streetAndTownSearch(byStreetName.get(), byTown.get(), centers);
+            }
+            return streetSearch(byStreetName.get(), centers);
         }
-        return result;
+        else if(byTown.isPresent() && !byTown.get().isEmpty()){
+            return townSearch(byTown.get(),centers);
+        }
+        else {
+            return centers;
+        }
+    }
+
+    @Override
+    public List<Center> getAll(String sortOrder, List<Center> centers) {
+        centers.sort((c1, c2) -> {
+            int order;
+            if (sortOrder.equals("asc")) {
+                order = 1;
+            } else {
+                order = -1;
+            }
+
+            return  c1.getRating().compareTo(c2.getRating()) * order;
+        });
+        return centers;
     }
 
     private Address addressInRepo(List<Address> addresses, Address address) {
@@ -148,5 +170,134 @@ public class CenterService implements ICenterService {
         return null;
     }
 
+    public List<Center> combineSearch(String byName, String byStreetName, String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase())
+                    && center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase())
+                    && center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
 
+    public List<Center> nameAndStreetSearch(String byName, String byStreetName, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase())
+                    && center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> nameAndTownSearch(String byName, String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase())
+                    && center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> streetAndTownSearch(String byStreetName, String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase())
+                    && center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> nameSearch(String byName, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getName().toLowerCase().contains(byName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> streetSearch(String byStreetName, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getAddress().getStreetName().toLowerCase().contains(byStreetName.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+    public List<Center> townSearch(String byTown, List<Center> centers){
+        List<Center> result = new ArrayList<Center>();
+        for(Center center : centers){
+            if(center.getAddress().getTown().toLowerCase().contains(byTown.toLowerCase()))
+            {
+                result.add(center);
+            }
+        }
+        return result;
+    }
+
+
+    public void changeBloodAndEquipment(Blood blood, Integer equipmentUsed, Long centerId) {
+        Optional<Center> optionalCenter = centerRepository.findById(centerId);
+        if (optionalCenter.isEmpty()) {
+            return;
+        }
+        Center center = optionalCenter.get();
+        changeEquipment(equipmentUsed, center);
+        changeBlood(blood, center);
+        centerRepository.save(center);
+    }
+
+    private void changeEquipment(Integer equipmentUsed, Center center) {
+        Integer newEquipment = center.getEquipment() - equipmentUsed;
+        if (newEquipment < 0) {
+            newEquipment = 0;
+        }
+        center.setEquipment(newEquipment);
+    }
+
+    private void changeBlood(Blood blood, Center center) {
+        List<Blood> bloodList = center.getTypesOfBlood();
+        if (bloodList == null) {
+            bloodList = new ArrayList<>();
+        }
+        if (!bloodTypeExists(blood, bloodList)) {
+            blood.setCenterId(center.getId());
+            bloodList.add(blood);
+            return;
+        }
+        for (Blood b : bloodList) {
+            if (blood.getBloodType() == b.getBloodType()) {
+                int index = bloodList.indexOf(b);
+                b.setAmount(b.getAmount() + blood.getAmount());
+                bloodList.set(index, b);
+            }
+        }
+        center.setTypesOfBlood(bloodList);
+    }
+
+    private boolean bloodTypeExists(Blood blood, List<Blood> bloodList) {
+        for (Blood b : bloodList) {
+            if (blood.getBloodType() == b.getBloodType() && blood.getBloodType().isPositive() == b.getBloodType().isPositive()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

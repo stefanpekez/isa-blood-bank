@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="calendar-view-container">
+        <div class="calendar-header">
+            <div class="time-period-container">
+                <button class="form-control left-b" (click)="changeMonth(-1)"><</button>
+                <label class="time-period-label" *ngIf="view === 'Month'" style="margin-top: 1%;">{{ currentMonth }}</label>
+                <label class="time-period-label" *ngIf="view === 'Week'" style="margin-top: 1%;">{{ currentWeek }}</label>
+                <button class="form-control right-b" (click)="changeMonth(1)">></button>
+            </div>
+            <div class="time-span-container">
+                <button class="form-control month-b" (click)="setView('Month')">
+                    Month
+                </button>
+                <button class="form-control week-b" (click)="setView('Week')">
+                    Week
+                </button>
+                <!-- <button class="btn btn-primary" (click)="setView('Day')">
+                    Day
+                </button> -->
+            </div>
+            <button class="form-control schedule" (click)="defineAppointment()">Schedule apointment</button>
+        </div>
+        <div class="calendar-body">
+            <div class="calendar-body-header">
+                <div class="time-column">
+                    <label class="view-perspective" *ngIf="view !== 'Month'">Time</label>
+                    <label class="view-perspective" *ngIf="view === 'Month'">Days</label>
+                </div>
+                <div class="day-bar">
+                    <label>Sunday</label>
+                    <label>Monday</label>
+                    <label>Tuesday</label>
+                    <label>Wednesday</label>
+                    <label>Thursday</label>
+                    <label>Friday</label>
+                    <label>Saturday</label>
+                </div>
+            </div>
+            <div class="calendar-body-view">
+                <div class="time-bar" *ngIf="view !== 'Month'">
+                    <ng-container>
+                        <div class="time" *ngFor="let hour of hours">
+                            <label>{{ hour }}</label>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="month-view" *ngIf="view === 'Month'">
+                    <div [ngClass]="{'time-slot': item.isCurrent, 'time-slot-noncurrent': !item.isCurrent}" *ngFor="let item of monthSlots; let i = index;" 
+                    data-bs-toggle="modal" data-bs-target="#AppointmentsModal" (click)="selectMonthSlot(item)">
+                        <label class="day-label">{{ item.date.split(' ')[1].replace(',', '') }}</label>
+                        <div class="event-list" *ngIf="item.appointments.length > 0">
+                            <label class="appoint">{{ item.reservedAppointments }} scheduled</label>
+                            <label class="appoint">{{ item.freeAppointments }} free</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="week-view" *ngIf="view === 'Week'">
+                    <ng-container *ngFor="let item of daySlots; let i = index;">
+                        <div [ngClass]="{'week-slot-deactive' : item.appointment == null, 'week-slot-active' : item.appointment?.reserved === true,
+                                'week-slot' : item.appointment?.reserved === false}" (click)="selectTimeSlot(i)">
+                            <label style="cursor: pointer; font-weight: 700; color: black; font-size: 1.2em;">{{ item.appointment?.donator?.name }} {{ item.appointment?.donator?.surname }}</label>
+                        </div>
+                    </ng-container>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="calendar-footer">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AppointmentsModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLabel">Appointments for {{selectedSlot.date}}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="appointment-container">
+                <div class="appoint-container" *ngFor="let a of selectedSlot.appointments">
+                    <div class="a-c" *ngIf="a.reserved === true">
+                        <label>Donator: {{ a.donator.name }} {{ a.donator.surname }}</label>
+                        <label>Time Period: {{ a.startTime }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

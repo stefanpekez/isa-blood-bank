@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CentersComponent } from './components/centers/centers.component';
 import { CenterCreateComponent } from './components/centers/center-create/center-create.component';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +15,19 @@ import { UserNameSurnameFilterPipe } from './shared/user-name-surname-filter.pip
 import { QuestionnairesComponent } from './components/questionnaires/questionnaires.component';
 import { RegisterRegularComponent } from './components/users/register-regular/register-regular.component';
 import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter.pipe';
+import { LoginComponent } from './components/users/login/login.component';
+import { TokenInterceptor } from './components/users/shared/auth.interceptor';
+import { WorkCalendarsComponent } from './components/work-calendars/work-calendars.component';
+import { ActivateComponent } from './components/users/activate/activate.component';
+import { SystemAdminCreateComponent } from './components/users/system-admin-create/system-admin-create.component';
+import { AdminRegistrationComponent } from './components/users/admin-registration/admin-registration.component';
+import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { SystemAdminPassChangeComponent } from './components/users/system-admin-pass-change/system-admin-pass-change.component';
+import { CustomAlertComponent } from './shared/custom-alert/custom-alert.component';
+import { AppointmentReviewComponent } from './components/appointment-review/appointment-review.component';
+import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
+import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
+import { DefineRegularComponent } from './components/appointments/define-regular/define-regular.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +42,19 @@ import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter
     UserNameSurnameFilterPipe,
     QuestionnairesComponent,
     RegisterRegularComponent,
-    CenterNameAddressFilterPipe
+    CenterNameAddressFilterPipe,
+    LoginComponent,
+    WorkCalendarsComponent,
+    ActivateComponent,
+    SystemAdminCreateComponent,
+    AdminRegistrationComponent,
+    AppointmentsComponent,
+    SystemAdminPassChangeComponent,
+    CustomAlertComponent,
+    AppointmentReviewComponent,
+    AppointmentProcessingComponent,
+    SchedulePredefinedComponent,
+    DefineRegularComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +62,13 @@ import { CenterNameAddressFilterPipe } from './shared/center-name-address-filter
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

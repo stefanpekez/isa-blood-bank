@@ -32,10 +32,13 @@ public class Center {
     private Long donationPrice;
     @Column
     private String workingHours;
-    @OneToMany
+    @ManyToMany
     private List<Donator> donators = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<User> adminsCenter = new ArrayList<>();
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Blood> typesOfBlood = new ArrayList<>();
+
+    @Column(columnDefinition = "integer default 10")
+    private Integer equipment;
 }

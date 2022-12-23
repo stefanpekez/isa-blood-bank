@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="container-fluid-rounded">
+        <div class="form-group">
+            <form #regularUserRegistration="ngForm">
+                <div class="form-header">
+                    <h1>Login</h1>
+                </div>
+                <div class="form-body">
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" [(ngModel)]="credentials.email" name="userEmail" ngModel required>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="userPassword" ngModel required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row mb-4">
+                        <div class="col-md-0">
+                            <input type="submit" class="form-control btn submit-button" (click)="login()" [disabled]="regularUserRegistration.invalid">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

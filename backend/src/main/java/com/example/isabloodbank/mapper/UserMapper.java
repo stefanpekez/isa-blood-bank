@@ -3,11 +3,12 @@ package com.example.isabloodbank.mapper;
 import com.example.isabloodbank.dto.UserCreateDTO;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.model.enums.Gender;
-import com.example.isabloodbank.model.enums.Role;
 import com.example.isabloodbank.model.enums.WorkStatus;
+import com.example.isabloodbank.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +17,13 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
 
     @Autowired
     private AddressMapper addressMapper;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public UserCreateDTO entityToDto(User user) {
         UserCreateDTO userCreateDTO = new UserCreateDTO();
+        userCreateDTO.setId(user.getId());
         userCreateDTO.setEmail(user.getEmail());
         userCreateDTO.setPassword(user.getPassword());
         userCreateDTO.setName(user.getName());
@@ -42,13 +46,18 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
             userCreateDTO.setWorkStatus("UNIVERSITY");
         }
 
-        if (user.getRole() == Role.REGULAR) {
-            userCreateDTO.setRole("REGULAR");
-        } else if (user.getRole() == Role.ADMIN_CENTER) {
-            userCreateDTO.setRole("ADMIN_CENTER");
-        } else {
-            userCreateDTO.setRole("ADMIN_SYSTEM");
-        }
+//        if (user.getRole().getName().equals("ROLE_REGULAR")) {
+        userCreateDTO.setRole(user.getRole().getName());
+//        } else if (user.getRole().getName().equals("ROLE_ADMIN_CENTER")) {
+//            userCreateDTO.setRole("ADMIN_CENTER");
+//        } else {
+//            userCreateDTO.setRole("ADMIN_SYSTEM");
+//        }
+
+        if (user.getLastPasswordResetDate() != null)
+            userCreateDTO.setLastPasswordResetDate(user.getLastPasswordResetDate().toString());
+
+        userCreateDTO.setId(user.getId());
 
         return userCreateDTO;
     }
@@ -61,6 +70,7 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
     @Override
     public User dtoToEntity(UserCreateDTO userCreateDTO) {
         User user = new User();
+        user.setId(userCreateDTO.getId());
         user.setEmail(userCreateDTO.getEmail());
         user.setPassword(userCreateDTO.getPassword());
         user.setName(userCreateDTO.getName());
@@ -87,13 +97,18 @@ public class UserMapper implements ObjectMapper<User, UserCreateDTO> {
             }
         }
 
-        if (userCreateDTO.getRole().equals("REGULAR")) {
-            user.setRole(Role.REGULAR);
-        } else if (userCreateDTO.getRole().equals("ADMIN_CENTER")) {
-            user.setRole(Role.ADMIN_CENTER);
-        } else {
-            user.setRole(Role.ADMIN_SYSTEM);
-        }
+
+//        if (userCreateDTO.getRole().equals("REGULAR")) {
+       // System.out.println("ROLE: " + roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0).getName());
+//        user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+//        } else if (userCreateDTO.getRole().equals("ADMIN_CENTER")) {
+//            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+//        } else {
+//            user.setRole(roleService.findByName("ROLE_"+userCreateDTO.getRole()).get(0));
+//        }
+
+        if (userCreateDTO.getLastPasswordResetDate() != null)
+            user.setLastPasswordResetDate(Timestamp.valueOf(userCreateDTO.getLastPasswordResetDate()));
 
         return user;
     }

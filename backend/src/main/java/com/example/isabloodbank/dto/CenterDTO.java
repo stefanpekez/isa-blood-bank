@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @Data
 public class CenterDTO {
+    private Long id;
     private String name;
     private String description;
     private AddressDTO address;

@@ -29,6 +29,13 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.card:hover {
+    cursor: pointer;
+    filter: brightness(1.05);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 15px 25px;
+    /* border: 3px solid black; */
+}
+
 .card-header{
     background-color: #b2ebf2;
 }
@@ -57,8 +64,8 @@
 }
 
 .ratingScale{
-    width: 5%;
-    margin-left: 2%;
+    width: 150px;
+    margin-left: 1%;
 }
 
 .sort-container{
@@ -84,3 +91,31 @@
     color: #ffffff;
 }
 
+.filter-container{
+    margin-left: 2%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    font-weight: bolder;
+    font-size: 1.2em;
+    height: 50px;
+}
+
+.select-min-value-label{
+    margin-left: 3%;
+}
+.select-max-value-label{
+    margin-left: 2%;
+}
+
+.alert {
+    height: 0;
+    display: flex;
+    justify-content: center;
+}
+
+app-custom-alert {
+    position: absolute;
+    z-index: 800;
+}

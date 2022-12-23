@@ -3,6 +3,7 @@ package com.example.isabloodbank.service;
 
 import com.example.isabloodbank.dto.CenterDTO;
 import com.example.isabloodbank.model.Center;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface ICenterService {
 
     Center edit(Center center, Long id);
 
-    List<Center> getAll(double filterBy);
+    List<Center> getAll(double filterMin, double filterMax);
 
-    List<Center> getAllBySearch(String searchName, String searchStreetName);
+    List<Center> getAll(Optional<String> searchName, Optional<String> searchStreetName, Optional<String> searchTown, List<Center> centers);
+
+    List<Center> getAll(String sortOrder, List<Center> centers);
 }

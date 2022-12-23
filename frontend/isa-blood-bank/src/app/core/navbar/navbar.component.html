@@ -4,33 +4,34 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+      <ul class="navbar-nav ms-auto" >
+        <li class="nav-item dropdown" *ngIf="userExists === 'true'">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             User
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="role === 'ROLE_ADMIN_SYSTEM'">
               <a class="dropdown-item" routerLink="/centers/create">Center-Create</a>
             </li>
-            <li class="nav-item">
-              <a class="dropdown-item" routerLink="/users/create">Center-Admin-Create</a>
+            <li class="nav-item" *ngIf="role === 'ROLE_ADMIN_SYSTEM'">
+              <a class="dropdown-item" routerLink="/users/create">Register-Admins</a>
             </li>
-            <li class="nav-item">
-              <a class="dropdown-item" routerLink="/users/register">Register</a>
-            </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="role === 'ROLE_REGULAR'">
               <a class="dropdown-item" routerLink="/questionnaires">Questionnaire</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
               <a class="dropdown-item" routerLink="/users">Show Users</a>
             </li>
-            <li>
-              <a class="dropdown-item" routerLink="/users/profile-view/:id">Profile</a>
+            <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
+              <a class="dropdown-item" routerLink="/users/profile-view/{{id}}">Profile</a>
             </li>
-            <li>
-              <a class="dropdown-item" routerLink="/centers/view/:id">Center-View</a>
+            <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
+              <a class="dropdown-item" routerLink="/centers/view/{{centerId}}">Center-View</a>
+            </li>
+            <li class="nav-item" *ngIf="role === 'ROLE_REGULAR'">
+              <a class="dropdown-item" routerLink="/appointments/define-regular">Make appointment</a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
@@ -38,6 +39,11 @@
             </li>
           </ul>
         </li>
+        <div class="nav-buttons">
+          <button class="btn btn-light" *ngIf="userExists === 'false'" routerLink="/users/login">Login</button>
+          <button class="btn btn-light" *ngIf="userExists === 'false'" routerLink="/users/register">Register</button>
+          <button class="btn btn-light" *ngIf="userExists === 'true'" (click)="logout()">Logout</button>
+        </div>
       </ul>
     </div>
   </div>

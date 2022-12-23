@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/components/users/shared/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,25 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  public userExists = '';
+  public role = '';
+  public centerId = -1;
+  public id = -1;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.currentNav.subscribe(message => {
+      const role = this.authService.getRole()
+      this.role = role ? role : '';
+      this.centerId = this.authService.getCenterId();
+      this.userExists = message;
+      this.id = this.authService.getUserId();
+    });
+  }
+
+  public logout() {
+    this.authService.logout();
   }
 
 }

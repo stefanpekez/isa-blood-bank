@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { User } from '../users/shared/user.model';
+import { UsersService } from '../users/shared/users.service';
 import { Center } from './shared/center.model';
 import { CenterService } from './shared/center.service';
 
@@ -10,36 +14,50 @@ import { CenterService } from './shared/center.service';
 export class CentersComponent implements OnInit {
 
   centers: Center[] = [];
-  name: string = "";
-  streetName: string ="";
-  townName: string = "";
-  ratingScore: String[] = ["1","2","3","4","5"];
-  selectRating = -1.0;
+  name: string = '';
+  streetName: string ='';
+  townName: string = '';
+  ratingScoreMin: number[] = [1.0, 2.0, 3.0, 4.0];
+  ratingScoreMax: number[] = [5.0, 4.0, 3.0, 2.0];
+  selectRatingMin = -1.0;
+  selectRatingMax = -1.0;
   sortBy = '';
   sortOrder = 0;
   orderValues = ['', 'asc', 'desc']
+  hidden: boolean = true;
+  alertMessage: string = '';
+  type: string = '';
 
-  constructor(private centerService: CenterService) { }
+  constructor(private centerService: CenterService, private router: Router, private userService: UsersService) { }
+
 
   ngOnInit(): void {
     this.loadCenters();
   }
 
   public loadCenters() {
-    if(this.selectRating === -1.0 && this.orderValues[this.sortOrder] === '') {
+    if((this.selectRatingMin === -1.0 && this.selectRatingMax === -1.0 && this.orderValues[this.sortOrder] === '' && this.name === '' && this.streetName === '' && this.townName === '')
+       ||( this.selectRatingMax <= this.selectRatingMin && (this.selectRatingMin !== -1.0 || this.selectRatingMax !== -1.0))) {
       this.centerService.getCenters().subscribe((response: Center[])=>{
         this.centers = response;
       })  
     } else {
-      this.centerService.getCenters(this.selectRating, this.sortBy, this.orderValues[this.sortOrder]).subscribe((response: Center[])=>{
+      this.centerService.getCenters(this.selectRatingMin, this.selectRatingMax, this.sortBy, this.orderValues[this.sortOrder], this.name, this.streetName, this.townName).subscribe((response: Center[])=>{
         this.centers = response;
       })  
     }
   }
 
-  public filterRating(event:any){
-    this.selectRating = event.target.value;
-    this.loadCenters();
+  public filterRatingMin(event:any){
+    event.preventDefault();
+    if(this.selectRatingMin < this.selectRatingMax)
+      this.loadCenters();
+  }
+
+  public filterRatingMax(event:any){
+    event.preventDefault();
+    if(this.selectRatingMax > this.selectRatingMin)
+      this.loadCenters();
   }
 
   public handleSort(event: Event, value: string) {
@@ -53,4 +71,45 @@ export class CentersComponent implements OnInit {
     this.loadCenters();
   } 
 
+  public searchCenters(){
+    if(this.name !== '' || this.streetName !== '' || this.townName !== '')
+      this.loadCenters();
+    else alert("please input search parameters");
+  }
+
+  public clearSearchInputs(){
+    this.name = '';
+    this.streetName = '';
+    this.townName = '';
+    this.loadCenters();
+  }
+
+
+  public openCalendar(centerId: number) {
+    const userRole = localStorage.getItem('role');
+    const center = localStorage.getItem('centerId');
+    if (userRole === 'ROLE_REGULAR') {
+      this.type = 'no';
+      this.hidden = false;
+      setTimeout(()=>{
+        this.hidden = true;
+      }, 3000)
+      
+      this.router.navigate([`appointments-predefined/${centerId}`])
+      return;
+    }
+
+    if (userRole === 'ROLE_ADMIN_CENTER' && center !== centerId.toString()) {
+      this.alertMessage = 'Insufficient authority to view the calendar';
+      this.type = 'no';
+      this.hidden = false;
+      setTimeout(()=>{
+        this.hidden = true;
+      }, 3000)
+      return;
+    }
+
+    this.router.navigate(['work-calendar', centerId]);
+
+  }
 }

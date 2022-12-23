@@ -14,4 +14,13 @@ export interface User{
     workStatus: string;
     role: string;
     centerId: number;
+    lastPasswordResetDate: string;
+}
+
+export interface ActivationResponse {
+    message: string;
+}
+
+export interface LoggedInUser {
+    email: string;
 }

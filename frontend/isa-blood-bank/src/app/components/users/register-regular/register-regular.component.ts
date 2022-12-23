@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/shared/address.model';
+import { AuthService } from '../shared/auth.service';
 import { User } from '../shared/user.model';
 import { UsersService } from '../shared/users.service';
 
@@ -15,7 +16,7 @@ export class RegisterRegularComponent implements OnInit {
   public addressTB = '';
   public passwordAgain = '';
 
-  constructor(private userService: UsersService, private router: Router) { }
+  constructor(private userService: UsersService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.user.address = {} as Address;
@@ -30,7 +31,7 @@ export class RegisterRegularComponent implements OnInit {
     }
 
     this.user.role = "REGULAR";
-    this.userService.create(this.user).subscribe(() => {
+    this.authService.register(this.user).subscribe(() => {
       this.router.navigate(['users']);
     });
   }
