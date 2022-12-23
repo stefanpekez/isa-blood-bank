@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Data
 public class AppointmentDTO {
-    private String scheduleTime;
+    private String scheduledTime;
     private Integer duration;
     private boolean isReserved;
     private String startTime;

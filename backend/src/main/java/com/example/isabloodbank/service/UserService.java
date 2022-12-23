@@ -130,4 +130,8 @@ public class UserService implements IUserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()));
         return userMapper.entityToDto(userRepository.save(user));
     }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

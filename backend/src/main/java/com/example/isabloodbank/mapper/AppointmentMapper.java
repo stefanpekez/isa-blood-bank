@@ -20,7 +20,7 @@ public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentD
     @Override
     public AppointmentDTO entityToDto(Appointment appointment) {
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        appointmentDTO.setScheduleTime(appointment.getScheduledTime().toString());
+        appointmentDTO.setScheduledTime(appointment.getScheduledTime().toString());
         appointmentDTO.setDuration(appointment.getDuration());
         appointmentDTO.setReserved(appointment.isReserved());
         appointmentDTO.setId(appointment.getId());
@@ -40,7 +40,7 @@ public class AppointmentMapper implements ObjectMapper<Appointment, AppointmentD
     @Override
     public Appointment dtoToEntity(AppointmentDTO appointmentDTO) {
         Appointment appointment = new Appointment();
-        appointment.setScheduledTime(LocalDate.parse(appointmentDTO.getScheduleTime()));
+        appointment.setScheduledTime(LocalDate.parse(appointmentDTO.getScheduledTime()));
         appointment.setDuration(appointmentDTO.getDuration());
         appointment.setReserved(appointmentDTO.isReserved());
         if (appointmentDTO.getStartTime() != null)
