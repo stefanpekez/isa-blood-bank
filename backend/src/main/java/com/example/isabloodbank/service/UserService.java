@@ -41,6 +41,9 @@ public class UserService implements IUserService, UserDetailsService {
 
         user.setRole(roles.get(0));
         user.setActivated(false);
+        if (user.getRole().getName().equals("ROLE_ADMIN_SYSTEM") || user.getRole().getName().equals("ROLE_ADMIN_CENTER")) {
+            user.setActivated(true);
+        }
         return userRepository.save(user);
     }
 
@@ -126,5 +129,9 @@ public class UserService implements IUserService, UserDetailsService {
         user.setLastPasswordResetDate(Timestamp.valueOf(userCreateDTO.getLastPasswordResetDate()));
         user.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()));
         return userMapper.entityToDto(userRepository.save(user));
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

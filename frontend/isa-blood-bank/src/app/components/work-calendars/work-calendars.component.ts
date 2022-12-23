@@ -27,6 +27,9 @@ export class WorkCalendarsComponent implements OnInit {
   appointments: Appointment[] = [];
   centerId: number = -1;
   workCalendar: WorkCalendar = {} as WorkCalendar;
+  selectedSlot: MonthSlot = {} as MonthSlot;
+  freeAppointments: number = 0;
+  reservedAppointments: number = 0;
 
   constructor(private router: Router, private _activatedRoute: ActivatedRoute, private workCalendarService: WorkCalendarService) { }
 
@@ -42,32 +45,27 @@ export class WorkCalendarsComponent implements OnInit {
         console.log(res);
         this.appointments = res;
         this.appointments.forEach(element => {
-          const periods: string[] = element.scheduleTime.split('-');
-          element.scheduleTime = this.month[+periods[1]-1] + ' ' + periods[2] + ', ' + periods[0];
+          const periods: string[] = element.scheduledTime.split('-');
+          element.scheduledTime = this.month[+periods[1]-1] + ' ' + periods[2] + ', ' + periods[0];
           element.startTime = this.findHours(element.startTime);
         });
         console.log(this.appointments);
+        for (let i = 0; i < 24; ++i) {
+          if (i === 23) {
+            this.hours.push(i + ':00-' + '00:00');
+            continue;
+          }
+          this.hours.push(i + ':00-' + (i+1) + ':00');
+        }
+    
+        this.currentDateWeek = new Date();
+        this.loadWeek();
+    
+        this.currentDate = new Date();
+        this.getCurrentWeek(0);
+        this.changeMonth(0);
       });
     });
-
-    
-
-    // console.log(this.appointments[1].scheduleTime);
-
-    for (let i = 0; i < 24; ++i) {
-      if (i === 23) {
-        this.hours.push(i + ':00-' + '00:00');
-        continue;
-      }
-      this.hours.push(i + ':00-' + (i+1) + ':00');
-    }
-
-    this.currentDateWeek = new Date();
-    this.loadWeek();
-
-    this.currentDate = new Date();
-    this.getCurrentWeek(0);
-    this.changeMonth(0);
   }
 
   findHours(hour: string): string {
@@ -109,7 +107,19 @@ export class WorkCalendarsComponent implements OnInit {
     if (this.view === 'Month') {
       for (let i = 0; i < this.appointments.length; ++i) {
         for (let j = 0; j < this.monthSlots.length; ++j) {
-          if (this.monthSlots[j].date === this.appointments[i].scheduleTime) {
+          let trimmed: string = this.appointments[i].scheduledTime;
+          // if (+this.monthSlots[j].date.split(' ')[1].replace(',', '') < 10) {
+          //   trimmed = '0' + this.monthSlots[j].date.split(' ')[1].replace(',', '');
+          // } else {
+          //   trimmed = this.monthSlots[j].date.split(' ')[1].replace(',', '');
+          // }
+          // trimmed = this.appointments[i].scheduleTime.split(' ')[0] + ' ' + 
+          //   this.appointments[i].scheduleTime.split(' ')[1].replace(',', '') + ', ' + 
+          //   this.appointments[i].scheduleTime.split(' ')[2];
+          // console.log('appointment date: ' + trimmed);
+          // console.log('monthslot date: ' + this.monthSlots[j].date);
+          if (this.monthSlots[j].date === this.appointments[i].scheduledTime) {
+
             this.monthSlots[j].addAppointment(this.appointments[i]);
           }
         }
@@ -117,9 +127,9 @@ export class WorkCalendarsComponent implements OnInit {
     } else {
       for (let i = 0; i < this.appointments.length; ++i) {
         for (let j = 0; j < this.daySlots.length; ++j) {
-          if (this.appointments[i].scheduleTime === this.daySlots[j].date
+          if (this.appointments[i].scheduledTime === this.daySlots[j].date
               && this.appointments[i].startTime === this.daySlots[j].time) {
-                console.log('appointment date: ' + this.appointments[i].scheduleTime);
+                console.log('appointment date: ' + this.appointments[i].scheduledTime);
                 console.log('dayslot date: ' + this.daySlots[j].date);
 
                 console.log('appointment time: ' + this.appointments[i].startTime);
@@ -129,7 +139,15 @@ export class WorkCalendarsComponent implements OnInit {
         }
       }
     }
-    // console.log(Object.keys(this.daySlots[0].appointment).length === 0);
+    for(let i = 0; i < this.monthSlots.length; ++i) {
+      for (let j = 0; j < this.monthSlots[i].appointments.length; ++j) {
+        if (this.monthSlots[i].appointments[j].reserved === true) {
+          this.monthSlots[i].reservedAppointments += 1;
+        } else {
+          this.monthSlots[i].freeAppointments += 1;
+        }
+      }
+    }
   }
 
   calculateDate(byDays: number): string {
@@ -140,7 +158,19 @@ export class WorkCalendarsComponent implements OnInit {
 
     let currentDay = new Date();
     currentDay.setDate(firstDay.getDate() + byDays);
-    return currentDay.toLocaleString('default', {day: 'numeric', month: 'long', year: 'numeric'});
+    currentDay.setMonth(today.getMonth());
+    currentDay.setFullYear(today.getFullYear());
+    let stringDate: string = '';
+    if (+currentDay.toLocaleString('default', {day: 'numeric'}) < 10) {
+      stringDate = currentDay.toLocaleString('default', {month: 'long'}) + ' 0' +
+        currentDay.toLocaleString('default', {day: 'numeric'}) + ', ' + 
+        currentDay.toLocaleString('default', {year: 'numeric'});
+    } else {
+      stringDate = currentDay.toLocaleString('default', {month: 'long'}) + ' ' +
+      currentDay.toLocaleString('default', {day: 'numeric'}) + ', ' + 
+      currentDay.toLocaleString('default', {year: 'numeric'});
+    }
+    return stringDate;
   }
 
   changeMonth(value: number) {
@@ -237,6 +267,11 @@ export class WorkCalendarsComponent implements OnInit {
 
   public defineAppointment():void{
      this.router.navigate(['appointments', this.centerId, this.workCalendar.id]);
+  }
+
+  selectMonthSlot(slot: MonthSlot) {
+    this.selectedSlot = slot;
+    console.log(this.selectedSlot);
   }
 
 }

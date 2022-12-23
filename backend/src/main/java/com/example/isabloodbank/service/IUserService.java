@@ -22,4 +22,6 @@ public interface IUserService {
     UserCreateDTO create(UserCreateDTO userCreateDTO);
 
     UserCreateDTO updatePassword(UserCreateDTO userCreateDTO);
+
+    User save(User user);
 }

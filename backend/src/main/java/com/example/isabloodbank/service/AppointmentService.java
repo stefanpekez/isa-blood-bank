@@ -54,6 +54,10 @@ public class AppointmentService implements IAppointmentService{
             return;
         }
         Appointment appointment = optionalAppointment.get();
+        User donator = appointment.getDonator();
+        donator.setPenalties(donator.getPenalties()+1);
+        userService.save(donator);
+        appointment.setDonator(donator);
         addAppointmentReview(appointmentReviewDto, appointment);
         appointmentRepository.save(appointment);
     }

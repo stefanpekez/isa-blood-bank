@@ -109,13 +109,6 @@ export class CentersComponent implements OnInit {
       return;
     }
 
-    // this.alertMessage = 'Successfully loaded the calendar';
-    // this.type = 'yes';
-    // this.hidden = false;
-    // setTimeout(()=>{
-    //   this.hidden = true;
-    // }, 3000)
-
     this.router.navigate(['work-calendar', centerId]);
 
   }

@@ -62,7 +62,22 @@ public class QuestionnaireService {
         if (appointment.isEmpty()) {
             return false;
         }
+
         Questionnaire questionnaire = questionnaireRepository.findByUserId(appointment.get().getDonator().getId());
-        return !questionnaire.getAnswers().contains("DA");
+        String parsedQuestionnaire[] = questionnaire.getAnswers().split(";");
+
+        Integer counter = 1;
+        for (String question : parsedQuestionnaire) {
+            if(counter > 13 && question.startsWith(counter.toString())) {
+                String answer = question.split("-")[1];
+                if(answer.equals("DA"))
+                    return false;
+
+                return true;
+            }
+            ++counter;
+        }
+
+        return false;
     }
 }
