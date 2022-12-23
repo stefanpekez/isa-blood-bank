@@ -37,7 +37,7 @@
   </div>
 
   <div class="container">
-    <div class="card" *ngFor="let c of centers" (click)="procedeSchedule()">
+    <div class="card" *ngFor="let c of centers" (click)="procedeSchedule(c.id)">
         <div class="card-header">
            <h3>{{c.name}}</h3>
            <p>Please fill the <b>questionare</b></p>
