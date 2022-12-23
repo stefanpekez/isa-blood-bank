@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { convertToParamMap, Router } from '@angular/router';
 import { Center } from '../../centers/shared/center.model';
 import { CenterService } from '../../centers/shared/center.service';
 import { AppointmentService } from '../shared/appointment.service';
-import { Appointment } from '../shared/appointments.model';
+import { Appointment, CenterAppointment, ScheduleAppointment } from '../shared/appointments.model';
+
+import { UsersService } from '../../users/shared/users.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-define-regular',
@@ -19,10 +22,14 @@ export class DefineRegularComponent implements OnInit {
   sortOrder = 0;
   orderValues = ['', 'asc', 'desc']
   appointment:Appointment = {} as Appointment;
+  private centerAppointments: CenterAppointment[] = [];
 
-  constructor(private centerService: CenterService,
-              private router: Router,
-              private appointmentService: AppointmentService) { }
+  constructor(
+    private centerService: CenterService,
+    private router: Router,
+    private appointmentService: AppointmentService,
+    private userService: UsersService    
+  ) { }
 
   ngOnInit(): void {
   }
@@ -40,8 +47,10 @@ export class DefineRegularComponent implements OnInit {
   }
 
   public loadCenters() {
-    this.appointmentService.findCentersByAvailableAppointment(this.appointment).subscribe((response: Center[])=>{
-      this.centers = response;
+    this.appointmentService.findCentersByAvailableAppointment(this.appointment).subscribe((response: CenterAppointment[])=>{
+      console.log(response)
+      response.forEach(dto => this.centers.push(dto.center));
+      this.centerAppointments = response;
     })
   }
 
@@ -63,8 +72,39 @@ export class DefineRegularComponent implements OnInit {
       this.sortCenters();
   } 
 
-  public procedeSchedule(){
-    this.router.navigate(['questionnaires']);
+  public procedeSchedule(center: number){
+    this.userService.getLoggedInUserEmail()
+    .subscribe(response => {
+      console.log(response);
+      const userEmail = response.email;
+      console.log(this.centerAppointments);
+      console.log(center);
+      const appointment = this.centerAppointments
+                            .find(centerAppointment => centerAppointment.center.id === center);
+      
+      console.log(appointment)
+
+      if(appointment) {
+        const schedule = <ScheduleAppointment> {
+          userEmail: userEmail,
+          appointment: appointment.appointment.id
+        }
+
+
+        this.appointmentService.reserve(schedule)
+        .pipe(catchError(()=> {
+          alert('Questionnaire was not filled or user donated blood in the past 6 months');
+          setTimeout(() =>{
+            this.router.navigate(['questionnaires']);
+          },2000);
+          return of()
+        }))
+        .subscribe(() => {
+          alert('Successfully scheduled appointment');
+        })
+      }
+    });
+  
   }
 
   

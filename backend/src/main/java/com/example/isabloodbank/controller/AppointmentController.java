@@ -1,6 +1,6 @@
 package com.example.isabloodbank.controller;
 
-import com.example.isabloodbank.dto.AppointmentReviewDto;
+import com.example.isabloodbank.dto.*;
 import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.Center;
 import com.example.isabloodbank.service.AppointmentService;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.isabloodbank.dto.QuestionnaireDTO;
-import com.example.isabloodbank.dto.ScheduleAppointmentDTO;
 import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.service.AppointmentService;
@@ -26,7 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.example.isabloodbank.dto.AppointmentDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -113,7 +110,7 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllFreeByCenter(centerId));
     }
     @PostMapping("/find-available")
-    public ResponseEntity<List<Center>> getAllAvailableBySearch(@RequestBody AppointmentDTO appointmentDTO){
+    public ResponseEntity<List<CenterAppointmentDTO>> getAllAvailableBySearch(@RequestBody AppointmentDTO appointmentDTO){
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAllAvailableBySearch(appointmentDTO));
     }
 

@@ -3,6 +3,7 @@ package com.example.isabloodbank.service;
 
 import com.example.isabloodbank.dto.AppointmentDTO;
 import com.example.isabloodbank.dto.AppointmentReviewDto;
+import com.example.isabloodbank.dto.CenterAppointmentDTO;
 import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.enums.AppointmentStatus;
 import com.example.isabloodbank.dto.ScheduleAppointmentDTO;
@@ -171,11 +172,13 @@ public class AppointmentService implements IAppointmentService{
         return appointmentRepository.findAllByWorkCalendar_Center_Id(id);
     }
 
-    public List<Center> getAllAvailableBySearch(AppointmentDTO appointmentDTO){
+    public List<CenterAppointmentDTO> getAllAvailableBySearch(AppointmentDTO appointmentDTO){
         Appointment appointment = appointmentMapper.dtoToEntity(appointmentDTO);
         List<Appointment> allAppointments = new ArrayList<Appointment>();
         List<Center> result = new ArrayList<Center>();
         allAppointments = appointmentRepository.findAll();
+
+        List<CenterAppointmentDTO> centerAppointment = new ArrayList<>();
 
         for(Appointment a: allAppointments) {
             if (a.getScheduledTime().equals(appointment.getScheduledTime())) {
@@ -183,18 +186,23 @@ public class AppointmentService implements IAppointmentService{
                 if (a.getStartTime().getHour() == appointment.getStartTime().getHour() && !a.isReserved()) {
                     Center center = a.getWorkCalendar().getCenter();
                     result.add(center);
+                    centerAppointment.add(new CenterAppointmentDTO(center, a));
                 }
             }
         }
-        return result;
+        return centerAppointment;
     }
 
     public List<Center> sortAvailableByScore(AppointmentDTO appointmentDTO, String sortOrder, String sortBy){
-        List<Center> centers = getAllAvailableBySearch(appointmentDTO);
+        List<CenterAppointmentDTO> centers = getAllAvailableBySearch(appointmentDTO);
+        List<Center> onlyCenter = new ArrayList<>();
+        for(CenterAppointmentDTO dto: centers)
+            onlyCenter.add(dto.getCenter());
+
         List<Center> result = new ArrayList<>();
 
-        if(!centers.isEmpty())
-            result = centerService.getAll(sortBy, sortOrder,centers);
+        if(!onlyCenter.isEmpty())
+            result = centerService.getAll(sortBy, sortOrder,onlyCenter);
         return result;
     }
 

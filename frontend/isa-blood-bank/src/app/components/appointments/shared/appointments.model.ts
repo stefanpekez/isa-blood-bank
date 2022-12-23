@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { Center } from "../../centers/shared/center.model";
 import { User } from "../../users/shared/user.model";
 
 export interface Appointment{
@@ -14,4 +15,9 @@ export interface Appointment{
 export interface ScheduleAppointment {
     userEmail: string;
     appointment: number;
+}
+
+export interface CenterAppointment {
+    center: Center;
+    appointment: Appointment;
 }
