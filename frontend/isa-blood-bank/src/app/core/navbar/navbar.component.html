@@ -9,7 +9,7 @@
       <ul class="navbar-nav ms-auto" >
         <li class="nav-item dropdown" *ngIf="userExists === 'true'">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            User
+            {{user}}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li class="nav-item" *ngIf="role === 'ROLE_ADMIN_SYSTEM'">
@@ -25,9 +25,6 @@
               <a class="dropdown-item" routerLink="/users">Show Users</a>
             </li>
             <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
-              <a class="dropdown-item" routerLink="/users/profile-view/{{id}}">Profile</a>
-            </li>
-            <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
               <a class="dropdown-item" routerLink="/centers/view/{{centerId}}">Center-View</a>
             </li>
             <li class="nav-item" *ngIf="role === 'ROLE_REGULAR'">
@@ -35,14 +32,16 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" routerLink="/users/profile-view/{{id}}">Profile</a>
+            </li>
+            <li *ngIf="userExists === 'true'" >
+              <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
             </li>
           </ul>
         </li>
         <div class="nav-buttons">
           <button class="btn btn-light" *ngIf="userExists === 'false'" routerLink="/users/login">Login</button>
           <button class="btn btn-light" *ngIf="userExists === 'false'" routerLink="/users/register">Register</button>
-          <button class="btn btn-light" *ngIf="userExists === 'true'" (click)="logout()">Logout</button>
         </div>
       </ul>
     </div>
