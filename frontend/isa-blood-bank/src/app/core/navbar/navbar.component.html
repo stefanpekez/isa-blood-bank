@@ -25,6 +25,12 @@
               <a class="dropdown-item" routerLink="/users">Show Users</a>
             </li>
             <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
+              <a class="dropdown-item" routerLink="/users/profile-view/{{id}}">Profile</a>
+            </li>
+            <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
+              <a class="dropdown-item" routerLink="/in-progress-info">In progress</a>
+            </li>
+            <li *ngIf="role === 'ROLE_ADMIN_SYSTEM' || role === 'ROLE_ADMIN_CENTER'">
               <a class="dropdown-item" routerLink="/centers/view/{{centerId}}">Center-View</a>
             </li>
             <li class="nav-item" *ngIf="role === 'ROLE_REGULAR'">
