@@ -1,0 +1,20 @@
+<h2>My appointment history:</h2>
+<div class="sort-container">
+    <label class="sort-label" for="btn btn-primary">Sort by:</label>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'date')">Date</button>
+    <button class="btn btn-primary"  (click)="handleSort($event, 'duration')">Duration</button>
+    <h4 *ngIf="orderValues[sortOrder] !== ''">| {{orderValues[sortOrder]}}</h4>
+</div>
+<div *ngFor="let myAppointment of myAppointments" class="card">
+    <div class="card-header">
+        <h3>Appointment {{myAppointment.id}}</h3>
+     </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i>Duration:</i> {{myAppointment.duration}}h</li>
+            <li class="list-group-item"><i>Time:</i> {{convertTime(myAppointment.startTime)}}</li>
+            <li class="list-group-item"><i>Date:</i> {{convertDate(myAppointment.scheduledTime)}}</li>
+        </ul>
+    </div>
+    <br>
+</div>

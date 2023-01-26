@@ -28,6 +28,7 @@ import { AppointmentReviewComponent } from './components/appointment-review/appo
 import { AppointmentProcessingComponent } from './components/appointment-review/appointment-processing/appointment-processing.component';
 import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
 import { DefineRegularComponent } from './components/appointments/define-regular/define-regular.component';
+import { AppointmentHistoryComponent } from './components/appointments/appointment-history/appointment-history.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { DefineRegularComponent } from './components/appointments/define-regular
     AppointmentReviewComponent,
     AppointmentProcessingComponent,
     SchedulePredefinedComponent,
-    DefineRegularComponent
+    DefineRegularComponent,
+    AppointmentHistoryComponent
   ],
   imports: [
     BrowserModule,
