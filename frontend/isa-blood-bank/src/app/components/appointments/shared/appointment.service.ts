@@ -58,4 +58,11 @@ export class AppointmentService {
     });
     return this.http.post<Center[]>(`${this.baseUrl}/sort-available?sort-order=${sortOrder}&sort-by=${sortBy}`, JSON.stringify(appointmentDTO), {headers: headers});
   }
+
+  public getAppointmentHistory(centerId: number, username: string, sortOrder: string, sortType: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<Appointment[]>(`${this.baseUrl}/user-history?username=${username}&center-id=${centerId}&sort-order=${sortOrder}&sort-type=${sortType}`, {headers: headers})
+  }
 }

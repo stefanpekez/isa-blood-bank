@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.text.html.Option;
+
 @RestController
 @RequestMapping(value = "/appointments")
 public class AppointmentController {
@@ -125,6 +127,20 @@ public class AppointmentController {
         //return new ResponseEntity<>(centers, HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.sortAvailableByScore(appointmentDTO, sortOrder.get(), sortBy.get()));
 
+    }
+
+    @GetMapping("/user-history")
+    public ResponseEntity<List<Appointment>> getUserAppointmentHistory(
+            @RequestParam("username") String username,
+            @RequestParam("center-id") String centerId,
+            @RequestParam("sort-order") Optional<String> sortOrder,
+            @RequestParam("sort-type") Optional<String> sortType
+    ) {
+        String sortOrderParsed = sortOrder.isPresent() ? sortOrder.get() : "asc";
+        String sortTypeParsed = sortType.isPresent() ? sortType.get() : "date";
+
+        List<Appointment> appointments = appointmentService.getUserHistory(username, Integer.parseInt(centerId), sortOrderParsed, sortTypeParsed);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
 }
