@@ -31,6 +31,7 @@ import { DefineRegularComponent } from './components/appointments/define-regular
 import { AppointmentHistoryComponent } from './components/appointments/appointment-history/appointment-history.component';
 import { InProgressInfoComponent } from './components/appointments/in-progress-info/in-progress-info.component';
 import { InProgressEditComponent } from './components/appointments/in-progress-edit/in-progress-edit.component';
+import { DonatorsComponent } from './components/donators/donators.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { InProgressEditComponent } from './components/appointments/in-progress-e
     DefineRegularComponent,
     AppointmentHistoryComponent,
     InProgressInfoComponent,
-    InProgressEditComponent
+    InProgressEditComponent,
+    DonatorsComponent
   ],
   imports: [
     BrowserModule,

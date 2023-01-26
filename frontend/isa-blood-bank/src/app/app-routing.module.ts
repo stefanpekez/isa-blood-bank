@@ -23,6 +23,7 @@ import { DefineRegularComponent } from './components/appointments/define-regular
 import { AppointmentHistoryComponent } from './components/appointments/appointment-history/appointment-history.component';
 import { InProgressInfoComponent } from './components/appointments/in-progress-info/in-progress-info.component';
 import { InProgressEditComponent } from './components/appointments/in-progress-edit/in-progress-edit.component';
+import { DonatorsComponent } from './components/donators/donators.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -51,7 +52,8 @@ const routes: Routes = [
   {path: 'appointments/define-regular', component: DefineRegularComponent},
   {path: 'appointment-history/:id', component: AppointmentHistoryComponent},
   {path: 'in-progress-info', component: InProgressInfoComponent},
-  {path: 'in-progress-edit/:id', component: InProgressEditComponent}
+  {path: 'in-progress-edit/:id', component: InProgressEditComponent},
+  {path: 'donators/:id', component: DonatorsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

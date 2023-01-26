@@ -1,6 +1,7 @@
 package com.example.isabloodbank.service;
 
 import com.example.isabloodbank.dto.UserCreateDTO;
+import com.example.isabloodbank.dto.UserDTO;
 import com.example.isabloodbank.model.User;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface IUserService {
     UserCreateDTO updatePassword(UserCreateDTO userCreateDTO);
 
     User save(User user);
+
+    List<UserDTO> getAllDonators(Long bloodBankId);
 }

@@ -2,9 +2,11 @@ package com.example.isabloodbank.controller;
 import com.example.isabloodbank.dto.ActivationResponseDTO;
 import com.example.isabloodbank.dto.LoggedInUserDTO;
 import com.example.isabloodbank.dto.UserCreateDTO;
+import com.example.isabloodbank.dto.UserDTO;
 import com.example.isabloodbank.mapper.UserMapper;
 import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.service.IUserService;
+import com.example.isabloodbank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -72,5 +74,10 @@ public class UserController {
     public ResponseEntity<LoggedInUserDTO> findLoggedInUser() {
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new ResponseEntity<>(new LoggedInUserDTO(user.getEmail()), HttpStatus.OK);
+    }
+
+    @GetMapping("/donators/center/{centerId}")
+    public List<UserDTO> getAllDonators(@PathVariable Long centerId) {
+        return userService.getAllDonators(centerId);
     }
 }
