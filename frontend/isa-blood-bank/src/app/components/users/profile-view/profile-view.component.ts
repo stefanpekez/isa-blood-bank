@@ -41,11 +41,11 @@ export class ProfileViewComponent implements OnInit {
 
 
   checkRole(){
-    if(this.userObject.role != "REGULAR"){
-      this.userType = false;
-    }else{
+    // if(this.userObject.role != "REGULAR"){
+    //   this.userType = false;
+    // }else{
       this.showDonatorInfo();
-    }
+    // }
   }
 
   checkPassword(){

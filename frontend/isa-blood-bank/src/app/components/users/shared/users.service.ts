@@ -12,7 +12,7 @@ import { ActivationResponse, LoggedInUser, User } from './user.model';
 export class UsersService {
 
   baseUrl: string = environment.baseApiUrl + '/users';
-  baseUrlDonator = environment.baseApiUrl + '/donators/';
+  baseUrlDonator = environment.baseApiUrl + '/donators';
   
   
   constructor(private http: HttpClient) { }
