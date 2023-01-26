@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserDTO } from '../../donators/shared/userDTO.model';
 import { Donator } from './donator.model';
 import { ActivationResponse, LoggedInUser, User } from './user.model';
 
@@ -73,5 +74,12 @@ export class UsersService {
 
   public getLoggedInUserEmail() {
     return this.http.get<LoggedInUser>(`${this.baseUrl}/findLoggedIn`);
+  }
+
+  public getAllDonators(id:number){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<UserDTO[]>(`${this.baseUrl}/donators/center/${id}`, {headers: headers});
   }
 }
