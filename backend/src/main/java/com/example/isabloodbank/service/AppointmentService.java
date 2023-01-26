@@ -193,6 +193,10 @@ public class AppointmentService implements IAppointmentService{
         return centerAppointment;
     }
 
+    public AppointmentDTO getById(Long id) {
+        return appointmentMapper.entityToDto(this.appointmentRepository.findById(id).get());
+    }
+
     public List<Center> sortAvailableByScore(AppointmentDTO appointmentDTO, String sortOrder, String sortBy){
         List<CenterAppointmentDTO> centers = getAllAvailableBySearch(appointmentDTO);
         List<Center> onlyCenter = new ArrayList<>();
@@ -207,12 +211,31 @@ public class AppointmentService implements IAppointmentService{
     }
 
     @Override
+    public List<Appointment> getUserHistory(String username, Integer centerId, String sortOrder, String sortType) {
+        List<Appointment> centerAppointments = getAllByCenter(centerId);
+        List<Appointment> userAppointmentHistory = new ArrayList<>();
+
+        for(Appointment appointment : centerAppointments)
+            if(appointment.getDonator() != null && appointment.getDonator().getEmail().equals(username) && appointment.getScheduledTime().isBefore(LocalDate.now()))
+                userAppointmentHistory.add(appointment);
+
+        int sortOffset = sortOrder.equals("asc") ? 1 : -1;
+
+        userAppointmentHistory.sort((a1, a2) -> switch (sortType) {
+            case "duration" -> a1.getDuration() - a2.getDuration();
+            default -> a1.getScheduledTime().compareTo(a2.getScheduledTime());
+        } * sortOffset) ;
+
+        return userAppointmentHistory;
+    }
+
+    @Override
     public List<Appointment> getAllByCenterAndUser(Long id, User user) {
         List<Appointment> appointments = getAllByCenter(id);
         List<Appointment> filteredAppointments = new ArrayList<>();
 
         for(Appointment appointment: appointments) {
-            if(appointment.getDonator() != null && appointment.getDonator().getEmail().equals(user.getEmail()))
+            if(appointment.getDonator() != null && appointment.getDonator().getEmail().equals(user.getEmail()) && appointment.getScheduledTime().isAfter(LocalDate.now()))
                 filteredAppointments.add(appointment);
         }
 
@@ -230,4 +253,6 @@ public class AppointmentService implements IAppointmentService{
 
         return filteredAppointments;
     }
+
+
 }

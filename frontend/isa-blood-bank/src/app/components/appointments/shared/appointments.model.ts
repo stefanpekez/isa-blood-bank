@@ -8,7 +8,7 @@ export interface Appointment{
     duration: number;
    // assignedStaff: User[];
     isReserved: boolean;
-    startTime: Time;
+    startTime: string;
     donator: User;
 }
 

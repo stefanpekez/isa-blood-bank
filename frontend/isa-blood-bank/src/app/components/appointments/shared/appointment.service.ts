@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Appointment, CenterAppointment, ScheduleAppointment } from './appointments.model';
 import { Center } from '../../centers/shared/center.model';
+import { Report } from './report.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +58,25 @@ export class AppointmentService {
       'Content-Type': 'application/json'
     });
     return this.http.post<Center[]>(`${this.baseUrl}/sort-available?sort-order=${sortOrder}&sort-by=${sortBy}`, JSON.stringify(appointmentDTO), {headers: headers});
+  }
+
+  public getAppointmentHistory(centerId: number, username: string, sortOrder: string, sortType: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<Appointment[]>(`${this.baseUrl}/user-history?username=${username}&center-id=${centerId}&sort-order=${sortOrder}&sort-type=${sortType}`, {headers: headers})
+  }
+  public saveReport(report: Report) {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<Report>(`${this.baseUrl}/save-report`, JSON.stringify(report), {headers: headers});
+  }
+
+  public getById(id: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<Appointment>(`${this.baseUrl}/get/${id}`);
   }
 }

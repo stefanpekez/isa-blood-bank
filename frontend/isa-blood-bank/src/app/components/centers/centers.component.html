@@ -30,10 +30,12 @@
     <h4 *ngIf="orderValues[sortOrder] !== ''">| {{orderValues[sortOrder]}}</h4>
 </div>
 <div class="container">
-    <div class="card" *ngFor="let c of centers" (click)="openCalendar(c.id)">
+    <div class="card" *ngFor="let c of centers">
         <div class="card-header">
            <h3>{{c.name}}</h3>
            <p>{{c.description}}</p>
+           <button class="btn btn-primary"  *ngIf="userRole === 'ROLE_REGULAR'" (click)="openHistory(c.id)">Appointment History</button>
+           <button class="btn btn-primary"  (click)="openCalendar(c.id)">Appointment Insight</button>
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">

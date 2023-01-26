@@ -26,6 +26,8 @@ INSERT INTO user_table (center_id, email, gender, name, occupation, password, ro
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role_id, surname, upin, phone_number, work_status, address_id, activated) values (null, 'zarko.zarkovic@gmail.com', 0, 'Zarko', null, '$2a$10$OsT1cBe2WrC7Q8cIH1GRMO6E.xkMA0/iBKcgZ0Ibt1Z9e.rpjxYma', 2, 'Zarkovic', '0000000000003', '065-7387897', 2, 5, true);
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role_id, surname, upin, phone_number, work_status, address_id, activated) values (null, 'marija.marijanovic@gmail.com', 1, 'Marija', null, '$2a$10$OsT1cBe2WrC7Q8cIH1GRMO6E.xkMA0/iBKcgZ0Ibt1Z9e.rpjxYma', 2, 'Marijanovic', '0000000000004', '064-2136597', 2, 7, true);
 INSERT INTO user_table (center_id, email, gender, name, occupation, password, role_id, surname, upin, phone_number, work_status, address_id, activated) values (null, 'nina.ninkovic@gmail.com', 1, 'Nina', null, '$2a$10$OsT1cBe2WrC7Q8cIH1GRMO6E.xkMA0/iBKcgZ0Ibt1Z9e.rpjxYma', 3, 'Ninkovic', '0000000000005', '063-2435632', 2, 6, true);
+INSERT INTO user_table (center_id, email, gender, name, occupation, password, role_id, surname, upin, phone_number, work_status, address_id, activated) values (null, 'fiki@gmail.com', 0, 'Fiki', null, '$2a$10$OsT1cBe2WrC7Q8cIH1GRMO6E.xkMA0/iBKcgZ0Ibt1Z9e.rpjxYma', 1, 'Ninkovic', '0000000000005', '063-2435632', 2, 6, true);
+
 
 
 -- BLOOD
@@ -60,19 +62,23 @@ INSERT INTO center_types_of_blood (center_id, types_of_blood_id) values (1, 3);
 
 -- APPOINTMENTS
 
-
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, false, '2022-12-23', null, 2, '14:00:00');
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, false, '2022-12-21', null, 2, '02:00');
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, false, '2022-12-23', null, 1, '14:00');
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, false, '2022-12-25', 1, 1, '07:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-26', 1, 2, '04:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, false, '2022-12-23', null, 2, '00:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-22', 2, 1, '13:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-12-20', 1, 2, '05:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-01-03', 2, 2, '02:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-01-03', 2, 2, '03:00');
-INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-11-27', 1, 1, '07:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-01-26', 1, 2, '04:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, false, '2023-01-23', null, 2, '00:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-02-06', 2, 1, '13:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time, status) values (1, true, '2023-01-29', 1, 2, '05:00', 1);
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time, status) values (1, true, '2023-01-31', 2, 2, '02:00', 1);
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time, status) values (1, true, '2023-01-03', 2, 2, '03:00', 1);
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-01-26', 2, 2, '22:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-01-28', 2, 2, '03:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-02-02', 1, 1, '07:00');
 INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2022-11-27', 1, 2, '03:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-02-27', 1, 2, '03:00');
+INSERT INTO appointment (duration, is_reserved, scheduled_time, donator_id, work_calendar_id, start_time) values (1, true, '2023-02-15', 1, 2, '03:00');
+
 
 --INSERT INTO templates (id, data) values (1, '1. Da li imate manje od 50kg?-;
 --2. Da li imate promene na kozi?-;

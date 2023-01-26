@@ -1,10 +1,8 @@
 package com.example.isabloodbank.controller;
 
 import com.example.isabloodbank.dto.*;
-import com.example.isabloodbank.model.Appointment;
-import com.example.isabloodbank.model.Center;
-import com.example.isabloodbank.service.AppointmentService;
-import com.example.isabloodbank.service.ICenterService;
+import com.example.isabloodbank.model.*;
+import com.example.isabloodbank.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.isabloodbank.model.Appointment;
-import com.example.isabloodbank.model.User;
 import com.example.isabloodbank.service.AppointmentService;
-import com.example.isabloodbank.service.EmailService;
-import com.example.isabloodbank.service.QuestionnaireService;
-import com.example.isabloodbank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.text.html.Option;
+
 @RestController
 @RequestMapping(value = "/appointments")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AppointmentController {
 
     @Autowired
@@ -45,6 +42,9 @@ public class AppointmentController {
 
     @Autowired
     private QuestionnaireService questionnaireService;
+
+    @Autowired
+    private ReportService reportService;
 
     @GetMapping("/user/{id}")
     public List<Appointment> getAllByUser(@PathVariable("id")Long userId ) {
@@ -125,6 +125,29 @@ public class AppointmentController {
         //return new ResponseEntity<>(centers, HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.sortAvailableByScore(appointmentDTO, sortOrder.get(), sortBy.get()));
 
+    }
+
+    @GetMapping("/user-history")
+    public ResponseEntity<List<Appointment>> getUserAppointmentHistory(
+            @RequestParam("username") String username,
+            @RequestParam("center-id") String centerId,
+            @RequestParam("sort-order") Optional<String> sortOrder,
+            @RequestParam("sort-type") Optional<String> sortType
+    ) {
+        String sortOrderParsed = sortOrder.isPresent() ? sortOrder.get() : "asc";
+        String sortTypeParsed = sortType.isPresent() ? sortType.get() : "date";
+
+        List<Appointment> appointments = appointmentService.getUserHistory(username, Integer.parseInt(centerId), sortOrderParsed, sortTypeParsed);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<AppointmentDTO> getById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(this.appointmentService.getById(id));
+    }
+
+    @PostMapping("/save-report")
+    public ResponseEntity<Report> saveReport(@RequestBody Report report){
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.reportService.saveReport(report));
     }
 
 }
