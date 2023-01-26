@@ -18,4 +18,6 @@ public interface IAppointmentService {
     List<Appointment> getAllFreeByCenter(Long id);
     List<CenterAppointmentDTO> getAllAvailableBySearch(AppointmentDTO appointmentDTO);
     List<Center> sortAvailableByScore(AppointmentDTO appointmentDTO, String sortOrder, String sortBy);
+
+    List<Appointment> getUserHistory(String username, Integer centerId, String sortOrder, String sortType);
 }

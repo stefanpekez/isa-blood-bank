@@ -27,12 +27,14 @@ export class CentersComponent implements OnInit {
   hidden: boolean = true;
   alertMessage: string = '';
   type: string = '';
+  userRole: string | null = null;
 
   constructor(private centerService: CenterService, private router: Router, private userService: UsersService) { }
 
 
   ngOnInit(): void {
     this.loadCenters();
+    this.userRole = localStorage.getItem('role');
   }
 
   public loadCenters() {
@@ -111,5 +113,9 @@ export class CentersComponent implements OnInit {
 
     this.router.navigate(['work-calendar', centerId]);
 
+  }
+
+  public openHistory(centerId: number) {
+    this.router.navigate(['appointment-history', centerId]);
   }
 }
