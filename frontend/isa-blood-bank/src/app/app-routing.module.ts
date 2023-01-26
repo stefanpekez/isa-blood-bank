@@ -21,6 +21,8 @@ import { AppointmentProcessingComponent } from './components/appointment-review/
 import { SchedulePredefinedComponent } from './components/appointments/schedule-predefined/schedule-predefined.component';
 import { DefineRegularComponent } from './components/appointments/define-regular/define-regular.component';
 import { AppointmentHistoryComponent } from './components/appointments/appointment-history/appointment-history.component';
+import { InProgressInfoComponent } from './components/appointments/in-progress-info/in-progress-info.component';
+import { InProgressEditComponent } from './components/appointments/in-progress-edit/in-progress-edit.component';
 
 const routes: Routes = [
   {path: 'centers/create', component: CenterCreateComponent, canActivate: [AuthGuard]},
@@ -47,7 +49,9 @@ const routes: Routes = [
   {path: 'pass-change', component: SystemAdminPassChangeComponent, canActivate: [AuthGuard]},
   {path: 'appointments-predefined/:id', component: SchedulePredefinedComponent, canActivate: [AuthGuard]},
   {path: 'appointments/define-regular', component: DefineRegularComponent},
-  {path: 'appointment-history/:id', component: AppointmentHistoryComponent}
+  {path: 'appointment-history/:id', component: AppointmentHistoryComponent},
+  {path: 'in-progress-info', component: InProgressInfoComponent},
+  {path: 'in-progress-edit/:id', component: InProgressEditComponent}
 ];
 
 @NgModule({

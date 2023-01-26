@@ -193,6 +193,10 @@ public class AppointmentService implements IAppointmentService{
         return centerAppointment;
     }
 
+    public AppointmentDTO getById(Long id) {
+        return appointmentMapper.entityToDto(this.appointmentRepository.findById(id).get());
+    }
+
     public List<Center> sortAvailableByScore(AppointmentDTO appointmentDTO, String sortOrder, String sortBy){
         List<CenterAppointmentDTO> centers = getAllAvailableBySearch(appointmentDTO);
         List<Center> onlyCenter = new ArrayList<>();

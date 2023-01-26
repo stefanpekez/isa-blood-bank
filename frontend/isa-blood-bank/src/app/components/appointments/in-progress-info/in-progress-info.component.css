@@ -1,0 +1,25 @@
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    flex-direction: column;
+    height: 20em;
+}
+
+.title-label {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+}
+
+label {
+    font-size: 2em;
+    font-weight: 800;
+}
+
+.id-input {
+    margin-top: 1%;
+    width: 80%;
+    height: 15%;
+}
