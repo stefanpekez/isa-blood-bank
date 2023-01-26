@@ -1,10 +1,15 @@
 package com.example.isabloodbank.service;
 
 import com.example.isabloodbank.dto.UserCreateDTO;
+import com.example.isabloodbank.dto.UserDTO;
 import com.example.isabloodbank.mapper.UserMapper;
+import com.example.isabloodbank.model.Appointment;
 import com.example.isabloodbank.model.Role;
 import com.example.isabloodbank.model.User;
+import com.example.isabloodbank.model.WorkCalendar;
+import com.example.isabloodbank.model.enums.AppointmentStatus;
 import com.example.isabloodbank.repository.IUserRepository;
+import com.example.isabloodbank.repository.IWorkCalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,6 +36,9 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private IWorkCalendarRepository workCalendarRepository;
 
     @Override
     public User create(User user, String role) {
@@ -133,5 +142,32 @@ public class UserService implements IUserService, UserDetailsService {
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    public List<UserDTO> getAllDonators(Long centerId) {
+        WorkCalendar workCalendar = workCalendarRepository.findWorkCalendarByCenter_Id(centerId);
+        List<Appointment> appointments = workCalendar.getScheduledAppointments();
+        List <UserDTO> userDTOS = new ArrayList<>();
+        if (appointments.isEmpty()) {
+            return null;
+        }
+        for (Appointment a : appointments) {
+            if (a.getStatus() == null || a.getStatus() != AppointmentStatus.FINISHED) {
+                continue;
+            }
+            if (a.getStatus().equals(AppointmentStatus.FINISHED)) {
+                boolean found = false;
+                for (UserDTO u : userDTOS) {
+                    if (Objects.equals(u.getId(), a.getDonator().getId())) {
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    User user = a.getDonator();
+                    userDTOS.add(new UserDTO(user.getId(), user.getName(), user.getSurname(), a.getScheduledTime()));
+                }
+            }
+        }
+        return userDTOS;
     }
 }

@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="search-container">
+        Sort by name<button type="submit" class="button" (click)="sortUserDtos('name', 'asc')">ascending</button><button type="submit" class="button" (click)="sortUserDtos('name', 'desc')">descending</button>
+        Sort by lastName<button type="submit" class="button" (click)="sortUserDtos('lastName', 'asc')">ascending</button><button type="submit" class="button" (click)="sortUserDtos('name', 'desc')">descending</button>
+        Sort by date<button type="submit" class="button" (click)="sortUserDtos('date', 'asc')">ascending</button><button type="submit" class="button" (click)="sortUserDtos('name', 'desc')">descending</button>
+    </div>
+    <div class="sub-container">
+        <table class="table table-hover table-striped">
+            <thead class="table-head">
+                <tr class="head-row">
+                    <th scope="col">#</th>
+                    <th scope="col" class="header">Name</th>
+                    <th scope="col" class="header">Last name</th>
+                    <th scope="col" class="header">Donation date</th>
+                  </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr class="body-row" *ngFor="let user of userDtos ; let i = index;">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.lastName }}</td>
+                  <td>{{ user.donationDate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
